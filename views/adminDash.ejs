@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin dashboard</title>
+    <!-- bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font awsome -->
+    <script
+      src="https://kit.fontawesome.com/cbf7b60e46.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- default style  -->
+    <link href="style/admin.css" rel="stylesheet" />
+    <!-- Jquaery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container">
+        <a class="navbar-brand" href="#">Administrator</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNavAltMarkup"
+        >
+          <div class="navbar-nav">
+            <%if (user.status == true){%>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Pricing</a>
+            <%}%>
+            <div class="log-btn">
+              <% if (user) { %>
+              <a class="btn btn-success" href="/adminlogout">logout</a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="admin-panel">
+      <div class="container">
+        <div class="row">
+          <!-- message -->
+          <%if (user.status == false){%>
+          <div class="row">
+            <div>
+              <h4 class="alert alert-warning text-center" role="alert">
+                Account activation in progress
+              </h4>
+            </div>
+          </div>
+          <%}else{%>
+
+          <!--Customers  -->
+          <div class="row">
+            <div class="div-col col-6">
+              <div class="exchange-bar">
+                <h4 class="text-center">Exchange Rate</h4>
+                <div class="exchange-bar-item">
+                  <form class="row g-1" action="/updaterate" method="post">
+                    <!-- ngn -->
+                    <div class="mb-2 col-6 form-floating">
+                      <input
+                        type="text"
+                        name="NGN"
+                        class="form-control"
+                        id="floatingInput"
+                        placeholder="name@example.com"
+                        value="<%=rate.GBPTONGN%>"
+                      />
+                      <label for="floatingInput" class="form-label">NGN</label>
+                    </div>
+                    <!-- ghs -->
+                    <div class="mb-3 col-6 form-floating">
+                      <input
+                        type="text"
+                        name="GHS"
+                        class="form-control"
+                        id="floatingInput"
+                        placeholder="name@example.com"
+                        value="<%=rate.GBPTOGHS%>"
+                      />
+                      <label for="floatingInput" class="form-label">GHS</label>
+                    </div>
+                    <!-- ken -->
+                    <div class="mb-2 col-6 form-floating">
+                      <input
+                        type="text"
+                        name="KEN"
+                        class="form-control"
+                        id="floatingInput"
+                        placeholder="name@example.com"
+                        value="<%=rate.GBPTOKEN%>"
+                      />
+                      <label for="floatingInput" class="form-label">KEN</label>
+                    </div>
+                    <!-- zim -->
+                    <div class="mb-3 col-6 form-floating">
+                      <input
+                        type="text"
+                        name="ZIM"
+                        class="form-control"
+                        id="floatingInput"
+                        placeholder="name@example.com"
+                        value="<%=rate.GBPTOZIM%>"
+                      />
+                      <label for="floatingInput" class="form-label">ZIM</label>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-md">
+                      Update
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="div-col col-6">
+              <div class="customer-bar">
+                <h4 class="text-center">Customers</h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- transactions -->
+          <div class="transactions row">
+            <div class="div col-sm-12">
+              <div class="admin-operation-bar">
+                <div class="admin-operation-bar-title">
+                  <h4 class="text-center">Transactions</h4>
+                </div>
+                <table
+                  class="table table-hover table-bordered trans-table"
+                  id="trans-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Sender</th>
+                      <th>Pair</th>
+                      <th>Receiver</th>
+                      <th>£ Send</th>
+                      <th>Receive</th>
+                      <th>Rate</th>
+                      <th>Ref</th>
+                      <th>£ Status</th>
+                      <th>R Status</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <%for(let i=transaction.length-1; i>=0; i--){%>
+                    <tr>
+                      <td><%=transaction[i].details[0].date%></td>
+                      <td><%=transaction[i].details[0].sender%></td>
+                      <td><%=transaction[i].details[0].currencyPair%></td>
+                      <td><%=transaction[i].details[0].reciever%></td>
+                      <td><%=transaction[i].details[0].sendAmount/100%></td>
+                      <td><%=transaction[i].details[0].takeAmount%></td>
+                      <td><%=transaction[i].details[0].rate%></td>
+                      <td><%=transaction[i].details[0].ref%></td>
+                      <td><%=transaction[i].details[0].paymentStatus%></td>
+                      <td><%=transaction[i].details[0].sendStatus%></td>
+                    </tr>
+                    <%}%>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- Ends -->
+          </div>
+
+          <%}%>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

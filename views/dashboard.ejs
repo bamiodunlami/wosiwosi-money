@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acount</title>
+    <!-- Font awsome -->
+    <script src="https://kit.fontawesome.com/cbf7b60e46.js" crossorigin="anonymous"></script>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- default style  -->
+    <link href="style/dash.css" rel="stylesheet">
+    <!-- Jquaery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <body>
+
+    <!--------------------Nav------------------------>
+    <div class="dashboard">
+        <div class="container-fluid">
+            <div class="row main-row">
+
+                <!-- Nav bar -->
+               <div class="col-md-2 col-sm-12 static-bar">
+                <nav class="navbar navbar-expand-lg web-nav-padding">
+                    <a class="navbar-brand text-center" href="/">Wosiwosi</a>
+
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+             
+                      <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+                        <div class="navbar-nav flex-column">
+                          <a class="nav-link" id="li" href="/dashboard">Send</a>
+                          <a class="nav-link" id="li" href="/receiver">Payment REF</a>
+                          <a class="nav-link" id="li" href="/profile">Profile</a>
+                          <a class="nav-link" id="li" href="#">Terms</a>
+                          <a class="nav-link" id="li" href="#">Contact</a>
+                          <div> <a class=" btn btn-outline-danger" id="li" href="/logout">logout</a></div>
+                         
+                      </div>  
+                    </div>
+                  </nav> 
+                </div>
+
+
+                <!--------- col 10  transaction bars------------>
+                <div class="col-md-10 col-sm-12 info-bar">
+                    <% if(user.profile.fname==""){ %>
+                        <p class="alert alert-warning text-center" role="alert">Kindly complete your <a href="/profile">profile</a> </p>
+                        <%}else if(user.proof.identity.length!=0){%>
+                            <p class="alert alert-warning text-center" role="alert">Kindly complete a proof of ID <a href="/profile">proofs</a> </p>
+                        <%}else if(user.status==false){%>
+                            <p class="alert alert-warning text-center notice" role="alert">Uploaded file under verification</p>
+                        <%}%>
+
+
+
+                    <!--EXCHANGE BAR -->
+                <div class="row exchange-main-bar" id="exchange-bar">
+                    <h4 class="sub-title text-center">Transfer details</h4>
+                    <div class="col-sm-12 col-md-12 exchange-bar">
+                        <div class=" row first-currency-item">
+                                <div class="col-5 first-currency-item-div text-start">
+                                    <div class="yousend"><h6 >You send</h6></div>
+                                    <input class="send-amount" name="sendAmount" id="send-amount" type="number" placeholder="0.00" min="0" max="10">
+                                </div>
+
+                                <div class="col-3 text-center first-currency-item-flag-div">
+                                    <img id="baseFlag" src="https://flagcdn.com/gb.svg" width="40" alt="South Africa">
+                                 </div>
+
+                                    <div class="col-4 text-center first-currency-item-code-div">
+                                        <select name="sendCurrency" class="select" id="sendCurrency">
+                                            <option value="GBP" selected>GBP</option>
+                                            <!-- <option value="USD">USD</option>
+                                            <option value="GHS">GHS</option>
+                                            <option value="KEN">KEN</option>
+                                            <option value="NGN">NGN</option> -->
+                                        </select>
+                                 </div>
+                            </div>
+
+                            <div class=" row second-currency-item">
+                                <div class="col-5 text-start second-currency-item-div">
+                                    <div class="yousend"><h6 >They get</h6></div>
+                                    <input class="take-amount" name="takeAmount" type="number" id="take-amount" placeholder="0.00" min="0" max="10">
+                                </div>
+                                <div class="col-3 second-currency-item-flag-div">
+                                    <img id="takeFlag" src="https://flagcdn.com/ng.svg" width="40" alt="South Africa">
+                                 </div>
+
+                                <div class="col-4 text-center second-currency-item-code-div">
+                                    <select class="select" name="takeCurrency" id="takeCurrency">
+                                        <option value="NGN" selected>NGN</option> 
+                                        <option value="GHS">GSH</option>
+                                        <option value="KEN">KEN</option>
+                                        <!-- <option value="GBP">GBP</option> -->
+                                        <!-- <option value="USD">USD</option> -->
+                                    </select>
+                            </div>
+
+                            </div> 
+                            <p style="color:#868686">Send minimum of 10 <span id="country-code"></span></p>
+                            <% if(user.proof.identity && user.status==true){ %>
+                                <div class="row">
+                                    <button class="btn-send" id="btn-send">Continue</button>
+                                </div>
+                             <%}else{%>
+                                <div class="row">
+                                    <button class="btn btn-secondary" disabled>Continue</a></button>
+                                </div>
+                            <%}%>
+                        </div>
+                     </div>
+
+
+                        <!-- Transaction table -->
+                        <div class="row tran" id="tran">
+                            <div class="tran-header">
+                                <h4 class="sub-title text-center">Transaction History</h4>
+                                <div class="tran-his">
+                                    <%if(user.transaction.length==0){%>
+                                        <h6 class="text-center">No transaction made</h6>
+                                        <%}else{%>
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <th>Date</th>
+                                        <th>£</th>
+                                        <th>Status</th>
+                                        <th>Amount</th>
+                                        </thead>                                       
+                                        
+                                        <% for (let i=user.transaction.length-1; i>=0; i--){%>
+                                        <tbody>
+                                            <tr>
+                                                <td><%= user.transaction[i].date %></td>
+                                                <td> <%= user.transaction[i].sendAmount/100 %> <%= user.transaction[i].sendCurrency %> </td>
+                                                <td> <%= user.transaction[i].sendStatus %> </td>
+                                                <td><%= user.transaction[i].takeAmount %> <%= user.transaction[i].takeCurrency %></td>
+                                            </tr>
+                                        </tbody>
+                                        <%}%>
+                                        
+                                    </table>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ---------------------- -->
+
+                     <!-- select receiver -->
+                     <div class="rec-main-bar " id="rec-bar">
+                            <h4 class="sub-title text-center">Select Receiver</h4>
+
+                            <div class="row rec-bar">
+                            <% if (user.receiver.length==0){%>
+                                <div class="text-center" style="padding-bottom: 10px;">
+                                <!-- <p class="text-center">No receiver yet</p> -->
+                                <p class="alert-success alert" role="alert">No receiver added</p>
+                                </div>
+                                
+                              <%}else{ for(let i=0; i<user.receiver.length; i++){%>
+                                <div class="col-md-6 receiver " style="padding-bottom: 20px;"> 
+                                    <div class="rec-details">
+                                      <h6 class="account-details">Name: <span class="account-details-value acctName"><%=user.receiver[i].acctName%></span></h6>
+                                      <h6>Account No:<span class="account-details account-details-value acctNumber"><%=user.receiver[i].acctNumber%></span></h6>
+                                      <p class="account-details account-details-value bank"><%=user.receiver[i].bankRealName%></span></p>
+                                    </div>
+                                </div>
+                         <%}}%>    
+                         <div style="margin-bottom: 5px;" > <a class="text-start" href="/receiver">Add Receiver</a></div>
+                         <div class="buttons"><button class="btn btn-dark btn-md" id="back">Back</button></div>
+                        </div>                          
+                     </div>
+
+                    <!-- select card option -->
+                    <div class="rec-main-bar" id="pay-option">
+                    <h4 class="text-center sub-title">Payment Option</h4>
+                        <div class="row rec-bar">
+                            <% if (user.cardDetails.length==0){%>
+                                <div class="text-center" style="padding-bottom: 10px;">
+                                <p class="alert alert-success">No card added yet </p>
+                                </div>
+                            <%}else{ for(let i=0; i<user.cardDetails.length; i++){%>
+                            <div class="col-md-6 paymentOption" style="padding-bottom: 20px;">
+                                <div class="rec-details">
+                                    <h6 class="cardName"><%=user.cardDetails[i].cardOwner%></h6>
+                                    <p class="cardNumber">*************<%=user.cardDetails[i].cardNumberEnding%></p>
+                                </div>
+                            </div>
+                            <%}}%> 
+                            <div style="margin-bottom: 5px;" > <a class="text-start" href="/receiver">Add Receiver</a></div>
+                            <div class="buttons"><button class="btn btn-dark btn-md" id="back-again">Back</button></div>
+                        </div>
+                    </div>
+
+                    <!-- payment confirmation preview -->
+                    <div class="rec-main-bar" id="summary">
+                        <h4 class="text-center sub-title">Confirm Details</h4>
+                            <div class="row rec-bar">
+  
+                                <div class="col-md-6  " style="padding-bottom: 20px;">
+                                    <div class="rec-details">
+                                        <h6 class="text-center sub-title">Amount</h6>
+                                      <h6 class="account-details">You send: <span class="account-details-value sendAmount"></span></h6>
+                                      <h6 class="account-details">They get: <span class="account-details-value takeAmount"></span></h6>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6  " style="padding-bottom: 20px;">
+                                    <div class="rec-details">
+                                        <h6 class="text-center sub-title">Receiver</h6>
+                                      <h6 class="account-details">Name: <span class="account-details-value cAcctName"></span></h6>
+                                      <h6 class="account-details">Account No.: <span class="account-details-value cAcctNumber"></span></h6>
+                                      <h6 class="account-details">Bank name: <span class="account-details-value cBank"></span></h6>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 " style="padding-bottom: 20px;">
+                                    <div class="rec-details">
+                                        <h6 class="text-center sub-title">Card option</h6>
+                                        <h6 class="cCardName"></h6>
+                                        <p class="cCardNumber"></p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                   
+                                <div class="buttons">
+                                    <button class="btn btn-dark btn-md" id="back-last">Back</button>
+                                    <button class="btn btn-success btn-md" id="send-money">Send</button>
+                                </div>
+
+                            </div>
+                        </div>
+                </div>
+                <!-- -----------------------end------------- -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ---------------------------------------------------- -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="js/amp.js"></script>
+</body>
+</html>

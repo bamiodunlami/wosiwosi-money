@@ -1,0 +1,128 @@
+<%- include ("include/header") -%>
+
+<div class="header-bar default-padding">
+    <div class="container">
+        <div class="row">
+           <div class="col-sm-12 col-md-7 head-content">
+            <div class="head-des">
+                <h2>The fast and secured way to send money to loved ones</h2>
+                <p>Quicly Send money to local bank accounts across Africa with seamlesly and even mobile money wallets whenever you want.</p>
+            </div>
+
+            <div class="country-flag">
+                <div class="row">
+                    <div class="col-3 flag-div">
+                        <img src="images/nigeria.png" class="flag">
+                    </div>
+                    <div class="col-3 flag-div">
+                        <img src="images/ghana.png" class="flag">
+                    </div>
+                    <div class="col-3 flag-div">
+                        <img src="images/kenya.png" class="flag">
+                    </div>
+                    <!-- <div class="col-3 flag-div">
+                        <img src="images/uganda.png" class="flag">
+                    </div> -->
+                </div>
+            </div>
+           </div>
+
+           <!-- Payment Bar -->
+           <div class="col-sm-12 col-md-5 exchange-bar">
+                        <div class=" row first-currency-item">
+                                <div class="col-5 first-currency-item-div text-start">
+                                    <div class="yousend"><h6 >You send</h6></div>
+                                    <input class="send-amount" name="sendAmount" id="send-amount" type="number" placeholder="0.00" min="0">
+                                </div>
+
+                                <div class="col-3 text-center first-currency-item-flag-div">
+                                    <img id="baseFlag" src="https://flagcdn.com/gb.svg" width="40" alt="South Africa">
+                                 </div>
+
+                                    <div class="col-4 text-center first-currency-item-code-div">
+                                        <select name="sendCurrency" class=" select" id="sendCurrency">
+                                            <option value="GBP" selected>GBP</option>
+                                            <!-- <option value="USD">USD</option>
+                                            <option value="GHS">GHS</option>
+                                            <option value="KEN">KEN</option>
+                                            <option value="NGN">NGN</option> -->
+                                        </select>
+                                 </div>
+                            </div>
+
+                            <div class=" row second-currency-item">
+                                <div class="col-5 text-start second-currency-item-div">
+                                    <div class="yousend"><h6 >They get</h6></div>
+                                    <input class="take-amount" name="takeAmount" type="number" id="take-amount" placeholder="0.00" min="0">
+                                </div>
+                                <div class="col-3 second-currency-item-flag-div">
+                                    <img id="takeFlag" src="https://flagcdn.com/ng.svg" width="40" alt="South Africa">
+                                 </div>
+
+                                <div class="col-4 text-center second-currency-item-code-div">
+                                    <select class="select" name="takeCurrency" id="takeCurrency">
+                                        <option value="NGN" selected>NGN</option> 
+                                        <option value="GHS">GSH</option>
+                                        <option value="KEN">KEN</option>
+                                    </select>
+                            </div>
+
+                            </div> 
+                            <p style="color:#868686">Send minimum of 10 <span id="country-code"></span></p>
+                            <div class="row">
+                                <button class="btn-send" id="btn-send" disabled>Send Money</button>
+                            </div>
+                </div>
+           </div>
+        </div>
+    </div>
+
+
+<!-- Contact page -->
+<div class="section-two default-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="contact-img-bar">
+                    <img src="/images/simple-lady-min.jpg" class="contact-img">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="contact-title">
+                    <h6 class=" description">WHY CHOOSE US</h6>
+                    <h3>UK's Leading African FX Brand</h3>
+                    <div class="contact-item">
+                        <h5>Secure Payment</h5>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa et doloribus nihil quas odit quisquam aspernatur! Minima ullam.</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h5>Fast Exchange</h5>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa et doloribus nihil quas odit quisquam aspernatur! Minima ullam.</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <h5>Secure Payment</h5>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa et doloribus nihil quas odit quisquam aspernatur! Minima ullam.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div class="section-three">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="text-center"> &copy; 2023. Wosiwosi Foods Limited</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <script src="js/appjs.js"></script>
+<%- include ('include/footer') -%>

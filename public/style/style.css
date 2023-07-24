@@ -1,0 +1,303 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+h2 {
+  font-size: 42px;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 32px;
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+h5{
+  font-size: 18px;
+  font-weight: 500;
+}
+
+h6 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+p {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+.web-nav-padding {
+  padding: 20px 18%;
+}
+
+.default-padding {
+  padding: 7% 18%;
+}
+
+/* ------Header----------- */
+a.nav-link{
+  font-weight: 400;
+  margin: 0 5px 0 5px;
+}
+
+a.nav-link:hover{
+  color: #008a1e;
+}
+
+.nav-login{
+  padding-left: 10%;
+}
+
+/* .log-btn{
+justify-content: end;
+float:right
+} */
+
+.header-bar {
+  background-color: #f4f4f483;
+}
+.head-des,
+.country-flag {
+  padding-right: 20%;
+}
+
+.flag {
+  width: 100%;
+  height: auto;
+}
+.flag-div {
+  width: 20%;
+}
+
+/* Exchange bar */
+.exchange-bar {
+  padding: 40px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 30px;
+}
+
+.first-currency-item,
+.second-currency-item {
+  border: 1px solid #c7c7c7;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.first-currency-item-div,
+.second-currency-item-div {
+  padding: 10px 0;
+}
+
+.first-currency-item-flag-div,
+.second-currency-item-flag-div {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.first-currency-item-code-div,
+.second-currency-item-code-div {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: auto;
+}
+
+select.select {
+  margin: 0;
+  outline: none;
+  padding: 10px 14px;
+}
+
+.btn-send {
+  background-color: #8b8b8b;
+  color: #fff;
+  padding: 12px 0;
+  border: none;
+  border-radius: 20px;
+}
+
+.btn-send:hover {
+  background-color: #8b8b8b;
+  color: #fff;
+  transition: 0.5s;
+}
+
+.yousend,
+.theyget {
+  padding: 0 12px;
+  color: #797979;
+}
+
+.send-amount,
+.take-amount {
+  border: none;
+  width: 100%;
+  padding: 0 12px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #000;
+  outline: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.send-country-code,
+.take-country-code {
+  width: 100%;
+  outline: none;
+}
+
+.select{
+  border:none
+}
+
+
+/* section 2 */
+
+.contact-img{
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.contact-title{
+  padding:5%;
+}
+
+.contact-item{
+  margin-top: 15px;
+}
+
+
+/* Section three footer */
+.section-three{
+  padding: 20px;
+  background-color: #008a1e;
+  color: #fff;
+}
+/* -------------------- */
+
+/* -----------Mobile---------- */
+@media (max-width: 850px) {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 500;
+  }
+  h3 {
+    font-size: 24px;
+    font-weight: 500;
+  }
+  h4 {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  p {
+    font-size: 15px;
+    font-weight: 300;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .nav-login{
+    padding-left: 0%;
+  }
+
+  .web-nav-padding {
+    padding: 20px 18%;
+  }
+
+  .web-nav-padding {
+    padding: 20px 6%;
+  }
+
+  .default-padding {
+    padding: 15% 6%;
+  }
+
+  /* ---------Header----------- */
+
+  .head-content {
+    margin-bottom: 30px;
+  }
+  .head-des {
+    padding-right: 0;
+  }
+
+  .flag {
+    width: 100%;
+    height: auto;
+  }
+  .flag-div {
+    width: 25%;
+  }
+
+  /* Exchange bar */
+  /* .exchange-bar {
+    padding: 20px;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  } */
+  .exchange-bar-currency {
+    padding: 30px;
+  }
+
+  .first-currency-item,
+  .second-currency-item {
+    border: 1px solid #c7c7c7;
+    border-radius: 10px;
+    padding: 20px 0px;
+    margin-bottom: 10px;
+  }
+
+  .exchange-bar {
+    padding: 30px;
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 30px;
+  }
+
+  .first-currency-item-div,
+  .second-currency-item-div {
+    padding: 5px;
+  }
+
+  .first-currency-item,
+  .second-currency-item {
+    border: 1px solid #c7c7c7;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+/* ---------------------- */

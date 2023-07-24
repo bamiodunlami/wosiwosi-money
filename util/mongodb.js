@@ -1,0 +1,66 @@
+// const express = require ("express")
+const passport =  require ('passport')
+const passportLocalMongoose = require ('passport-local-mongoose')
+
+const mongoose= require ('mongoose');//mongooose database
+
+// mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser:true});
+mongoose.connect("mongodb+srv://wosiwosiMoney:" + process.env.MONGO_CODE + "@wosiwosimoney.rafed39.mongodb.net/?retryWrites=true&w=majority", {useNewUrlParser:true});
+
+
+//users
+const userSchema = new mongoose.Schema({
+    username:"string",
+    status:"boolean",
+    regDate:"string",
+    regTerm:"boolean",
+    regAs:"string",
+    profile:{
+    fname:"string",
+    lname:"string",    
+    phone:"string",
+    dob:"string",
+    street:"string",
+    postcode:"string",
+    city:"string",
+    country:"string",
+    Nationality:"string"
+    },
+    proof:{
+        value:"string",
+        identity:[]
+    },
+    cardDetails:[],
+    receiver:[],
+    transaction:[]  
+});
+
+//rate exchange
+const rateSchema = new mongoose.Schema({
+    GBPTONGN:"string",
+    GBPTOGHS:"string",
+    GBPTOKEN:"string",
+});
+
+//hold all transaction
+const transactionScehma = new mongoose.Schema({
+details:[]
+});
+
+
+userSchema.plugin(passportLocalMongoose)//for encrypting details
+
+const User = new mongoose.model('User', userSchema);
+const ExRate = new mongoose.model('ExRate', rateSchema);
+const Transaction = new mongoose.model('Transaction', transactionScehma);
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+module.exports={
+    mongoose:mongoose,
+    User:User,
+    ExRate:ExRate,
+    Transaction:Transaction
+}

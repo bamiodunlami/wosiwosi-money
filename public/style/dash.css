@@ -1,0 +1,412 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  color: #575757;
+}
+
+.inputs {
+  font-size: 20px;
+}
+
+.sub-title {
+  color: #00721e;
+  font-weight: 400;
+}
+
+i.tool {
+  font-size: 14px;
+}
+
+.notice {
+  font-size: 14px;
+}
+
+/* Start */
+.main-row {
+  height: 100vh;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+}
+
+.static-bar {
+  padding: 2% 0;
+  background-color: #0189250c;
+  border-bottom: solid 1px #c7c7c7;
+}
+
+.collapse {
+  padding: 25% 0;
+}
+
+.fa-solid {
+  margin-right: 25px;
+  font-size: 20px;
+}
+
+a.nav-link {
+  font-size: 18px;
+  font-weight: 300;
+  margin-bottom: 10px;
+  color: #626262;
+}
+
+a.nav-link:hover {
+  color: #00721e;
+}
+
+a.nav-link:active {
+  color: #018925;
+}
+
+.info-bar {
+  padding: 5% 20%;
+}
+
+.message {
+  background-color: #008a1e23;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+/* Exchange bar */
+.exchange-main-bar {
+  justify-content: center;
+  padding: 0 10%;
+  margin: 10px;
+}
+
+.exchange-bar {
+  padding: 50px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.first-currency-item,
+.second-currency-item {
+  border: 1px solid #c7c7c7;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.first-currency-item-div,
+.second-currency-item-div {
+  padding: 10px 0;
+}
+
+.first-currency-item-flag-div,
+.second-currency-item-flag-div {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+.first-currency-item-code-div,
+.second-currency-item-code-div {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: auto;
+}
+
+select.select {
+  margin: 0;
+  outline: none;
+  padding: 10px 14px;
+}
+
+.btn-send {
+  background-color: #8b8b8b;
+  color: #fff;
+  font-weight: 500;
+  padding: 12px 0;
+  border: none;
+  border-radius: 20px;
+}
+
+.btn-send:hover {
+  background-color: #8b8b8b;
+  color: #fff;
+  transition: 0.5s;
+}
+
+.yousend,
+.theyget {
+  padding: 0 12px;
+  color: #797979;
+}
+
+.send-amount,
+.take-amount {
+  border: none;
+  width: 100%;
+  padding: 0 12px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+  outline: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.send-country-code,
+.take-country-code {
+  width: 100%;
+  outline: none;
+}
+
+.select {
+  border: none;
+}
+
+/* -------transacctions---- */
+.tran {
+  justify-content: center;
+  margin-top: 30px;
+  padding: 0;
+}
+
+.tran-his {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+/* ----------rec bar------------ */
+.rec-bar {
+  background-color: #01892514;
+  border-bottom: solid 4px #929292;
+  padding: 4% 5%;
+  margin: 20px;
+}
+
+.rec-details:hover {
+  border: solid 1px #797979;
+}
+.rec-details {
+  cursor: pointer;
+}
+
+/* -------Receiver page------------ */
+
+.accoutn-details-bar,
+.rec-details {
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin-top: 10px;
+  border: 1px solid #c7c7c7;
+}
+.rec-section,
+.rec-section-two {
+  background-color: #01892514;
+  padding: 4% 5%;
+  margin: 20px;
+  border-bottom: solid 4px #929292;
+}
+
+.rec-section-two {
+  background-color: #895e0114;
+}
+
+.rec-section-bar {
+  border: solid 0.5px #c7c7c7;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding: 20px 10px 0px 10px;
+}
+
+.rec-form-bar {
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.add-rec-btn {
+  padding: 0;
+}
+
+/* ---------Profile Page------- */
+.profile-bar {
+  background-color: #f7f7f7;
+  padding: 5% 1%;
+}
+
+.kyc-bar {
+  padding: 3% 0;
+}
+
+.kyc-item {
+  background-color: #f7f7f7;
+  margin-top: 10px;
+  padding: 10%;
+}
+
+.kyc-item-id {
+  color: #00721e;
+}
+
+/* ---------Settings */
+.settings-bar {
+  padding: 5% 25%;
+}
+
+.settings-section {
+  border: 1px solid #dcdcdc;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 0 10px 0 0;
+}
+
+/* --------------------------------- */
+
+/* mobile */
+@media (max-width: 850px) {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .notice {
+    font-size: 13px;
+  }
+
+  .main-row {
+    max-height: 0;
+  }
+  .navbar {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .collapse {
+    padding: 0;
+  }
+
+  .static-bar {
+    background-color: #f7f7f7;
+    padding: 2% 8%;
+    border-bottom: solid 1px #c7c7c7;
+  }
+
+  .navbar-nav {
+    padding-top: 15px;
+  }
+  a.nav-link {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: #575757;
+  }
+  .info-bar {
+    padding: 10% 6%;
+  }
+
+  .exchange-main-bar {
+    justify-content: center;
+    padding: 0%;
+  }
+
+  .exchange-bar {
+    padding: 30px;
+  }
+
+  .tran-his {
+    height: 200px;
+    overflow-y: scroll;
+    padding: 0;
+  }
+
+  tbody {
+    font-size: 12px;
+  }
+
+  /* ----------rec bar------------ */
+
+  .rec-bar {
+    background-color: #01892514;
+    padding: 4% 5%;
+    margin: 20px;
+  }
+
+  .rec-details:hover {
+    border: solid 1px #797979;
+  }
+
+  /* -------Receiver page------------ */
+  .accoutn-details-bar {
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin-top: 10px;
+    border: 1px solid #c7c7c7;
+  }
+
+  .fa-solid-description {
+    font-size: 25px;
+  }
+  .rec-section,
+  .rec-section-two {
+    padding: 20px;
+    background-color: #01892514;
+    margin: 20px 0px;
+  }
+
+  .rec-section-two {
+    background-color: #895e0114;
+  }
+
+  .rec-section-bar {
+    border: solid 0.5px #c7c7c7;
+    margin-bottom: 20px;
+    padding: 20px 30px;
+  }
+
+  .rec-form-bar {
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  .add-rec-btn {
+    padding: 0;
+  }
+
+  /* payment form */
+
+  /* ------------------Profile Page--------- */
+
+  .profile-bar {
+    margin: 20px 0;
+    background-color: #f7f7f7;
+    /* padding:8%; */
+    /* border-radius: 15px; */
+  }
+  .message {
+    background-color: #008a1e23;
+    padding: 10px;
+  }
+
+  /* ---------Settings */
+  .settings-bar {
+    padding: 5% 6%;
+  }
+
+  .settings-section {
+    border: 1px solid #dcdcdc;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 10px 0px 0 0;
+  }
+}

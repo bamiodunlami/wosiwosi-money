@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin</title>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- default style  -->
+    <link href="style/admin.css" rel="stylesheet">
+    <!-- Jquaery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <body>
+
+    <div class="login-bar default-padding">
+        <div class="container">
+            <div class="row">
+
+              <div class="brand-logo text-center">
+                <a href="/">Logo</a>
+              </div>
+
+              <div class=""> <h4 class="text-center message"><%=message%></h4></div>
+
+             <!--Login-->
+             <div class="col-lg-6 " id="login-bar">
+                <div class="login-bar-cont">
+                  <form action="/adminlog" method="POST">
+                    <div class="error-message">
+                      </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                      <input type="email" name='username' class="form-control" id="email" placeholder="name@example.com">
+                    </div>
+
+                      <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="">
+                      </div>
+                  
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-md btn-success signup">Login</button>
+                  </div>
+                  </form>
+                </div>
+            </div>
+            <!-- end -->
+
+
+                <!-- sign up -->
+                <div class="col-lg-6 " id="signup-bar">
+                  <div class="login-bar-cont">
+                    <form action="/adminreg" method="POST">
+                      <div class="error-message">
+                        </div>
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <input type="email" name='username' class="form-control" id="email" placeholder="name@example.com">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">First Name</label>
+                        <input type="text" name='fname' class="form-control" id="fname">
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                        <input type="text" name='laname' class="form-control" id="laname" >
+                      </div>
+                        <div class="mb-3">
+                          <label for="exampleFormControlTextarea1" class="form-label">Password</label>
+                          <input type="password" name="password" class="form-control" id="password" placeholder="">
+                          <label style="color:#ff0000; margin-top: 5px; font-size: 14px;" id="passwordMessage"></label>
+                        </div>
+
+                        <div><input type="checkbox" id="terms" name="term"><span class="notice"> by creating account, you agree to accept our <a href="">Terms</a></span></div>
+
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-md btn-success signup" id="signup" disabled>Create account</button>
+                    </div>
+                    </form>
+                  </div>
+              </div>
+              <!-- end -->
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  height: 100vh;
+}
+
+h2 {
+  font-size: 42px;
+  font-weight: 700;
+}
+h3 {
+  font-size: 32px;
+  font-weight: 500;
+}
+h4 {
+  font-size: 24px;
+  font-weight: 400;
+}
+p {
+  font-size: 14px;
+  font-weight: 300;
+}
+a {
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.default-padding{
+    padding: 5% 5%;
+}
+.message {
+  color: #ff0000;
+  font-size: 22px;
+  margin: 10px;
+}
+
+.notice {
+  font-size: 13px;
+}
+
+.login-bar-cont {
+  border: 1px solid #d7d7d7;
+  margin: 20px;
+}
+
+.login-bar-cont {
+  padding: 50px;
+  border-radius: 20px;
+  background-color: #ffffff;
+}
+.brand-logo {
+  padding-bottom: 30px;
+}
+.form-control {
+  padding: 10px;
+}
+
+.form-control,
+.form-select:focus {
+  outline: none;
+}
+
+hr {
+  width: 100%;
+  margin: 20px 0px;
+}
+.login,
+.signup,
+.reset {
+  background-color: #013a0d;
+  border: none;
+  margin: 10px 0 10px;
+}
+
+.login:hover,
+.signup:hover,
+.reset:hover {
+  background-color: #008a1e;
+}
+
+.sign-action {
+  color: #ff7300;
+  cursor: pointer;
+}
+
+.reset-bar {
+  display: none;
+}
+
+/* admin Account  Panel*/
+.admin-panel {
+  padding: 10% 5%;
+}
+
+
+
+
+/* table */
+.transactions{  
+  margin-top: 10px;
+    overflow-x: scroll;
+    max-height: 800px;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border: solid 1px #d7d7d7;
+}
+
+.div-col{
+  padding: 5px;
+}
+.exchange-bar,
+.customer-bar{
+  padding: 30px;
+  background-color: #f9f9f9;
+  border: solid 1px #d7d7d7;
+}
+
+
+@media (max-width: 1200px) {
+  body {
+    display: none;
+  }
+}

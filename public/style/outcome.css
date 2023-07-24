@@ -1,0 +1,60 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    height: 100vh;
+    background-color: #0909090a;
+}
+
+h2{
+    font-size: 42px;
+    font-weight: 700;
+}
+h3{
+    font-size: 32px;
+    font-weight: 600;
+}
+h4{
+    font-size: 24px;
+    font-weight: 400;
+}
+p{
+    font-size: 16px;
+    font-weight: 400;
+}
+a{
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.default-padding{
+    padding: 10% 35%;
+}
+
+.fa{
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.fa-fail{
+    font-size: 60px;
+    margin-bottom: 10px;
+    color: #ff0000;
+}
+.tx-success{
+    padding: 50px 0;
+}
+
+
+@media (max-width:520px){
+    .default-padding{
+        padding: 25% 10%;
+    }
+    .login-bar-cont{
+        padding: 20px;
+    }
+}
