@@ -151,9 +151,10 @@ const banks = (req, res) => {
       },
     };
     return request(options, function (error, response) {
-      if (error) throw new Error(error);
-      // console.log(JSON.parse(response.body))
-      res.send(response.body);
+      if (error) throw new Error(error);      
+      let banks=response.body
+      // console.log(JSON.parse(banks))
+      res.send(banks);
     });
   } catch (e) {
     console.log(e);
