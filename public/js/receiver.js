@@ -93,7 +93,7 @@ $(document).ready(()=>{
         .then(response => response.json())
         .then((result) => {
             if(result.acknowledged == true){
-                window.location.href='/receiver'
+                // window.location.reload
             } 
         })
        });
@@ -134,6 +134,7 @@ $(document).ready(()=>{
     //         }
     //      });
     // });
+
     //Add card
     $('#add-card').on('click', ()=>{
         $('#card-details-bar').slideToggle()
@@ -171,7 +172,7 @@ $(document).ready(()=>{
                 $('#card-msg').text("Card Details incorrect")
             }
             else{
-                window.location.href='/receiver'
+                window.location.reload()
             }
         })
        });

@@ -52,13 +52,13 @@
                 <!---------  Profile bars------------>
                 <div class="col-md-10 col-sm-12 info-bar">
                   <h4 class="sub-title text-center">My Profile</h4>
-                  <p class="text-center alert alert-success" role="alert">Details 100% secured and encryted</p>
+                    <% if(user.profile.fname==""){ %>
+                      <h6 class="alert alert-warning text-center notice" role="alert"> Kindly complete your profile </h6>
+                      <%}%>
+
                   <!-- <h6 class="text-center">Your Referal Code:</h6> -->
                   <div class="row profile-bar">
                             <div class="col-sm-12 ">
-                              <% if(user.profile.fname==""){ %>
-                                <h6 class="alert alert-warning text-center notice" role="alert"> Kindly complete your profile </h6>
-                                <%}%>
                                     <form class="row g-1" method="POST"  action="/profileUpdate">
                                         <div class="col-md-6 form-floating">
                                           <input type="text" name='fname' class="form-control forJs" id="floatingInput forJs" placeholder="First Name" required value="<%= user.profile.fname%>">
@@ -108,7 +108,7 @@
                                           </div>
 
                                           <div class="col-md-6 form-floating">
-                                            <input type="text" name="nationality" class="form-control forJs" id="floatingInput" placeholder="Nationality" required value="<%= user.profile.Nationality%>">
+                                            <input type="text" name="nationality" class="form-control forJs" id="floatingInput" placeholder="Nationality" value="<%= user.profile.Nationality%>">
                                             <label for="floatingInput" class="form-label">Nationality</label>
                                           </div>
 

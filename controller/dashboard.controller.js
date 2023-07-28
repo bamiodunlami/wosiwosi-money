@@ -71,7 +71,7 @@ const updateUser = async (req, res) => {
       ).then(async (response) => {
         // console.log(response.modifiedCount);
         if (!response.acknowledged == true) res.redirect("/profile");
-        res.redirect("/profile");
+        res.redirect(req.headers.referer);
       });
     } else {
       res.redirect("/login");

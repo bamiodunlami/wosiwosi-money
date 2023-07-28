@@ -77,6 +77,11 @@ a.nav-link:active {
   border-radius: 10px;
 }
 
+h6 {
+  font-size: 14px;
+  font-weight: 400;
+}
+
 /* Exchange bar */
 .exchange-main-bar {
   justify-content: center;
@@ -152,8 +157,8 @@ select.select {
   border: none;
   width: 100%;
   padding: 0 12px;
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 500;
   color: #000;
   outline: none;
 }
@@ -271,6 +276,10 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 /* --------------------------------- */
+
+
+/* miscellanous: code borrowed froom other pages*/
+
 
 /* mobile */
 @media (max-width: 850px) {

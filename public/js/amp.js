@@ -7,6 +7,10 @@ $(document).ready(()=>{
     $("#rec-bar").hide()
     $("#pay-option").hide()        
     $("#summary").hide()
+    $('#card-msg').hide()
+
+    $("#addrec-bar").show();
+    $('#card-details-bar').show()
 
         
     let sendBox=$('#send-amount');
@@ -15,6 +19,107 @@ $(document).ready(()=>{
 
 //get rate and execute
 try{
+
+ //Load bank
+
+    //make a  post request to server to load available banks
+    fetch('/loadbank', {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+            }, 
+        })
+        .then((res)=> res.text())//get responses from server as a promise
+        .then((result)=>{ //save bank names into result
+            // console.log(result)
+            let newResult=JSON.parse(result)// turn bank names to javascript object
+            let bankSelect= document.querySelector('#bankName');
+            for (let i = 0; i < newResult.data.length; i++) {
+                // console.log(newResult.data[i])
+                let options=`<option value="${newResult.data[i].code}"> ${newResult.data[i].name}</option>`
+                bankSelect.innerHTML+=options//populate the option
+
+                // Sort Bank
+                let allOptions = $("#bankName option");
+                allOptions.sort(function (op1, op2) {
+                   var text1 = $(op1).text().toLowerCase();
+                   var text2 = $(op2).text().toLowerCase();
+                   return (text1 < text2) ? -1 : 1;
+                });
+                allOptions.appendTo("select");
+            }   
+        });    
+
+   //confirm account button
+   $('#btn-confirm').on('click', ()=>{
+    let option={
+        accountNumber:$('#accountNumber').val(),
+        bankCode:$("#bankName option:selected" ).val(),
+    }
+    // console.log(option)
+        fetch('/confirm',{
+            method:"POST",
+            headers:{
+            "Content-Type":"application/json"
+            },
+            body:JSON.stringify(option)
+        })
+        .then(res => res.text())
+        .then((result)=>{
+            lookupResult=JSON.parse(result)   
+            if(JSON.parse(result).status=="success"){
+                $('#acctName').val(lookupResult.data.account_name);
+                $('#acctName').css("font-weight", "600")
+                $('#acctName').css('display', "block")
+                $('#btn-addAccount').prop('disabled', false);
+                $('#acctName').css('color', "#008a1e")
+                
+            }else{
+                $('#acctName').val("Invalid Account Details");
+                $('#acctName').css("font-weight", "600")
+                $('#acctName').css('display', "block")
+                $('#acctName').css('color', "#ff0000")
+            }
+        });
+   });
+
+    //Send Bank detials
+      $('#btn-addAccount').on('click', (e)=>{
+        e.preventDefault();
+        let details ={
+            acctNumber:$('#accountNumber').val(),
+            acctName: $('#acctName').val(),
+            bankName:$("#bankName option:selected" ).val(),
+            bankRealName:$("#bankName option:selected" ).html()
+        }
+        fetch ('/addReceiver', {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+            },
+            body:JSON.stringify(details)
+        })
+        .then(response => response.json())
+        .then((result) => {
+            if(result.acknowledged == true){
+                window.location.reload()
+            } 
+        })
+       });
+
+
+ //Add card
+    //Expiration card
+    let expDate=$('#expiry-date')
+    $(expDate).on('keyup', ()=>{
+        if(expDate.val().length == 2){
+            let expVal = expDate.val()
+            expDate.val(expVal + '/')
+        }
+    });
+
+
+// EXCHANGE MONEY
     fetch('/rate', {
         method:'GET',
         headers:{

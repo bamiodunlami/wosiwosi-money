@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- default style  -->
     <link href="style/dash.css" rel="stylesheet">
+    <link href="style/dash.css" rel="stylesheet">
+    <link href="style/dash.css" rel="stylesheet">
     <!-- Jquaery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
@@ -51,14 +53,147 @@
                 <!--------- col 10  transaction bars------------>
                 <div class="col-md-10 col-sm-12 info-bar">
                     <% if(user.profile.fname==""){ %>
-                        <p class="alert alert-warning text-center" role="alert">Kindly complete your <a href="/profile">profile</a> </p>
-                        <%}else if(user.proof.identity.length!=0){%>
-                            <p class="alert alert-warning text-center" role="alert">Kindly complete a proof of ID <a href="/profile">proofs</a> </p>
+
+                        <!-- ONETIME UNBOARDING PROFILE COMPLETE -->
+                            <h6>Step 1 of 4</h6>
+                          <p class="alert alert-warning text-center" role="alert">Kindly complete your profile</p>
+                        <div class="row profile-bar">
+                            <div class="col-sm-12 ">
+                                    <form class="row g-1" method="POST"  action="/profileUpdate">
+                                        <div class="col-md-6 form-floating">
+                                          <input type="text" name='fname' class="form-control forJs" id="floatingInput forJs" placeholder="First Name" required value="<%= user.profile.fname%>">
+                                          <label for="floatingInput" class="form-label">First Name</label>
+                                        </div>
+
+                                        <div class="col-md-6 form-floating">
+                                          <input type="text" name='lname' class="form-control forJs" id="floatingInput" placeholder="Last Name" required value="<%= user.profile.lname%>" >
+                                          <label for="lastName" class="form-label">Last Name</label>
+                                        </div>
+
+                                        <div class="col-md-12 form-floating">
+                                            <input type="email" name="email" placeholder="Email" class="form-control" id="floatingInput" disabled value="<%= user.username %>">
+                                            <label for="floatingInput" class="form-label">Email</label>
+                                          </div>
+
+                                        <div class="col-6 form-floating">
+                                          <input type="number" name="phone" placeholder="Phone" class="form-control forJs" id="floatingInput" required value="<%= user.profile.phone%>">
+                                          <label for="floatingInput" class="form-label">Phone</label>
+                                        </div>
+
+                                        <div class="col-6 form-floating">
+                                            <input type="date" name="dob" class="form-control forJs" id="floatingInput" required value="<%= user.profile.dob%>">
+                                            <label for="floatingInput" class="form-label">Date of Birth</label>
+                                          </div>
+
+                                        <div class="col-12 form-floating">
+                                          <input type="text" name="address" placeholder="Address" class="form-control forJs" id="floatingInput" required value="<%= user.profile.street%>" >
+                                          <label for="floatingInput" class="form-label">Address</label>
+                                        </div>
+
+                                        <div class="col-6 form-floating">
+                                          <input type="text" name="city" placeholder="City" class="form-control forJs" id="floatingInput" required value="<%= user.profile.city%>">
+                                          <label for="floatingInput" class="form-label">City</label>
+                                        </div>
+
+                                        <div class="col-6 form-floating">
+                                            <input type="text" name="postCode" placeholder="Post code" class="form-control forJs" id="floatingInput" required value="<%= user.profile.postcode%>">
+                                            <label for="floatingInput" class="form-label">Post Code</label>
+                                          </div>
+                                          
+                                          <div class="col-md-6 form-floating">
+                                            <select class="form-control forJs" name="residence" id="floatingInput"> 
+                                              <option>United Kingdom</option>
+                                            </select>
+                                            <label for="floatingInput" class="form-label">Country of residence</label>
+                                          </div>
+
+                                          <div class="col-md-6 form-floating">
+                                            <input type="text" name="nationality" class="form-control forJs" id="floatingInput" placeholder="Nationality" value="<%= user.profile.Nationality%>">
+                                            <label for="floatingInput" class="form-label">Nationality</label>
+                                          </div>
+
+                                        <div class="col-sm-12">
+                                          <% if(user.profile.fname!=""){%>
+                                            <a class="btn btn-secondary btn-md" id="edit-btn">Edit</a>
+                                            <%}%>
+                                          <button type="submit" id="save-btn" class="btn btn-success btn-md">Save</button>
+                                        </div>
+                                </form>
+                            </div>
+                         </div>
+
+                         <!-- RECEIVER UNBOARDING -->
+                         <%}else if(user.receiver.length==0){%>
+                            <h6>Step 2 of 4</h6>
+                            <p class="alert alert-warning text-center" role="alert">Kindly add receiver details </p>
+                            <div class="col-md-12 rec-form-bar" id="addrec-bar">
+                                <div class="col-md-12 add-rec">
+                                  <form>
+                                    <div class="mb-3">
+                                      <label>Account Number</label>
+                                        <input type="number" name="acctNumber" class="form-control inputs" id="accountNumber" required>
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label>Bank Name</label>
+                                        <select name="bankName" class="form-select" id="bankName" required></select>
+                                      </div>
+
+                                      <div class="mb-3">
+                                        <label>Receiver Name</label>
+                                        <input type="text" name="acctName" class="form-control inputs" id="acctName" required>
+                                      </div>
+
+                                      <a class="btn btn-outline-warning btn-sm" id="btn-confirm" >Confirm</a>
+                                      <button type="submit" class="btn btn-outline-success btn-sm btn-addAccount" id="btn-addAccount" disabled>Add Account</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        <!-- ADD PAYMENT CARD UNBORADING -->
+                        <%}else if(user.cardDetails.length==0){%>
+                            <h6>Step 3 of 4</h6>
+                            <p class="alert alert-warning text-center" role="alert">Add a payment method</p>
+                            <div class="col-md-12 rec-form-bar" id="addrec-bar">
+                                <div class="col-md-12" id="card-details-bar">
+                                    <form method="POST" action="/addCard" >
+                                    <div class="mb-3">
+                                      <label>Name on card</label>
+                                      <input type="text" name='cardName' class="form-control inputs" id="nameOnCard"  required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                      <label>Card number</label>
+                                      <input type="text" name="cardNumber" class="form-control inputs" id="cc-number" maxlength="16" required >
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label>Expiration</label>
+                                        <input type="text" name="expDate" class="form-control inputs" id="expiry-date" maxlength="5" required placeholder="MM/YY" >
+                                    </div>
+                                    
+
+                                    <div class="mb-3">
+                                      <label>CVV</label>
+                                      <input type="text" name="cvv" class="form-control inputs" id="cvv" maxlength="3"  required >
+                                  </div>
+
+                                    <div class="mb-3">
+                                      <button type="submit" class="btn btn-outline-success btn-sm" id="btn-addCard">Add card</button>
+                                    </div>
+                              </form>
+                            </div>
+                            </div>
+                        <h5 id="card-msg" class="alert alert-danger" role="alert"></h5>
+
                         <%}else if(user.status==false){%>
-                            <p class="alert alert-warning text-center notice" role="alert">Uploaded file under verification</p>
-                        <%}%>
+                            <h6>Step 4 of 4</h6>
+                            <p class="alert alert-warning text-center notice" role="alert">Kindly verify your identity, it takes just 30 seconds</p>
+                            <div class="kyc-item-id">
+                                  <a href="" class="btn btn-success btn-md text-center">Click to verify ID</a>
+                              </div>
 
-
+                        <%}else{%>
 
                     <!--EXCHANGE BAR -->
                 <div class="row exchange-main-bar" id="exchange-bar">
@@ -66,7 +201,7 @@
                     <div class="col-sm-12 col-md-12 exchange-bar">
                         <div class=" row first-currency-item">
                                 <div class="col-5 first-currency-item-div text-start">
-                                    <div class="yousend"><h6 >You send</h6></div>
+                                    <div class="yousend"><h6>You send</h6></div>
                                     <input class="send-amount" name="sendAmount" id="send-amount" type="number" placeholder="0.00" min="0" max="10">
                                 </div>
 
@@ -108,15 +243,16 @@
                             <p style="color:#868686">Send minimum of 10 <span id="country-code"></span></p>
                             <% if(user.proof.identity && user.status==true){ %>
                                 <div class="row">
-                                    <button class="btn-send" id="btn-send">Continue</button>
+                                    <button class="btn-send" id="btn-send"> complete </button>
                                 </div>
                              <%}else{%>
                                 <div class="row">
-                                    <button class="btn btn-secondary" disabled>Continue</a></button>
+                                    <button class="btn btn-secondary" disabled>Kindly complete your profile</a></button>
                                 </div>
                             <%}%>
                         </div>
                      </div>
+                    
 
 
                         <!-- Transaction table -->
@@ -152,6 +288,7 @@
                             </div>
                         </div>
                         <!-- ---------------------- -->
+                    <%}%>
 
                      <!-- select receiver -->
                      <div class="rec-main-bar " id="rec-bar">
@@ -248,5 +385,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="js/amp.js"></script>
+    <script src="js/profiler.js"></script>
 </body>
 </html>
