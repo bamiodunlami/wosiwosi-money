@@ -21,7 +21,7 @@ $(document).ready(()=>{
 try{
 
  //Load bank
-$('#accountNumber').on('focus', ()=>{
+// $('#accountNumber').on('focus', ()=>{
     //make a  post request to server to load available banks
     fetch('/loadbank', {
             method:"POST",
@@ -49,7 +49,7 @@ $('#accountNumber').on('focus', ()=>{
                 // allOptions.appendTo("select");
             }   
         });    
-    });
+    // });
 
    //confirm account button
    $('#btn-confirm').on('click', ()=>{
