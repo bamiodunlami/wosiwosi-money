@@ -59,51 +59,51 @@
                           <p class="alert alert-warning text-center" role="alert">Kindly complete your profile</p>
                         <div class="row profile-bar">
                             <div class="col-sm-12 ">
-                                    <form class="row g-1" method="POST"  action="/profileUpdate">
+                                    <form class="row g-1">
                                         <div class="col-md-6 form-floating">
-                                          <input type="text" name='fname' class="form-control forJs" id="floatingInput forJs" placeholder="First Name" required>
+                                          <input type="text" name='fname' class="form-control forJs fname" id="floatingInput" placeholder="First Name" required>
                                           <label for="floatingInput" class="form-label">First Name</label>
                                         </div>
 
                                         <div class="col-md-6 form-floating">
-                                          <input type="text" name='lname' class="form-control forJs" id="floatingInput" placeholder="Last Name" required>
+                                          <input type="text" name='lname' class="form-control forJs lname" id="floatingInput" placeholder="Last Name" required>
                                           <label for="lastName" class="form-label">Last Name</label>
                                         </div>
 
                                         <div class="col-6 form-floating">
-                                          <input type="number" name="phone" placeholder="Phone" class="form-control forJs" id="floatingInput" required >
+                                          <input type="number" name="phone" placeholder="Phone" class="form-control forJs phone" id="floatingInput" required >
                                           <label for="floatingInput" class="form-label">Phone</label>
                                         </div>
 
                                         <div class="col-6 form-floating">
-                                            <input type="date" name="dob" class="form-control forJs" id="floatingInput" required >
+                                            <input type="date" name="dob" class="form-control forJs dob" id="floatingInput" required >
                                             <label for="floatingInput" class="form-label">Date of Birth</label>
                                           </div>
 
                                         <div class="col-12 form-floating">
-                                          <input type="text" name="address" placeholder="Address" class="form-control forJs" id="floatingInput" required>
+                                          <input type="text" name="address" placeholder="Address" class="form-control forJs address" id="floatingInput" required>
                                           <label for="floatingInput" class="form-label">Address</label>
                                         </div>
 
                                         <div class="col-6 form-floating">
-                                          <input type="text" name="city" placeholder="City" class="form-control forJs" id="floatingInput" required >
+                                          <input type="text" name="city" placeholder="City" class="form-control forJs city" id="floatingInput" required >
                                           <label for="floatingInput" class="form-label">City</label>
                                         </div>
 
                                         <div class="col-6 form-floating">
-                                            <input type="text" name="postCode" placeholder="Post code" class="form-control forJs" id="floatingInput" required >
+                                            <input type="text" name="postCode" placeholder="Post code" class="form-control forJs postcode" id="floatingInput" required >
                                             <label for="floatingInput" class="form-label">Post Code</label>
                                           </div>
                                           
                                           <div class="col-md-6 form-floating">
-                                            <select class="form-control forJs" name="residence" id="floatingInput"> 
+                                            <select class="form-control forJs residence" name="residence" id="floatingInput"> 
                                               <option>United Kingdom</option>
                                             </select>
                                             <label for="floatingInput" class="form-label">Country of residence</label>
                                           </div>
 
                                           <div class="col-md-6 form-floating">
-                                            <input type="text" name="nationality" class="form-control forJs" id="floatingInput" placeholder="Nationality">
+                                            <input type="text" name="nationality" class="form-control forJs nationality" id="floatingInput" placeholder="Nationality">
                                             <label for="floatingInput" class="form-label">Nationality</label>
                                           </div>
                                           <button type="submit" id="save-btn" class="btn btn-success btn-md">Save</button>

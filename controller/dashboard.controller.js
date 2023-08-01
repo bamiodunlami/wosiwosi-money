@@ -68,10 +68,11 @@ const updateUser = async (req, res) => {
             },
           },
         }
-      ).then(async (response) => {
-        // console.log(response.modifiedCount);
-        if (!response.acknowledged == true) res.redirect("/profile");
-        res.redirect(req.headers.referer);
+      ).then((response) => {
+        if (response.acknowledged == true){
+          res.send(true)
+        } 
+        // else
       });
     } else {
       res.redirect("/login");
