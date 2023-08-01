@@ -148,7 +148,7 @@ const banks = (req, res) => {
       method: "GET",
       url: "https://api.flutterwave.com/v3/banks/NG",
       headers: {
-        Authorization: `Bearer ${process.env.FLW_SECRET_TEST}`,
+        Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
       },
     };
     return request(options, function (error, response) {
