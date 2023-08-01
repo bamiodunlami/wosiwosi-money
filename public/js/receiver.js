@@ -3,42 +3,32 @@ $(document).ready(()=>{
    // JS for receiver page
    $("#addrec-bar").hide();
    $('#card-details-bar').hide()
-   $('#card-msg').hide();
-   $("#addrec-bar").hide();
+   $('#card-msg').hide()
 
+       //make a  post request to server to load available banks
+       fetch('/loadbank', {
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+        }, 
+    })
+    .then((res)=> res.text())//get responses from server as a promise
+    .then((result)=>{ //save bank names into result
+        // console.log(result)
+        let newResult=JSON.parse(result)// turn bank names to javascript object
+        let bankSelect= document.querySelector('#bankName');
+        for (let i = 0; i < newResult.data.length; i++) {
+            // console.log(newResult.data[i])
+            let options=`<option value="${newResult.data[i].code}"> ${newResult.data[i].name}</option>`
+            bankSelect.innerHTML+=options//populate the option
+        }   
+    });
+
+    
    //add bank button
-//    $("#rec-add-btn").on('click', ()=>{
-    //make a  post request to server to load available banks
-    fetch('/loadbank', {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-            }, 
-        })
-        .then((res)=> res.text())//get responses from server as a promise
-        .then((result)=>{ //save bank names into result
-            // console.log(result)
-            let newResult=JSON.parse(result)// turn bank names to javascript object
-            let bankSelect= document.querySelector('#bankName');
-            for (let i = 0; i < newResult.data.length; i++) {
-                // console.log(newResult.data[i])
-                let options=`<option value="${newResult.data[i].code}"> ${newResult.data[i].name}</option>`
-                bankSelect.innerHTML+=options//populate the option
-
-                // // Sort Bank
-                // let allOptions = $("#bankName option");
-                // allOptions.sort(function (op1, op2) {
-                //    var text1 = $(op1).text().toLowerCase();
-                //    var text2 = $(op2).text().toLowerCase();
-                //    return (text1 < text2) ? -1 : 1;
-                // });
-                // allOptions.appendTo("select");
-            }   
-        });    
-
-
+   $("#rec-add-btn").on('click', ()=>{    
        $("#addrec-bar").slideToggle()
-//    });
+   });
 
 
    //confirm account button
