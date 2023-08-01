@@ -6,7 +6,7 @@ $(document).ready(()=>{
    $('#card-msg').hide()
 
    //add bank button
-   $("#rec-add-btn").on('click', ()=>{
+//    $("#rec-add-btn").on('click', ()=>{
     //make a  post request to server to load available banks
     fetch('/loadbank', {
             method:"POST",
@@ -34,8 +34,10 @@ $(document).ready(()=>{
                 // allOptions.appendTo("select");
             }   
         });    
+
+
        $("#addrec-bar").slideToggle()
-   });
+//    });
 
 
    //confirm account button
