@@ -61,42 +61,42 @@
                             <div class="col-sm-12 ">
                                     <form class="row g-1" method="POST"  action="/profileUpdate">
                                         <div class="col-md-6 form-floating">
-                                          <input type="text" name='fname' class="form-control forJs" id="floatingInput forJs" placeholder="First Name" required value="<%= user.profile.fname%>">
+                                          <input type="text" name='fname' class="form-control forJs" id="floatingInput forJs" placeholder="First Name" required>
                                           <label for="floatingInput" class="form-label">First Name</label>
                                         </div>
 
                                         <div class="col-md-6 form-floating">
-                                          <input type="text" name='lname' class="form-control forJs" id="floatingInput" placeholder="Last Name" required value="<%= user.profile.lname%>" >
+                                          <input type="text" name='lname' class="form-control forJs" id="floatingInput" placeholder="Last Name" required>
                                           <label for="lastName" class="form-label">Last Name</label>
                                         </div>
 
                                         <div class="col-md-12 form-floating">
-                                            <input type="email" name="email" placeholder="Email" class="form-control" id="floatingInput" disabled value="<%= user.username %>">
+                                            <input type="email" name="email" placeholder="Email" class="form-control" id="floatingInput" disabled>
                                             <label for="floatingInput" class="form-label">Email</label>
                                           </div>
 
                                         <div class="col-6 form-floating">
-                                          <input type="number" name="phone" placeholder="Phone" class="form-control forJs" id="floatingInput" required value="<%= user.profile.phone%>">
+                                          <input type="number" name="phone" placeholder="Phone" class="form-control forJs" id="floatingInput" required >
                                           <label for="floatingInput" class="form-label">Phone</label>
                                         </div>
 
                                         <div class="col-6 form-floating">
-                                            <input type="date" name="dob" class="form-control forJs" id="floatingInput" required value="<%= user.profile.dob%>">
+                                            <input type="date" name="dob" class="form-control forJs" id="floatingInput" required >
                                             <label for="floatingInput" class="form-label">Date of Birth</label>
                                           </div>
 
                                         <div class="col-12 form-floating">
-                                          <input type="text" name="address" placeholder="Address" class="form-control forJs" id="floatingInput" required value="<%= user.profile.street%>" >
+                                          <input type="text" name="address" placeholder="Address" class="form-control forJs" id="floatingInput" required>
                                           <label for="floatingInput" class="form-label">Address</label>
                                         </div>
 
                                         <div class="col-6 form-floating">
-                                          <input type="text" name="city" placeholder="City" class="form-control forJs" id="floatingInput" required value="<%= user.profile.city%>">
+                                          <input type="text" name="city" placeholder="City" class="form-control forJs" id="floatingInput" required >
                                           <label for="floatingInput" class="form-label">City</label>
                                         </div>
 
                                         <div class="col-6 form-floating">
-                                            <input type="text" name="postCode" placeholder="Post code" class="form-control forJs" id="floatingInput" required value="<%= user.profile.postcode%>">
+                                            <input type="text" name="postCode" placeholder="Post code" class="form-control forJs" id="floatingInput" required >
                                             <label for="floatingInput" class="form-label">Post Code</label>
                                           </div>
                                           
@@ -108,14 +108,9 @@
                                           </div>
 
                                           <div class="col-md-6 form-floating">
-                                            <input type="text" name="nationality" class="form-control forJs" id="floatingInput" placeholder="Nationality" value="<%= user.profile.Nationality%>">
+                                            <input type="text" name="nationality" class="form-control forJs" id="floatingInput" placeholder="Nationality">
                                             <label for="floatingInput" class="form-label">Nationality</label>
                                           </div>
-
-                                        <div class="col-sm-12">
-                                          <% if(user.profile.fname!=""){%>
-                                            <a class="btn btn-secondary btn-md" id="edit-btn">Edit</a>
-                                            <%}%>
                                           <button type="submit" id="save-btn" class="btn btn-success btn-md">Save</button>
                                         </div>
                                 </form>
