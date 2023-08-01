@@ -52,14 +52,14 @@
                 <div class="col-md-10 col-sm-12 info-bar">
                         <h4 class="sub-title text-center"> Payment References</h4>
                           <div class="row rec-section" id="rec-section"> 
-                            <h5 class="text-center">Your Receivers</h5> 
                               <% if (receiver.length ==0){%>
                                 <div class="div rec-section-bar">
-                                <div class="text-center" style="padding-bottom: 10px;"><i class="fa-solid fa-circle-user fa-2xl fa-solid-description text-center"></i></div>
                                 <h6 class="text-center">No receiver added</h6>
                                 <!-- <p class="text-center notice">Kindly press the button to add receiver below</p> -->
                               </div>
-                              <%}else{ for(let i=0; i<receiver.length; i++){%>
+                              <%}else{ %>
+                                <h6 class="text-center">Receivers</h6>  
+                                <%for(let i=0; i<receiver.length; i++){%>
                                   <div class="col-md-6 " style="padding-bottom: 20px; padding-left: 0;">
                                       <div class="accoutn-details-bar" id="account-details-bar<%=i%>">
                                         <h6 class="account-details"><span class="account-details-value" id="nameOnAccount"><%=receiver[i].acctName%> </span></h6>
@@ -73,7 +73,7 @@
                         <!-- add another receiver -->
                         
                             <div class="col-md-12 rec-form-bar" id="addrec-bar">
-                                <div class="col-md-6 add-rec">
+                                <div class="col-md-12 add-rec">
                                   <form method="POST">
                                     <div class="mb-3">
                                       <label>Account Number</label>
@@ -91,26 +91,26 @@
                                       </div>
 
                                       <a class="btn btn-warning btn-md" id="btn-confirm" >Confirm</a>
-                                      <button type="submit" class="btn btn-success btn-md btn-addAccount" id="btn-addAccount" disabled>Add Account</button>
+                                      <button type="submit" class="btn btn-secondary btn-md btn-addAccount" id="btn-addAccount" disabled>Add Account</button>
                                     </form>
                                 </div>
                             </div>
                             
-                            <div class="add-rec-btn"><button id="rec-add-btn" class="btn btn-dark btn-sm">Add Receiver</button></div>
+                            <div class="add-rec-btn"><button id="rec-add-btn" class="btn btn-outline-dark btn-sm">Add Receiver</button></div>
                       </div>
                        
 
 
                         <!-- Card payment method -->
-                      <div class="row rec-section-two rec-section" id="rec-section"> 
-                        <h5 class="text-center" id="card">Your Payment Card</h5> 
-                        <p class="text-center alert alert-success" role="alert">Details 100% secured and encrypted</p>
+                      <div class="row rec-section" id="rec-section"> 
+                        <p class="text-center alert alert-dark" role="alert">Details 100% secured and encrypted</p>
                           <% if (card.length ==0){%>
                             <div class="div rec-section-bar">
-                            <div class="text-center" style="padding-bottom: 10px;"><i class="fa-solid fa-credit-card fa-2xl fa-solid-description text-center"></i></div>
                             <h5 class="text-center notice">No card added</h5>
                           </div>
-                          <%}else{ for(let i=0; i<card.length; i++){%>
+                          <%}else{%>
+                            <h5 class="text-center" id="card">Payment Methods</h5> 
+                            <% for(let i=0; i<card.length; i++){%>
                               <div class="col-md-6 " style="padding-bottom: 20px; padding-left: 0;">
                                   <div class="accoutn-details-bar">
                                     <h6 class="account-details"><span class="account-details-value" id="cardName<%=i%>"><%=card[i].cardOwner%></span></h6>
@@ -123,7 +123,7 @@
                     <!-- add another card -->
                     
                         <div class="col-md-12 rec-form-bar" id="addrec-bar">
-                                  <div class="col-md-6" id="card-details-bar">
+                                  <div class="col-md-12" id="card-details-bar">
                                       <form method="POST" action="/addCard" >
                                       <div class="mb-3">
                                         <label>Name on card</label>
@@ -153,7 +153,7 @@
                               </div>
                         </div>
                           <h5 id="card-msg" class="alert alert-danger" role="alert"></h5>
-                        <div class="add-rec-btn"><button id="add-card" class="btn btn-dark btn-sm">Add Card</button></div>
+                        <div class="add-rec-btn"><button id="add-card" class="btn btn-outline-dark btn-sm">Add Card</button></div>
                   </div>
                   
                 <!-- -----------------------end------------- -->

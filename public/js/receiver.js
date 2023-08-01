@@ -24,19 +24,16 @@ $(document).ready(()=>{
                 let options=`<option value="${newResult.data[i].code}"> ${newResult.data[i].name}</option>`
                 bankSelect.innerHTML+=options//populate the option
 
-                // Sort Bank
-                let allOptions = $("#bankName option");
-                allOptions.sort(function (op1, op2) {
-                   var text1 = $(op1).text().toLowerCase();
-                   var text2 = $(op2).text().toLowerCase();
-                   return (text1 < text2) ? -1 : 1;
-                });
-                allOptions.appendTo("select");
+                // // Sort Bank
+                // let allOptions = $("#bankName option");
+                // allOptions.sort(function (op1, op2) {
+                //    var text1 = $(op1).text().toLowerCase();
+                //    var text2 = $(op2).text().toLowerCase();
+                //    return (text1 < text2) ? -1 : 1;
+                // });
+                // allOptions.appendTo("select");
             }   
         });    
-    
-
-
        $("#addrec-bar").slideToggle()
    });
 

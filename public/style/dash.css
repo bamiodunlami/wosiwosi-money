@@ -78,7 +78,7 @@ a.nav-link:active {
 }
 
 h6 {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
 }
 
@@ -217,15 +217,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .rec-section,
 .rec-section-two {
-  background-color: #01892514;
+  background-color: #b5b5b514;
   padding: 4% 5%;
   margin: 20px;
-  border-bottom: solid 4px #929292;
 }
 
-.rec-section-two {
-  background-color: #895e0114;
-}
 
 .rec-section-bar {
   border: solid 0.5px #c7c7c7;
@@ -369,13 +365,9 @@ input[type="number"]::-webkit-outer-spin-button {
   .rec-section,
   .rec-section-two {
     padding: 20px;
-    background-color: #01892514;
     margin: 20px 0px;
   }
 
-  .rec-section-two {
-    background-color: #895e0114;
-  }
 
   .rec-section-bar {
     border: solid 0.5px #c7c7c7;
