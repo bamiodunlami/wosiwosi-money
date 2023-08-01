@@ -3,7 +3,8 @@ $(document).ready(()=>{
    // JS for receiver page
    $("#addrec-bar").hide();
    $('#card-details-bar').hide()
-   $('#card-msg').hide()
+   $('#card-msg').hide();
+   $("#addrec-bar").hide();
 
    //add bank button
 //    $("#rec-add-btn").on('click', ()=>{
