@@ -123,7 +123,7 @@
                   </div>
 
                 <!-- -----------KYC--------- -->
-                <div class="row kyc-bar">
+                <div class="row kyc-bar" id="kyc-bar">
                   <h4 class="sub-title text-center">Identity Verification</h4>
                     <div class="col-md-12 text-center">
                       <div class="kyc-item">
@@ -131,7 +131,7 @@
                         <div class="kyc-item-id">
                           <% if(user.proof.identity.length==0 || user.status==false){%>
                             <h6 style="color: #ff0000;">Not Verified</h6>
-                            <a href="" class="btn btn-success btn-md">Verify ID</a>
+                            <a href="/verify" class="btn btn-success btn-md">Verify ID</a>
                           <%}else{%>
                             <h6>ID Verified</h6>
                             <%}%>

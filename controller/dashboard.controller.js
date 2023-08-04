@@ -96,36 +96,15 @@ const userSettings = async (req, res) => {
 
 // upload user prooof
 const userProof = async (req, res) => {
-  // try {
-  //   if (req.isAuthenticated()) {
-  //     upload(req, res, async (err) => {
-  //       if (err) console.log(err);
-  //       console.log(req.files["poa"][0].filename, req.files["poa"][0].path);
-  //       await User.updateOne(
-  //         { username: req.user.username },
-  //         {
-  //           $push: {
-  //             proof: {
-  //               poaName: req.files["poa"][0].filename,
-  //               poaPath: req.files["poa"][0].path,
-  //               idName: req.files["id"][0].filename,
-  //               idPath: req.files["id"][0].path,
-  //             },
-  //           },
-  //         }
-  //       ).then((response) => {
-  //         // console.log(response.modifiedCount);
-  //         if (!response.acknowledged == true) res.redirect("/profile");
-  //         console.log("updated");
-  //         res.redirect("/dashboard");
-  //       });
-  //     });
-  //   } else {
-  //     res.redirect("/login");
-  //   }
-  // } catch (e) {
-  //   console.log(e);
-  // }
+  try {
+    if (req.isAuthenticated()) {
+      res.redirect('/verify')
+    } else {
+      res.redirect("/login");
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 // render receiver page
@@ -386,7 +365,7 @@ const exchange = (req, res) => {
                   res.send("false");
                 });
               } else {
-                console.log(charge)
+                console.log("strip charge succesful")
                 // Stipe Charge was successful
                 //activate flutter to send
                 const details = {
