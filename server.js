@@ -18,7 +18,7 @@ const rate = require (`${__dirname}/routes/exRate.router.js`)// Exchange rate mo
 const admin = require (`${__dirname}/routes/admin.router.js`)// admin module
 const authentication = require (`${__dirname}/routes/authentication.router.js`)//authentication module
 const main =  require (`${__dirname}/routes/main.router.js`)//main module
-// const verification =  require (`${__dirname}/routes/verification.route.js`)//main module
+const verification =  require (`${__dirname}/routes/verification.route.js`)//main module
 
 
 const PORT=process.env.PORT || 3000;//enviromental variable and port settings
@@ -37,7 +37,7 @@ app.use(rate);
 app.use(admin);
 app.use(authentication)
 app.use(main)
-// app.use(verification)
+app.use(verification)
 // app.use(authentication);
 
 //404
