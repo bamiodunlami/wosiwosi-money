@@ -27,8 +27,10 @@ const userSchema = new mongoose.Schema({
     Nationality:"string"
     },
     proof:{
-        value:"string",
-        identity:[]
+        sessionId:"string",
+        livenessResult:"string",
+        faceMatchResult:"string",
+        faceMatchConfidence:"string"
     },
     cardDetails:[],
     receiver:[],

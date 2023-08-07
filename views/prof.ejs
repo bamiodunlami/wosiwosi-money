@@ -129,7 +129,7 @@
                       <div class="kyc-item">
                         <h6>Proof of Identity</h6>
                         <div class="kyc-item-id">
-                          <% if(user.proof.identity.length==0 || user.status==false){%>
+                          <% if(user.status==false){%>
                             <h6 style="color: #ff0000;">Not Verified</h6>
                             <a href="/verify" class="btn btn-success btn-md">Verify ID</a>
                           <%}else{%>
