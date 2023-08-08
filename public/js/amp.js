@@ -168,9 +168,7 @@ try{
                     arithmetic=result[0].GBPTONGN;
                     sendAmount=sendBox.val();
                     totalAmount=sendAmount * arithmetic;
-                    let contii= "I warned"
-                    console.log(contii.slice(0,4))
-                   takeBox.val(totalAmount);
+                   takeBox.val(totalAmount.toFixed(2));
                     
                     validate();
                     break;
@@ -209,13 +207,13 @@ try{
             }
 
             //takeBox Validation
-            if(sendBox.val()>4.99){
-                $('#btn-send').css('background-color', '#009933');
-                $('#btn-send').prop('disabled', false);
-            }else{
-                $('#btn-send').css('background-color', '#8b8b8b');
-                $('#btn-send').prop('disabled', true);
-            }
+            // if(sendBox.val()>4.99){
+            //     $('#btn-send').css('background-color', '#009933');
+            //     $('#btn-send').prop('disabled', false);
+            // }else{
+            //     $('#btn-send').css('background-color', '#8b8b8b');
+            //     $('#btn-send').prop('disabled', true);
+            // }
          }
    
     });
@@ -272,7 +270,7 @@ try{
 
                 // preview page
                 $('.sendAmount').text(`${sendCurrency} ${sendAmount}`)
-                $(".takeAmount").text(`${takeCurrency} ${totalAmount}`)
+                $(".takeAmount").text(`${takeCurrency} ${totalAmount.toFixed(2)}`)
                 $(".cAcctName").text(receiverJson.accountName);
                 $(".cAcctNumber").text(receiverJson.accountNumber);
                 $(".cBank").text(receiverJson.bank);

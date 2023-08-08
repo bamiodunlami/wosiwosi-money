@@ -31,7 +31,7 @@ h6 {
 }
 
 p {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 300;
 }
 
@@ -69,8 +69,9 @@ float:right
 
 .header-bar {
   background-color: #f4f4f483;
+  padding: 10% 30%;
 }
-.head-des,
+/* .head-des,
 .country-flag {
   padding-right: 20%;
 }
@@ -81,7 +82,7 @@ float:right
 }
 .flag-div {
   width: 20%;
-}
+} */
 
 /* Exchange bar */
 .exchange-bar {

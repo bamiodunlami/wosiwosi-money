@@ -98,7 +98,7 @@ const StartSession = (req, res) => {
               "proof.sessionId": sessionReturn,
             },
           }
-        ).then((resp) => console.log(resp));
+        );
 
         const clientSessionToken = session.getClientSessionToken();
         // const clientSessionTokenTtl = session.getClientSessionTokenTtl();
@@ -121,38 +121,37 @@ const sessionResult = async (req, res) => {
   if (req.isAuthenticated()) {
     const id = await User.findOne({ username: req.user.username });
     let userSessionId = id.proof.sessionId;
-    console.log(userSessionId);
-    // Returns a session result
-    idvClient
-      .getSession(userSessionId)
-      .then((session) => {
-        // Return specific check types
-        const faceMatchChecks = session.getFaceMatchChecks();
-        faceMatchChecks.map((check) => {
-          const report = check.getReport();
-          const recommendation = report.getRecommendation().getValue();
-          console.log(recommendation);
-          // save Result
-          const updateFaceMatch = User.updateOne(
-            { username: req.user.username },{
-              $set: {
-                "proof.faceMatchResult": recommendation,
-              },
-            });
-
-          const updateStatus = User.updateOne(
-            { username: req.user.username },{
-              $set: {
-                status: true,
-              },
+      // Returns a session result
+      idvClient
+        .getSession(userSessionId)
+        .then((session) => {
+          // Return specific check types
+          const authenticityChecks = session.getAuthenticityChecks();
+          const faceMatchChecks = session.getFaceMatchChecks();
+          const textDataChecks = session.getTextDataChecks();
+          const livenessChecks = session.getLivenessChecks();
+          const watchlistScreeningChecks =
+            session.getWatchlistScreeningChecks();
+          const watchlistAdvancedCaChecks =
+            session.getWatchlistAdvancedCaChecks();
+          faceMatchChecks.map((check) => {
+            const report = check.getReport();
+            const  recommendation = report.getRecommendation().getValue();
+            // save Result
+            User.updateOne(
+              { username: req.user.username },
+              {
+                $set: {
+                  "proof.faceMatchResult": recommendation,
+                },
+              }
+            ).then(res.redirect("/dashboard"));
           });
-
-          Promise.all([updateFaceMatch, updateStatus]).then(res.redirect("/profile"))
-      });
-    })
-    .catch((error) => {
-        console.log(error);
-      });
+        })
+        .catch((error) => {
+          console.log(error);
+          res.redirect("/dashboard");
+        });
   } else {
     res.redirect("/login");
   }

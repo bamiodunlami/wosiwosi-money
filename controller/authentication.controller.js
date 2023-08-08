@@ -17,7 +17,7 @@ const login = (req, res) => {
 const register = async (req, res) => {
   const userDetails = {
     username: req.body.username,
-    status: false,
+    status: true,
     regDate: date.toJSON(),
     regTerm: true,
     regAs: "",
