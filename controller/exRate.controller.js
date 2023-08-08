@@ -3,7 +3,7 @@ const path = require("path"); //default module
 const rootPath = path.resolve(process.cwd()); //production usable for path root
 appRoot.setPath(rootPath); //set path
 
-const mongo =require (appRoot + `/util/mongodb.js`);//mongo db and strategy module
+const mongo =require (appRoot + `/model/mongodb.js`);//mongo db and strategy module
 const Rate = mongo.ExRate
 // const Transaction = mongo.Transaction
 

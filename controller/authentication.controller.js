@@ -3,7 +3,8 @@ const path = require("path"); //default module
 const rootPath = path.resolve(process.cwd()); //production usable for path root
 appRoot.setPath(rootPath); //set path
 
-const mongo = require(appRoot + "/util/mongodb.js");
+const mailer = require(appRoot + "/util/mailer.js")
+const mongo = require(appRoot + "/model/mongodb.js");
 const User = mongo.User;
 
 const date = new Date();
@@ -40,11 +41,13 @@ const register = async (req, res) => {
     receiver: [],
     transaction: [],
   };
+  const userMail=userDetails.username
   await User.register(userDetails, req.body.password, (err) => {
     if (err) {
       console.log(err);
       res.redirect("/");
     } else {
+      mailer.sendWelcome(userMail);
       res.redirect("/login");
     }
   });

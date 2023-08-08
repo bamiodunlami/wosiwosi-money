@@ -5,7 +5,8 @@ const path = require("path"); //default module
 const rootPath = path.resolve(process.cwd()); //production usable for path root
 appRoot.setPath(rootPath); //set path
 
-const mongo = require(appRoot + "/util/mongodb.js"); //mongo db and strategy module
+const mailer =  require (appRoot + "/util/mailer.js")
+const mongo = require(appRoot + "/model/mongodb.js"); //mongo db and strategy module
 const User = mongo.User;
 
 const fs = require("fs");
@@ -22,7 +23,6 @@ const {
   SdkConfigBuilder,
   NotificationConfigBuilder,
 } = require("yoti");
-const { response } = require("express");
 
 const YOTI_CLIENT_SDK_ID = process.env.CLIENT_SDK_ID;
 const YOTI_PEM = fs.readFileSync(
@@ -121,37 +121,39 @@ const sessionResult = async (req, res) => {
   if (req.isAuthenticated()) {
     const id = await User.findOne({ username: req.user.username });
     let userSessionId = id.proof.sessionId;
-      // Returns a session result
-      idvClient
-        .getSession(userSessionId)
-        .then((session) => {
-          // Return specific check types
-          const authenticityChecks = session.getAuthenticityChecks();
-          const faceMatchChecks = session.getFaceMatchChecks();
-          const textDataChecks = session.getTextDataChecks();
-          const livenessChecks = session.getLivenessChecks();
-          const watchlistScreeningChecks =
-            session.getWatchlistScreeningChecks();
-          const watchlistAdvancedCaChecks =
-            session.getWatchlistAdvancedCaChecks();
-          faceMatchChecks.map((check) => {
-            const report = check.getReport();
-            const  recommendation = report.getRecommendation().getValue();
-            // save Result
-            User.updateOne(
-              { username: req.user.username },
-              {
-                $set: {
-                  "proof.faceMatchResult": recommendation,
-                },
-              }
-            ).then(res.redirect("/dashboard"));
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-          res.redirect("/dashboard");
+    // Returns a session result
+    idvClient
+      .getSession(userSessionId)
+      .then((session) => {
+        // Return specific check types
+        const authenticityChecks = session.getAuthenticityChecks();
+        const faceMatchChecks = session.getFaceMatchChecks();
+        const textDataChecks = session.getTextDataChecks();
+        const livenessChecks = session.getLivenessChecks();
+        const watchlistScreeningChecks = session.getWatchlistScreeningChecks();
+        const watchlistAdvancedCaChecks =
+          session.getWatchlistAdvancedCaChecks();
+        faceMatchChecks.map((check) => {
+          const report = check.getReport();
+          const recommendation = report.getRecommendation().getValue();
+          if(recommendation == "APPROVE"){
+            mailer.sendApprove(req.user.username)
+          }
+          // save Result
+          User.updateOne(
+            { username: req.user.username },
+            {
+              $set: {
+                "proof.faceMatchResult": recommendation,
+              },
+            }
+          ).then(res.redirect("/dashboard"));
         });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.redirect("/dashboard");
+      });
   } else {
     res.redirect("/login");
   }

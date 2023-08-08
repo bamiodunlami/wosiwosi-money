@@ -1,7 +1,15 @@
+const appRoot = require ('app-root-path')
+const path = require ('path')
+const rootPath = path.resolve(process.cwd())
+appRoot.setPath(rootPath)
+
+const mailTemp = require (appRoot + "/util/mailTemplate.js")
+const welcomeTemp = mailTemp.welcome
+const idApproveMail = mailTemp.idApprove
 const nodemailer = require("nodemailer");
 
-transporter = nodemailer.createTransport({
-  service: "drivingsolution.ng",
+let transporter = nodemailer.createTransport({
+  host: "smtp.zoho.eu",
   port: process.env.MAILER_PORT,
   secure: true, // upgrade later with STARTTLS
   auth: {
@@ -10,21 +18,29 @@ transporter = nodemailer.createTransport({
   },
 })
 
-var welcomMail = {
-  from: "Wosiwosi Money",
-  to: "odunlamibamidelejohn@gmail.com",
-  subject: "Welcome to Wosiwosi Money",
-  text: "Hey there, welcome to wosiwosi money mailer test",
+const welcomeMail = (to, name) => {
+  const mailOptions = {
+      from: 'info@wosiwosi.co.uk',
+      to: to,
+      subject: "Welcome to Wosiwosi Money",
+      html: welcomeTemp
+  };
+
+  transporter.sendMail(mailOptions);
 };
 
-const sendWelcome = transporter.sendMail(welcomMail, function (error, info) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Email sent: " + info.response);
-  }
-});
+const idApprove = (to,) => {
+  const mailOptions = {
+      from: 'info@wosiwosi.co.uk',
+      to: to,
+      subject: "Welcome to Wosiwosi Money",
+      html: idApproveMail
+  };
+
+  transporter.sendMail(mailOptions);
+};
 
 module.exports = {
-  sendWelcome: sendWelcome,
+  sendWelcome: welcomeMail,
+  sendApprove: idApprove
 };

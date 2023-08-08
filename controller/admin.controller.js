@@ -5,7 +5,7 @@ appRoot.setPath(rootPath); //set pat
 
 const date = new Date();
 
-const mongo = require(appRoot + "/util/mongodb");
+const mongo = require(appRoot + "/model/mongodb");
 const User = mongo.User;
 const Transaction = mongo.Transaction;
 const Rate = mongo.ExRate;

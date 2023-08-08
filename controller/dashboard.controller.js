@@ -14,7 +14,7 @@ const passport = require(appRoot + "/util/passportAuth");
 // const mailer = require (appRoot + '/api/mailer.js');
 // const sendWelcome = mailer.sendWelcome
 
-const mongo = require(appRoot + "/util/mongodb.js"); //mongo db and strategy module
+const mongo = require(appRoot + "/model/mongodb.js"); //mongo db and strategy module
 const User = mongo.User;
 const Transaction = mongo.Transaction;
 
