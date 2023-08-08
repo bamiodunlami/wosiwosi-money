@@ -127,14 +127,13 @@
                   <h4 class="sub-title text-center">Identity Verification</h4>
                     <div class="col-md-12 text-center">
                       <div class="kyc-item">
-                        <h6>Proof of Identity</h6>
                         <div class="kyc-item-id">
-                          <% if(user.status==false){%>
-                            <h6 style="color: #ff0000;">Not Verified</h6>
+                          <% if(user.proof.faceMatchResult=="APPROVE"){%>
+                              <h6 class="alert alert-success" role="alert">ID verified</h6>
+                          <%}else{%>           
+                            <h6 class="alert alert-danger" role="alert">Not Verified</h6>
                             <a href="/verify" class="btn btn-success btn-md">Verify ID</a>
-                          <%}else{%>
-                            <h6>ID Verified</h6>
-                            <%}%>
+                          <%}%>
                         </div>
                       </div>
                     </div>

@@ -22,6 +22,7 @@ const {
   SdkConfigBuilder,
   NotificationConfigBuilder,
 } = require("yoti");
+const { response } = require("express");
 
 const YOTI_CLIENT_SDK_ID = process.env.CLIENT_SDK_ID;
 const YOTI_PEM = fs.readFileSync(
@@ -83,98 +84,78 @@ const sessionSpec = new SessionSpecificationBuilder()
 
 //Create Session
 const StartSession = (req, res) => {
-  idvClient
-    .createSession(sessionSpec)
-    .then((session) => {
-      const sessionId = session.getSessionId();
-      sessionReturn = sessionId;
-      // save user ID
-      User.updateOne({ username: req.user.username}, {
-        $set:{
-          "proof.sessionId":sessionReturn
-        }
-      }).then(resp => console.log(resp));
+  if (req.isAuthenticated()) {
+    idvClient
+      .createSession(sessionSpec)
+      .then((session) => {
+        const sessionId = session.getSessionId();
+        sessionReturn = sessionId;
+        // save user ID
+        User.updateOne(
+          { username: req.user.username },
+          {
+            $set: {
+              "proof.sessionId": sessionReturn,
+            },
+          }
+        ).then((resp) => console.log(resp));
 
-      const clientSessionToken = session.getClientSessionToken();
-      // const clientSessionTokenTtl = session.getClientSessionTokenTtl();
-      res.render("verify", {
-        title: "Verification",
-        sessionID: sessionId,
-        sessionToken: clientSessionToken,
+        const clientSessionToken = session.getClientSessionToken();
+        // const clientSessionTokenTtl = session.getClientSessionTokenTtl();
+        res.render("verify", {
+          title: "Verification",
+          sessionID: sessionId,
+          sessionToken: clientSessionToken,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  } else {
+    res.redirect("/login");
+  }
 };
 
 // Session result
-// Returns a session result
 const sessionResult = async (req, res) => {
-  const id = await User.findOne({username:req.user.username})
-  let userSessionId =  id.proof.sessionId
-  // instant liveness check
-  //   idvClient.getSession(userSessionId).then(session => {
-  //   	// Returns a collection of liveness checks
-  //   	const livenessChecks = session.getLivenessChecks();
+  if (req.isAuthenticated()) {
+    const id = await User.findOne({ username: req.user.username });
+    let userSessionId = id.proof.sessionId;
+    console.log(userSessionId);
+    // Returns a session result
+    idvClient
+      .getSession(userSessionId)
+      .then((session) => {
+        // Return specific check types
+        const faceMatchChecks = session.getFaceMatchChecks();
+        faceMatchChecks.map((check) => {
+          const report = check.getReport();
+          const recommendation = report.getRecommendation().getValue();
+          console.log(recommendation);
+          // save Result
+          const updateFaceMatch = User.updateOne(
+            { username: req.user.username },{
+              $set: {
+                "proof.faceMatchResult": recommendation,
+              },
+            });
 
-  //     livenessChecks.map(check => {
-  //         // Returns the id of the check
-  //         const id = check.getId();
+          const updateStatus = User.updateOne(
+            { username: req.user.username },{
+              $set: {
+                status: true,
+              },
+          });
 
-  //         // Returns the state of the check
-  //         const state = check.getState();
-
-  //         // Returns an array of resources used in the check
-  //         const resourcesUsed = check.getResourcesUsed();
-
-  //         // Returns the report for the check
-  //         const report = check.getReport();
-
-  //         // Returns the recommendation value, either APPROVE, NOT_AVAILABLE or REJECT
-  //         const recommendation = report.getRecommendation().getValue();
-
-  //         // Returns the report breakdown including sub-checks
-  //         const breakdown = report.getBreakdown();
-
-  //       	breakdown.forEach(function(breakdown) {
-  //           // Returns the sub-check
-  //           const subCheck = breakdown.getSubCheck();
-
-  //           // Returns the sub-check result
-  //           const subCheckResult = breakdown.getResult();
-  //           console.log(subCheck)
-  //         });
-  //     })
-  // }).catch(error => {
-  //     // handle error
-  // })
-
-  // Returns a session result
-  idvClient
-    .getSession(userSessionId)
-    .then((session) => {
-      // Return specific check types
-      const authenticityChecks = session.getAuthenticityChecks();
-      const faceMatchChecks = session.getFaceMatchChecks();
-      const textDataChecks = session.getTextDataChecks();
-      const livenessChecks = session.getLivenessChecks();
-      const watchlistScreeningChecks = session.getWatchlistScreeningChecks();
-      const watchlistAdvancedCaChecks = session.getWatchlistAdvancedCaChecks();
-      
-      faceMatchChecks.map(check => {
-        const report = check.getReport();
-        const recommendation = report.getRecommendation().getValue();
-        console.log(recommendation)
+          Promise.all([updateFaceMatch, updateStatus]).then(res.redirect("/profile"))
       });
-      // console.log(faceMatchChecks[0].FaceMatchCheckResponse);
-      // // console.log(livenessChecks.getBreakdown());
-      res.redirect("/profile");
     })
     .catch((error) => {
-      console.log(error);
-    });
-
+        console.log(error);
+      });
+  } else {
+    res.redirect("/login");
+  }
 };
 
 module.exports = {

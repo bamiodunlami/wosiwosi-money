@@ -33,8 +33,8 @@ const register = async (req, res) => {
       Nationality: "",
     },
     proof: {
-      value: "",
-      idenity: [],
+      sessionId: "",
+      faceMatchResult: "",
     },
     cardDetails: [],
     receiver: [],
