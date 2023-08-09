@@ -18,9 +18,9 @@ let transporter = nodemailer.createTransport({
   },
 })
 
-const welcomeMail = (to, name) => {
+const welcomeMail = (to) => {
   const mailOptions = {
-      from: 'info@wosiwosi.co.uk',
+      from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
       to: to,
       subject: "Welcome to Wosiwosi Money",
       html: welcomeTemp
@@ -29,9 +29,9 @@ const welcomeMail = (to, name) => {
   transporter.sendMail(mailOptions);
 };
 
-const idApprove = (to,) => {
+const idApprove = (to) => {
   const mailOptions = {
-      from: 'info@wosiwosi.co.uk',
+      from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
       to: to,
       subject: "Welcome to Wosiwosi Money",
       html: idApproveMail

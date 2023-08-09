@@ -14,12 +14,10 @@ $(document).ready(()=>{
     })
     .then((res)=> res.text())//get responses from server as a promise
     .then((result)=>{ //save bank names into result
-        // console.log(result)
         let newResult=JSON.parse(result)// turn bank names to javascript object
         let bankSelect= document.querySelector('#bankName');
-        for (let i = 0; i < newResult.data.length; i++) {
-            // console.log(newResult.data[i])
-            let options=`<option value="${newResult.data[i].code}"> ${newResult.data[i].name}</option>`
+        for (let i = 0; i < newResult.length; i++) {
+            let options=`<option value="${newResult[i].code}"> ${newResult[i].name}</option>`
             bankSelect.innerHTML+=options//populate the option
         }   
     });

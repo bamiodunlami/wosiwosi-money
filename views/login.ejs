@@ -1,91 +1,126 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Acount</title>
     <!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
     <!-- google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- default style  -->
-    <link href="style/login.css" rel="stylesheet">
+    <link href="style/login.css" rel="stylesheet" />
     <!-- Jquaery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
   <body>
-
     <div class="login-bar default-padding">
-        <div class="container">
-            <div class="row">
+      <div class="container">
+        <div class="row">
+          <div class="brand-logo text-center">
+            <a href="/">Logo</a>
+          </div>
 
-              <div class="brand-logo text-center">
-                <a href="/">Logo</a>
+          <!-- login -->
+          <div class="col-12" id="login-bar-main">
+            <h6 class="text-center">Login</h6>
+            <div class="login-bar-cont">
+              <div class="error-message">
+                <% if (messages.error) {%> <%= messages.error %> <% } %>
               </div>
 
-              <!-- login -->
-                <div class="col-12" id="login-bar-main">
-                    <div class="login-bar-cont"> 
-
-                      <div class="error-message">
-                      <% if (messages.error) {%>
-                        <%= messages.error %>
-                        <% } %>
-                      </div>
-
-                      <form method="POST" action="/login">
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                            <input type="email" name='username' class="form-control" id="">
-                          </div>
-                            <div class="mb-3">
-                              <label for="exampleFormControlTextarea1" class="form-label">Password</label>
-                              <input type="password" name="password" class="form-control" id="" placeholder="">
-                            </div>
-                              <div class="col-12">
-                                <button type="submit" class="btn btn-md btn-primary login" id="login">Login</button>
-                              </div>
-                       </form>
-                          
-                            <p id="reset">forgotten your password?</p> 
-                          </div>
-
-                          <!-- <hr> -->
-
-                          <div class="col text-center" style="margin-top: 10px;">
-                            <p>don't have an account? <span class="sign-action"><a href="/register">Signup</a></span></p>
-                          </div>
-                         
-                          
-                    </div>
-                
-                <!-- end -->
-
-              <!-- forget password -->
-              <div class="col-12 reset-bar" id="reset-bar">
-                <div class="login-bar-cont">
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="" placeholder="name@example.com">
-                  </div>
-                  <div class="col-12">
-                    <button class="btn btn-md btn-primary reset" id="">Reset password</button>
-                  </div>
+              <form method="POST" action="/login">
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label"
+                    >Email address</label
+                  >
+                  <input
+                    type="email"
+                    name="username"
+                    class="form-control"
+                    id=""
+                  />
                 </div>
-                <div class="col text-center" style="margin-top:10px;">
-                  <p>already have an account? <span class="sign-action" id="reset-login">login</span></p>
+                <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label"
+                    >Password</label
+                  >
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    id=""
+                    placeholder=""
+                  />
                 </div>
+                <div class="col-12">
+                  <button
+                    type="submit"
+                    class="btn btn-md btn-primary login"
+                    id="login"
+                  >
+                    Login
+                  </button>
+                </div>
+              </form>
             </div>
-            <!-- end -->
+
+            <!-- <hr> -->
+
+            <div class="col text-center" style="margin-top: 10px">
+              <p>
+                don't have an account?
+                <span class="sign-action"><a href="/register">Signup</a></span>
+              </p>
+            </div>
           </div>
+
+          <!-- end -->
+
+          <!-- forget password -->
+          <div class="col-12 reset-bar" id="reset-bar">
+            <h6 class="text-center">Forget Password</h6>
+            <div class="login-bar-cont">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label"
+                  >Email address</label
+                >
+                <input type="email" class="form-control" id="" />
+              </div>
+              <div class="col-12">
+                <button class="btn btn-md btn-primary reset" id="">
+                  Reset password
+                </button>
+              </div>
+            </div>
+            <div class="col text-center" style="margin-top: 10px">
+              <p>
+                already have an account?
+                <span class="sign-action" id="reset-login">login</span>
+              </p>
+            </div>
           </div>
+          <!-- end -->
         </div>
+      </div>
+    </div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="js/login.js"></script>
-</body>
+  </body>
 </html>

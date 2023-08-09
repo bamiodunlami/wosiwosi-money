@@ -133,8 +133,15 @@ const banks = (req, res) => {
     return request(options, function (error, response) {
       if (error) throw new Error(error);      
       let banks=response.body
-      // console.log(JSON.parse(banks))
-      res.send(banks);
+      // sort bank
+      try{
+        const bankJson = JSON.parse(banks)
+        const parseBank = bankJson.data
+        parseBank.sort((a, b) => a.name.localeCompare(b.name)); // Replace 'name' with the property you want to sort by
+        res.send(JSON.stringify(parseBank, null, 2))
+      }catch(e){
+        console.error('Error parsing JSON:', e)
+      }
     });
   } catch (e) {
     console.log(e);

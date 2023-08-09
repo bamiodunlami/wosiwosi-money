@@ -12,7 +12,7 @@ const welcomMail =
                   <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
                       <tr>
                           <td align="center" style="padding: 40px;">
-                              <h1 style="color: #333;">Welcome to Wosiwosi Money!</h1>
+                              <h3 style="color: #333;">Welcome to Wosiwosi Money!</h3>
                               <p style="color: #666;">We're delighted to have you join our global money transfer community.</p>
                               <p style="color: #666;">At Wosiwosi Money, we're here to make your cross-border financial transactions effortless. Whether you're sending Pounds to your loved ones in West African countries or converting local currency to Pounds, we've got you covered.</p>
                               <p style="color: #666;">Our goal is to provide you with a secure, fast, and reliable money transfer experience. With competitive exchange rates and a user-friendly app, managing your international finances has never been easier.</p>
