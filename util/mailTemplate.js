@@ -48,7 +48,7 @@ const welcomMail =
                 <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
                     <tr>
                         <td align="center" style="padding: 40px;">
-                            <h1 style="color: #333;">Identity Verification Successful</h1>
+                            <h3 style="color: #333;">Identity Verification Successful</h3>
                             <p style="color: #666;">We're pleased to inform you that your identity verification has been successfully completed.</p>
                             <p style="color: #666;">You can now enjoy the full benefits of our platform and start making secure transactions. Whether you're sending money, managing your account, or exploring our services, your verified identity adds an extra layer of security to your experience.</p>
                             <p style="color: #666;">If you have any questions or need assistance, please don't hesitate to reach out to our support team. We're here to help you have a smooth and secure experience.</p>

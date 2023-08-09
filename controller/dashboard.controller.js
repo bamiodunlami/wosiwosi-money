@@ -292,6 +292,7 @@ const exchange = (req, res) => {
     if (req.isAuthenticated()) {
       //   console.log(req.body)
       let SelectedCard = req.body.cardEnding.slice(13, 16); //card selected
+      // console.log(req.body.takeAmount)
       let paymentCard, cardToken;
       let savedCard = req.user.cardDetails; //retreive user saved card
       for (let i = 0; i < savedCard.length; i++) {
