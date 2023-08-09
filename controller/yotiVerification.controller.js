@@ -5,7 +5,7 @@ const path = require("path"); //default module
 const rootPath = path.resolve(process.cwd()); //production usable for path root
 appRoot.setPath(rootPath); //set path
 
-const mailer =  require (appRoot + "/util/mailer.js")
+const mailer = require(appRoot + "/util/mailer.js");
 const mongo = require(appRoot + "/model/mongodb.js"); //mongo db and strategy module
 const User = mongo.User;
 
@@ -90,6 +90,7 @@ const StartSession = (req, res) => {
       .then((session) => {
         const sessionId = session.getSessionId();
         sessionReturn = sessionId;
+
         // save user ID
         User.updateOne(
           { username: req.user.username },
@@ -98,7 +99,7 @@ const StartSession = (req, res) => {
               "proof.sessionId": sessionReturn,
             },
           }
-        );
+        ).then((result) => console.log(result.acknowledged));
 
         const clientSessionToken = session.getClientSessionToken();
         // const clientSessionTokenTtl = session.getClientSessionTokenTtl();
@@ -136,8 +137,8 @@ const sessionResult = async (req, res) => {
         faceMatchChecks.map((check) => {
           const report = check.getReport();
           const recommendation = report.getRecommendation().getValue();
-          if(recommendation == "APPROVE"){
-            mailer.sendApprove(req.user.username)
+          if (recommendation == "APPROVE") {
+            mailer.sendApprove(req.user.username);
           }
           // save Result
           User.updateOne(

@@ -24,4 +24,13 @@ router.get('/verror', (req, res) =>{
 
 router.get('/idv', sessionResult);
 
+// router.get('/resu', async (req, res)=>{
+//     try {
+//         const sessionResult = await idvClient.getSession(sessionId);
+//         res.render('pages/success', { sessionResult });
+//       } catch (error) {
+//         res.render('pages/error', { error });
+//       }
+// })
+
 module.exports=router
