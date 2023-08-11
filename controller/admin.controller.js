@@ -21,7 +21,7 @@ const renderPage = async (req, res) => {
       await Transaction.find().then((result) => {
         // get exchange rate
         Rate.findOne({}).then((rate) => {
-          res.render("adminDash", {
+          res.render("admin/adminDash", {
             user: req.user,
             transaction: result,
             rate: rate,
@@ -36,7 +36,7 @@ const renderPage = async (req, res) => {
 
 // render login
 const adminLogin = (req, res) => {
-  res.render("adminLog", {
+  res.render("admin/adminLog", {
     message: "",
   });
 };
@@ -59,7 +59,7 @@ const register = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render("adminLog", {
+      res.render("admin/adminLog", {
         message: "Kindly wait while you are activated",
       });
     }

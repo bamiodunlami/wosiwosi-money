@@ -1,0 +1,139 @@
+<%- include("include/headerdashboard") -%>
+
+<div class="section-one">
+    <div class="container">
+        <div class="row">
+            <div class="text-center logo-container">
+                <a href="/">Logo</a>
+            </div>
+
+            <div class="col-sm-12">
+                    <% if(user.proof.faceMatchResult != "APPROVE"){%>
+                    <!-- onboarding -->
+                                    <!-------------------Onboard------------------------>
+                                    <% if(user.profile.fname==""){ %>
+
+                                        <!-- ONETIME UNBOARDING PROFILE COMPLETE -->
+                                            <h6>Step 1 of 2</h6>
+                                          <p class="alert alert-warning text-center" role="alert">Kindly complete your profile</p>
+                                        <div class="row profile-bar">
+                                            <div class="col-sm-12 ">
+                                                    <form class="row g-1">
+                                                        <div class="col-md-6 form-floating">
+                                                          <input type="text" name='fname' class="form-control forJs fname" id="floatingInput" placeholder="First Name" required>
+                                                          <label for="floatingInput" class="form-label">First Name</label>
+                                                        </div>
+                
+                                                        <div class="col-md-6 form-floating">
+                                                          <input type="text" name='lname' class="form-control forJs lname" id="floatingInput" placeholder="Last Name" required>
+                                                          <label for="lastName" class="form-label">Last Name</label>
+                                                        </div>
+                
+                                                        <div class="col-6 form-floating">
+                                                          <input type="number" name="phone" placeholder="Phone" class="form-control forJs phone" id="floatingInput" required >
+                                                          <label for="floatingInput" class="form-label">Phone</label>
+                                                        </div>
+                
+                                                        <div class="col-6 form-floating">
+                                                            <input type="date" name="dob" class="form-control forJs dob" id="floatingInput" required >
+                                                            <label for="floatingInput" class="form-label">Date of Birth</label>
+                                                          </div>
+                
+                                                        <div class="col-12 form-floating">
+                                                          <input type="text" name="address" placeholder="Address" class="form-control forJs address" id="floatingInput" required>
+                                                          <label for="floatingInput" class="form-label">Address</label>
+                                                        </div>
+                
+                                                        <div class="col-6 form-floating">
+                                                          <input type="text" name="city" placeholder="City" class="form-control forJs city" id="floatingInput" required >
+                                                          <label for="floatingInput" class="form-label">City</label>
+                                                        </div>
+                
+                                                        <div class="col-6 form-floating">
+                                                            <input type="text" name="postCode" placeholder="Post code" class="form-control forJs postcode" id="floatingInput" required >
+                                                            <label for="floatingInput" class="form-label">Post Code</label>
+                                                          </div>
+                                                          
+                                                          <div class="col-md-6 form-floating">
+                                                            <select class="form-control forJs residence" name="residence" id="floatingInput"> 
+                                                              <option>United Kingdom</option>
+                                                              <option>Nigeria</option>
+                                                            </select>
+                                                            <label for="floatingInput" class="form-label">Country of residence</label>
+                                                          </div>
+                
+                                                          <div class="col-md-6 form-floating">
+                                                            <input type="text" name="nationality" class="form-control forJs nationality" id="floatingInput" placeholder="Nationality">
+                                                            <label for="floatingInput" class="form-label">Nationality</label>
+                                                          </div>
+                                                          <button type="submit" id="save-btn" class="btn btn-success btn-md">Save</button>
+                                                        </div>
+                                                </form>
+                                            </div>
+                
+                                        <!-- Proof-->
+                                        <%}else if(user.proof.faceMatchResult!="APPROVE"){%>
+                                            <h6>Step 2 of 2</h6>
+                                            <p class="alert alert-warning text-center notice" role="alert">Kindly verify your identity, it takes just 30 seconds</p>
+                                            <div class="kyc-item-id">
+                                                  <a href="/verify" class="btn btn-success btn-md text-center">Click to verify ID</a>
+                                              </div>
+                                    <%}%>
+                                <!-- -----------------------end------------- -->
+                
+                    <%}else{%>
+                        <div>
+                            <h6 class="alert alert-success text-center">Minimum £500, maximum £15,000</h6>
+
+                            <div class="transfer-form">
+                                <form class="row g-1" method="post" action="/receive">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control receiveAmount" id="floatingInput" min="500" max="15000" required>
+                                        <label for="floatingInput" class="form-label">Amount in GBP (£)</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input class="form-control equivalent" id="floatingInput" disabled >
+                                        <label for="floatingInput" class="form-label">Equivalent in Naira (N)</label>
+                                    </div>
+                                    <h6 class="alert alert-warning receive-message" id="rate">£1 = 1180</h6>
+                                    <hr>
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingInput" required>
+                                        <label for="floatingInput" class="form-label">UK Bank name</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="floatingInput" required>
+                                        <label for="floatingInput" class="form-label">UK Bank account number</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="floatingInput" required>
+                                        <label for="floatingInput" class="form-label">Sort Code</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingInput" required>
+                                        <label for="floatingInput" class="form-label">Name on the account</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="floatingInput" required>
+                                        <label for="floatingInput" class="form-label">Transaction description</label>
+                                    </div>
+                                    <h6 class="alert alert-warning">Student school fees, kindly enter your CAS as description</h6>
+                                    <hr>
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="floatingInput" required>
+                                        <label for="floatingInput" class="form-label">Enter your BVN</label>
+                                    </div>
+                                    
+                                    <p>By using this service, you agreed to <a href="">terms</a>, and <a href="">privacy policy</a> of Wosiwosi Money</p>
+                                    <button class="btn btn-success btn-md" type="submit"> Procceed </button>
+                                </form>
+                            </div>
+                        </div>
+                    <%}%>
+            </div>
+
+        </div>
+    </div>
+</div>
+        
+<%- include("include/footerdashboard") -%>

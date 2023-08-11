@@ -1,9 +1,12 @@
 
 $(document).ready(()=>{
+    try{
    // JS for receiver page
    $("#addrec-bar").hide();
    $('#card-details-bar').hide()
    $('#card-msg').hide()
+   $('#account-msg').hide()
+   
 
        //make a  post request to server to load available banks
        fetch('/loadbank', {
@@ -24,13 +27,21 @@ $(document).ready(()=>{
 
     
    //add bank button
-   $("#rec-add-btn").on('click', ()=>{    
-       $("#addrec-bar").slideToggle()
+   $("#rec-add-btn").on('click', ()=>{  
+    if($("#rec-add-btn").text() == "Close"){
+        $("#rec-add-btn").text("Add receiver")
+    }else{
+        $("#rec-add-btn").text("Close")
+    }
+    $("#addrec-bar").slideToggle()
    });
 
 
    //confirm account button
-   $('#btn-confirm').on('click', ()=>{
+   $('#confirm-btn').on('click', ()=>{
+    $('#account-msg').text('Confirming...')
+    $('#account-msg').addClass('alert alert-light')
+    $('#account-msg').show()
     let option={
         accountNumber:$('#accountNumber').val(),
         bankCode:$("#bankName option:selected" ).val(),
@@ -45,47 +56,48 @@ $(document).ready(()=>{
         })
         .then(res => res.text())
         .then((result)=>{
+            // console.log(result)
             lookupResult=JSON.parse(result)   
             if(JSON.parse(result).status=="success"){
-                $('#acctName').val(lookupResult.data.account_name);
-                $('#acctName').css("font-weight", "600")
-                $('#acctName').css('display', "block")
-                $('#btn-addAccount').prop('disabled', false);
-                $('#acctName').css('color', "#008a1e")
-                
+                $('#account-msg').text(lookupResult.data.account_name);
+                $('#account-msg').removeClass('alert-light')
+                $('#account-msg').removeClass('alert-danger')
+                $('#account-msg').addClass('alert alert-success')
+                $('#account-msg').show()
+                $('#btn-addAccount').prop('disabled', false)
             }else{
-                $('#acctName').val("Invalid Account Details");
-                $('#acctName').css("font-weight", "600")
-                $('#acctName').css('display', "block")
-                $('#acctName').css('color', "#ff0000")
+                $('#account-msg').text("Invalid Account Details");
+                $('#account-msg').removeClass('alert-light')
+                $('#account-msg').removeClass('alert-success')
+                $('#account-msg').addClass('alert alert-danger')
+                $('#account-msg').show()
             }
         });
    });
 
     //Send Bank detials
-      $('#btn-addAccount').on('click', (e)=>{
-        e.preventDefault();
-        let details ={
-            acctNumber:$('#accountNumber').val(),
-            acctName: $('#acctName').val(),
-            bankName:$("#bankName option:selected" ).val(),
-            bankRealName:$("#bankName option:selected" ).html()
-        }
-        fetch ('/addReceiver', {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json",
-            },
-            body:JSON.stringify(details)
-        })
-        .then(response => response.json())
-        .then((result) => {
-            if(result.acknowledged == true){
-                // window.location.reload
-            } 
-        })
-       });
-
+    $('#btn-addAccount').on('click', (e)=>{
+    e.preventDefault();
+    let details ={
+        acctNumber:$('#accountNumber').val(),
+        acctName: $('#acctName').val(),
+        bankName:$("#bankName option:selected" ).val(),
+        bankRealName:$("#bankName option:selected" ).html()
+    }
+    fetch ('/addReceiver', {
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+        },
+        body:JSON.stringify(details)
+    })
+    .then(response => response.json())
+    .then((result) => {
+        if(result.acknowledged == true){
+            window.location.href="/receiver"
+        } 
+    })
+    });
 
 
     // $('#add').on('click', ()=>{
@@ -124,7 +136,12 @@ $(document).ready(()=>{
     // });
 
     //Add card
-    $('#add-card').on('click', ()=>{
+    $('#add-card').on('click', ()=>{        
+        if ($('#add-card').text() == "Close"){
+            $('#add-card').text("Add Card")
+         } else{
+                $('#add-card').text("Close")
+         }
         $('#card-details-bar').slideToggle()
     });
 
@@ -206,5 +223,7 @@ $(document).ready(()=>{
             });
         });
     }
-
+}catch(e){
+    return
+}
 });

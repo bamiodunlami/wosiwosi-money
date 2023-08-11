@@ -21,6 +21,9 @@ const main =  require (`${__dirname}/routes/main.router.js`)//main module
 const verification =  require (`${__dirname}/routes/verification.route.js`)//main module
 
 
+const receive = require (`${__dirname}/routes/receive.route.js`)
+
+
 const PORT=process.env.PORT || 3000;//enviromental variable and port settings
  
 //ask express to use session
@@ -38,6 +41,8 @@ app.use(admin);
 app.use(authentication)
 app.use(main)
 app.use(verification)
+
+app.use(receive)
 // app.use(authentication);
 
 //404

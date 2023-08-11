@@ -69,9 +69,9 @@ const updateUser = async (req, res) => {
           },
         }
       ).then((response) => {
-        if (response.acknowledged == true){
-          res.send(true)
-        } 
+        if (response.acknowledged == true) {
+          res.send(true);
+        }
         // else
       });
     } else {
@@ -98,7 +98,7 @@ const userSettings = async (req, res) => {
 const userProof = async (req, res) => {
   try {
     if (req.isAuthenticated()) {
-      res.redirect('/verify')
+      res.redirect("/verify");
     } else {
       res.redirect("/login");
     }
@@ -131,16 +131,16 @@ const banks = (req, res) => {
       },
     };
     return request(options, function (error, response) {
-      if (error) throw new Error(error);      
-      let banks=response.body
+      if (error) throw new Error(error);
+      let banks = response.body;
       // sort bank
-      try{
-        const bankJson = JSON.parse(banks)
-        const parseBank = bankJson.data
+      try {
+        const bankJson = JSON.parse(banks);
+        const parseBank = bankJson.data;
         parseBank.sort((a, b) => a.name.localeCompare(b.name)); // Replace 'name' with the property you want to sort by
-        res.send(JSON.stringify(parseBank, null, 2))
-      }catch(e){
-        console.error('Error parsing JSON:', e)
+        res.send(JSON.stringify(parseBank, null, 2));
+      } catch (e) {
+        console.error("Error parsing JSON:", e);
       }
     });
   } catch (e) {
@@ -160,7 +160,7 @@ const bankDetails = async (req, res) => {
     // console.log(response);
     res.json(response);
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     res.redirect("/");
   }
 };
@@ -262,7 +262,7 @@ const addCard = async (req, res) => {
   } else {
     res.redirect("/");
   }
-}
+};
 
 //   remove payment card
 const removeCard = async (req, res) => {
@@ -373,7 +373,7 @@ const exchange = (req, res) => {
                   res.send("false");
                 });
               } else {
-                console.log("strip charge succesful")
+                console.log("strip charge succesful");
                 // Stipe Charge was successful
                 //activate flutter to send
                 const details = {
@@ -390,7 +390,7 @@ const exchange = (req, res) => {
 
                 flw.Transfer.initiate(details) //start the Flutter transaction
                   .then((result) => {
-                    console.log(result)
+                    console.log(result);
                     if (result.status === "success") {
                       //upate user ransaction
                       const userTransactionUpdate = User.updateOne(
