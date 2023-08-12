@@ -39,6 +39,10 @@ a {
   text-decoration: none;
 }
 
+.logo{
+  width: 60px;
+  height: auto;
+}
 
 .web-nav-padding {
   padding: 20px 18%;

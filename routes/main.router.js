@@ -17,7 +17,7 @@ router.get('/', (req, res)=>{
 });
 
 // send today rate
-router.post('/callback', main);
+router.get('/callback', main);
 
 //success
 router.get('/success', (req, res)=>{
