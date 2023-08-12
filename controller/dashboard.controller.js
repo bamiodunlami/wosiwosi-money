@@ -452,6 +452,7 @@ const exchange = (req, res) => {
                         SaveTransaction.save(),
                       ]).then((results) => {
                         // console.log(results);
+                        mailer.sendFxNotification(req.user.username, "Successful", req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base, result.data.amount, req.body.receiverName )
                         res.send("true");
                       });
                     } else {
@@ -510,6 +511,7 @@ const exchange = (req, res) => {
                         userTransactionUpdate,
                         SaveTransaction.save(),
                       ]).then((results) => {
+                        mailer.sendFxNotification(req.user.username, "Failed", req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base, result.data.amount, req.body.receiverName )
                         // console.log(results);
                         res.send("false");
                       });
