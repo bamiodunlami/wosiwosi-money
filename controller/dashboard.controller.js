@@ -25,7 +25,6 @@ const date = new Date();
 // render dashboard
 const dashboard = (req, res) => {
   if (req.isAuthenticated()) {
-    console.log(req.url)
     res.render("dashboard", { user: req.user });
   } else {
     res.redirect("/login");
@@ -377,6 +376,7 @@ const exchange = (req, res) => {
                 });
               } else {
                 console.log("strip charge succesful");
+                console.log(req.protocol + '://' + req.get('host') + "/callback" + "?username=" + req.user.username + "&ref=" + req.body.ref)
                 // Stipe Charge was successful
                 //activate flutter to send
                 const details = {
@@ -386,8 +386,7 @@ const exchange = (req, res) => {
                   narration: "Wosiwosi Pay",
                   currency: req.body.takeCurrency,
                   reference: req.body.ref,
-                  // callback_url:
-                  //   "https://webhook.site/b3e505b0-fe02-430e-a538-22bbbce8ce0d",
+                  callback_url:req.protocol + '://' + req.get('host') + "/callback" + "?username=" + req.user.username + "&ref=" + req.body.ref,
                   debit_currency: req.body.takeCurrency,
                 };
 

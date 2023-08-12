@@ -6,19 +6,19 @@ const path = require ('path')
 const rootPath = path.resolve(process.cwd())
 appRoot.setPath(rootPath); //set path
 
+const main = require(appRoot + "/controller/main.controller.js");
+
 // Home route
 router.get('/', (req, res)=>{
+   console.log( req.protocol + '://' + req.get('host') + "/callback" + "?username=");
     res.render('index', {
         title: "Home",
         user:req.user
     });
 });
 
-// // send today rate
-// router.post('/rate', (req, res)=>{
-//     console.log(req.body)
-//     res.send(rate)
-// });
+// send today rate
+router.post('/callback', main);
 
 //success
 router.get('/success', (req, res)=>{
