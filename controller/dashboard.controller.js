@@ -376,7 +376,7 @@ const exchange = (req, res) => {
                 });
               } else {
                 console.log("strip charge succesful");
-                console.log(req.protocol + '://' + req.get('host') + "/callback" + "?username=" + req.user.username + "&ref=" + req.body.ref)
+                // console.log(req.protocol + '://' + req.get('host') + "/callback" + "?username=" + req.user.username + "&ref=" + req.body.ref)
                 // Stipe Charge was successful
                 //activate flutter to send
                 const details = {

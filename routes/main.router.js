@@ -10,7 +10,6 @@ const main = require(appRoot + "/controller/main.controller.js");
 
 // Home route
 router.get('/', (req, res)=>{
-   console.log( req.protocol + '://' + req.get('host') + "/callback");
     res.render('index', {
         title: "Home",
         user:req.user
@@ -18,7 +17,7 @@ router.get('/', (req, res)=>{
 });
 
 // send today rate
-router.post('/callback', main);
+router.get('/callback', main);
 
 //success
 router.get('/success', (req, res)=>{

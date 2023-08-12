@@ -9,6 +9,5 @@ const mongo = require(appRoot + "/model/mongodb.js"); //mongo db and strategy mo
 const User = mongo.User;
 
 module.exports = (req, res)=>{
-    console.log("the call back")
-    console.log(req.header.query)
+    console.log(req.query)
 }
