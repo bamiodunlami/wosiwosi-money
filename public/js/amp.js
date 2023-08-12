@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  let poundsToNaira, sendCurrency, takeCurrency, currencyPair, arithmetic;
+  let sendCurrency, takeCurrency, currencyPair, arithmetic;
   let sendAmount, takeAmount, totalAmount;
   let receiverJson, cardJson;
 
@@ -232,11 +232,13 @@ $(document).ready(() => {
       let acctName = $(".acctName");
       let acctNumber = $(".acctNumber");
       let bank = $(".bank");
+      let bankCode = $(".bankCode")
       $(receiverDetailts[i]).on("click", () => {
         receiverJson = {
           accountName: $(acctName[i]).text(),
           accountNumber: $(acctNumber[i]).text(),
           bank: $(bank[i]).text(),
+          bankCode: $(bankCode[i]).val()
         };
 
         $("#rec-bar").hide();
@@ -302,6 +304,7 @@ $(document).ready(() => {
         receiverName: receiverJson.accountName,
         accountNumber: receiverJson.accountNumber,
         bankName: receiverJson.bank,
+        bankCode:receiverJson.bankCode,
         nameOnPaymentCard: cardJson.cardName,
         cardEnding: cardJson.cardEndingNumber,
         ref: `w0s${ref}`,

@@ -290,7 +290,7 @@ const removeCard = async (req, res) => {
 const exchange = (req, res) => {
   try {
     if (req.isAuthenticated()) {
-      //   console.log(req.body)
+        console.log(req.body)
       let SelectedCard = req.body.cardEnding.slice(13, 16); //card selected
       // console.log(req.body.takeAmount)
       let paymentCard, cardToken;
@@ -377,82 +377,84 @@ const exchange = (req, res) => {
                 // Stipe Charge was successful
                 //activate flutter to send
                 const details = {
-                  account_bank: "044",
+                  account_bank: req.body.bankCode,
                   account_number: "0690000040",
                   amount: req.body.takeAmount, //amount converted to
-                  narration: "Wosiwosi Pay",
-                  currency: "NGN",
+                  narration: req.body.accountNumber,
+                  currency: req.body.takeCurrency,
                   reference: req.body.ref,
-                  callback_url:
-                    "https://webhook.site/b3e505b0-fe02-430e-a538-22bbbce8ce0d",
-                  debit_currency: "NGN",
+                  // callback_url:
+                  //   "https://webhook.site/b3e505b0-fe02-430e-a538-22bbbce8ce0d",
+                  debit_currency: req.body.takeCurrency,
                 };
 
-                flw.Transfer.initiate(details) //start the Flutter transaction
-                  .then((result) => {
-                    console.log(result);
-                    if (result.status === "success") {
-                      //upate user ransaction
-                      const userTransactionUpdate = User.updateOne(
-                        { username: req.user.username },
-                        {
-                          $push: {
-                            transaction: {
-                              date: date.toJSON().slice(0, 10),
-                              time: date.toJSON().slice(11, 15),
-                              currencyPair: req.body.currencyPair,
-                              sendCurrency: req.body.sendCurrency,
-                              sendAmount: req.body.sendAmount,
-                              takeCurrency: req.body.takeCurrency,
-                              takeAmount: req.body.takeAmount,
-                              rate: req.body.Base,
-                              paymentStatus: "£ received",
-                              sendStatus: "successful",
-                              sender: req.user.profile.fname,
-                              reciever: req.body.receiverName,
-                              receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
-                              senderAcct: req.body.cardEnding,
-                              ref: req.body.ref,
-                            },
-                          },
-                        }
-                      );
+                console.log(details)
 
-                      //update general transaction db
-                      const SaveTransaction = new Transaction({
-                        details: [
-                          {
-                            date: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
-                            time: date.getTime(),
-                            currencyPair: req.body.currencyPair,
-                            sendCurrency: req.body.sendCurrency,
-                            sendAmount: req.body.sendAmount,
-                            takeCurrency: req.body.takeCurrency,
-                            takeAmount: req.body.takeAmount,
-                            rate: req.body.Base,
-                            paymentStatus: "£ received",
-                            sendStatus: "Successful",
-                            sender: req.user.profile.fname,
-                            reciever: req.body.receiverName,
-                            receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
-                            senderAcct: req.body.cardEnding,
-                            ref: req.body.ref,
-                          },
-                        ],
-                      });
+                // flw.Transfer.initiate(details) //start the Flutter transaction
+                //   .then((result) => {
+                //     console.log(result);
+                //     if (result.status === "success") {
+                //       //upate user ransaction
+                //       const userTransactionUpdate = User.updateOne(
+                //         { username: req.user.username },
+                //         {
+                //           $push: {
+                //             transaction: {
+                //               date: date.toJSON().slice(0, 10),
+                //               time: date.toJSON().slice(11, 15),
+                //               currencyPair: req.body.currencyPair,
+                //               sendCurrency: req.body.sendCurrency,
+                //               sendAmount: req.body.sendAmount,
+                //               takeCurrency: req.body.takeCurrency,
+                //               takeAmount: req.body.takeAmount,
+                //               rate: req.body.Base,
+                //               paymentStatus: "£ received",
+                //               sendStatus: "successful",
+                //               sender: req.user.profile.fname,
+                //               reciever: req.body.receiverName,
+                //               receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
+                //               senderAcct: req.body.cardEnding,
+                //               ref: req.body.ref,
+                //             },
+                //           },
+                //         }
+                //       );
 
-                      Promise.all([
-                        userTransactionUpdate,
-                        SaveTransaction.save(),
-                      ]).then((results) => {
-                        // console.log(results);
-                        res.send("true");
-                      });
-                    } else {
-                      console.log(result.message);
-                    }
-                  })
-                  .catch(console.log);
+                //       //update general transaction db
+                //       const SaveTransaction = new Transaction({
+                //         details: [
+                //           {
+                //             date: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
+                //             time: date.getTime(),
+                //             currencyPair: req.body.currencyPair,
+                //             sendCurrency: req.body.sendCurrency,
+                //             sendAmount: req.body.sendAmount,
+                //             takeCurrency: req.body.takeCurrency,
+                //             takeAmount: req.body.takeAmount,
+                //             rate: req.body.Base,
+                //             paymentStatus: "£ received",
+                //             sendStatus: "Successful",
+                //             sender: req.user.profile.fname,
+                //             reciever: req.body.receiverName,
+                //             receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
+                //             senderAcct: req.body.cardEnding,
+                //             ref: req.body.ref,
+                //           },
+                //         ],
+                //       });
+
+                //       Promise.all([
+                //         userTransactionUpdate,
+                //         SaveTransaction.save(),
+                //       ]).then((results) => {
+                //         // console.log(results);
+                //         res.send("true");
+                //       });
+                //     } else {
+                //       console.log(result.message);
+                //     }
+                //   })
+                //   .catch(console.log);
               }
             }
           );
