@@ -6,6 +6,7 @@ appRoot.setPath(rootPath)
 const mailTemp = require (appRoot + "/util/mailTemplate.js")
 const welcomeTemp = mailTemp.welcome
 const idApproveMail = mailTemp.idApprove
+const transactionNotification = mailTemp.fxNotification
 const nodemailer = require("nodemailer");
 
 let transporter = nodemailer.createTransport({
@@ -40,7 +41,18 @@ const idApprove = (to) => {
   transporter.sendMail(mailOptions);
 };
 
+const notificationOfExchange = (to, transactionStatus, userName, id, date, sendAmount, rate, receiveAmount, receiver)=>{
+  mailOptions = {
+    from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
+    to:to,
+    subject: "Your transaction",
+    html: transactionNotification
+  }
+  transporter.sendMail(mailOptions);
+}
+
 module.exports = {
   sendWelcome: welcomeMail,
-  sendApprove: idApprove
+  sendApprove: idApprove,
+  sendFxNotification:notificationOfExchange
 };
