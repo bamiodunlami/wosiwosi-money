@@ -378,13 +378,13 @@ const exchange = (req, res) => {
                 //activate flutter to send
                 const details = {
                   account_bank: req.body.bankCode,
-                  account_number: "0690000040",
+                  account_number: req.body.accountNumber,
                   amount: req.body.takeAmount, //amount converted to
-                  narration: req.body.accountNumber,
+                  narration: "Wosiwosi Pay",
                   currency: req.body.takeCurrency,
                   reference: req.body.ref,
-                  // callback_url:
-                  //   "https://webhook.site/b3e505b0-fe02-430e-a538-22bbbce8ce0d",
+                  callback_url:
+                    "https://webhook.site/b3e505b0-fe02-430e-a538-22bbbce8ce0d",
                   debit_currency: req.body.takeCurrency,
                 };
 
