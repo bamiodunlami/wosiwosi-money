@@ -10,7 +10,7 @@ const main = require(appRoot + "/controller/main.controller.js");
 
 // Home route
 router.get('/', (req, res)=>{
-   console.log( req.protocol + '://' + req.get('host') + "/callback" + "?username=");
+   console.log( req.protocol);
     res.render('index', {
         title: "Home",
         user:req.user
