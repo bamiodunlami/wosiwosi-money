@@ -390,71 +390,71 @@ const exchange = (req, res) => {
 
                 console.log(details)
 
-                // flw.Transfer.initiate(details) //start the Flutter transaction
-                //   .then((result) => {
-                //     console.log(result);
-                //     if (result.status === "success") {
-                //       //upate user ransaction
-                //       const userTransactionUpdate = User.updateOne(
-                //         { username: req.user.username },
-                //         {
-                //           $push: {
-                //             transaction: {
-                //               date: date.toJSON().slice(0, 10),
-                //               time: date.toJSON().slice(11, 15),
-                //               currencyPair: req.body.currencyPair,
-                //               sendCurrency: req.body.sendCurrency,
-                //               sendAmount: req.body.sendAmount,
-                //               takeCurrency: req.body.takeCurrency,
-                //               takeAmount: req.body.takeAmount,
-                //               rate: req.body.Base,
-                //               paymentStatus: "£ received",
-                //               sendStatus: "successful",
-                //               sender: req.user.profile.fname,
-                //               reciever: req.body.receiverName,
-                //               receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
-                //               senderAcct: req.body.cardEnding,
-                //               ref: req.body.ref,
-                //             },
-                //           },
-                //         }
-                //       );
+                flw.Transfer.initiate(details) //start the Flutter transaction
+                  .then((result) => {
+                    console.log(result);
+                    if (result.status === "success") {
+                      //upate user ransaction
+                      const userTransactionUpdate = User.updateOne(
+                        { username: req.user.username },
+                        {
+                          $push: {
+                            transaction: {
+                              date: date.toJSON().slice(0, 10),
+                              time: date.toJSON().slice(11, 15),
+                              currencyPair: req.body.currencyPair,
+                              sendCurrency: req.body.sendCurrency,
+                              sendAmount: req.body.sendAmount,
+                              takeCurrency: req.body.takeCurrency,
+                              takeAmount: req.body.takeAmount,
+                              rate: req.body.Base,
+                              paymentStatus: "£ received",
+                              sendStatus: "successful",
+                              sender: req.user.profile.fname,
+                              reciever: req.body.receiverName,
+                              receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
+                              senderAcct: req.body.cardEnding,
+                              ref: req.body.ref,
+                            },
+                          },
+                        }
+                      );
 
-                //       //update general transaction db
-                //       const SaveTransaction = new Transaction({
-                //         details: [
-                //           {
-                //             date: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
-                //             time: date.getTime(),
-                //             currencyPair: req.body.currencyPair,
-                //             sendCurrency: req.body.sendCurrency,
-                //             sendAmount: req.body.sendAmount,
-                //             takeCurrency: req.body.takeCurrency,
-                //             takeAmount: req.body.takeAmount,
-                //             rate: req.body.Base,
-                //             paymentStatus: "£ received",
-                //             sendStatus: "Successful",
-                //             sender: req.user.profile.fname,
-                //             reciever: req.body.receiverName,
-                //             receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
-                //             senderAcct: req.body.cardEnding,
-                //             ref: req.body.ref,
-                //           },
-                //         ],
-                //       });
+                      //update general transaction db
+                      const SaveTransaction = new Transaction({
+                        details: [
+                          {
+                            date: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
+                            time: date.getTime(),
+                            currencyPair: req.body.currencyPair,
+                            sendCurrency: req.body.sendCurrency,
+                            sendAmount: req.body.sendAmount,
+                            takeCurrency: req.body.takeCurrency,
+                            takeAmount: req.body.takeAmount,
+                            rate: req.body.Base,
+                            paymentStatus: "£ received",
+                            sendStatus: "Successful",
+                            sender: req.user.profile.fname,
+                            reciever: req.body.receiverName,
+                            receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
+                            senderAcct: req.body.cardEnding,
+                            ref: req.body.ref,
+                          },
+                        ],
+                      });
 
-                //       Promise.all([
-                //         userTransactionUpdate,
-                //         SaveTransaction.save(),
-                //       ]).then((results) => {
-                //         // console.log(results);
-                //         res.send("true");
-                //       });
-                //     } else {
-                //       console.log(result.message);
-                //     }
-                //   })
-                //   .catch(console.log);
+                      Promise.all([
+                        userTransactionUpdate,
+                        SaveTransaction.save(),
+                      ]).then((results) => {
+                        // console.log(results);
+                        res.send("true");
+                      });
+                    } else {
+                      console.log(result.message);
+                    }
+                  })
+                  .catch(console.log);
               }
             }
           );
