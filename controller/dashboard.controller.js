@@ -386,7 +386,7 @@ const exchange = (req, res) => {
                   narration: "Wosiwosi Pay",
                   currency: req.body.takeCurrency,
                   reference: req.body.ref,
-                  callback_url:req.protocol + 's://' + req.get('host') + "/c" + "?u=" + req.user.username + "&r=" + req.body.ref,
+                  callback_url:req.protocol + 's://' + req.get('host') + "/c" + "?u=" + req.body.ref,
                   debit_currency: req.body.takeCurrency,
                 };
 
