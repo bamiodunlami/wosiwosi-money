@@ -1,4 +1,4 @@
-let transactionStatus, userName, id, date, sendAmount, rate, receiveAmount, receiver;
+// let transactionStatus, userName, id, date, sendAmount, rate, receiveAmount, receiver;
 
 const welcomMail = 
   `<!DOCTYPE html>
@@ -10,7 +10,7 @@ const welcomMail =
   
       <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
           <tr>
-              <td align="center">
+              <td>
                   <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
                       <tr>
                           <td align="center" style="padding: 40px;">
@@ -46,7 +46,7 @@ const welcomMail =
 
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
         <tr>
-            <td align="center">
+            <td>
                 <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
                     <tr>
                         <td align="center" style="padding: 40px;">
@@ -71,51 +71,51 @@ const welcomMail =
 
  ` 
 
- const transactionNotification =
-`<!DOCTYPE html>
-<html>
-<head>
-    <title>Transaction Successful</title>
-</head>
-<body style="font-family: Poppings, sans-serif;">
+//  const transactionNotification =
+// `<!DOCTYPE html>
+// <html>
+// <head>
+//     <title>Transaction Successful</title>
+// </head>
+// <body style="font-family: Poppings, sans-serif;">
 
-    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
-        <tr>
-            <td align="center">
-                <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
-                    <tr>
-                        <td align="center" style="padding: 40px;">
-                            <h1 style="color: #333;">Transaction ${transactionStatus}</h1>
-                            <p style="color: #666;">Hello ${userName},</p>
-                            <p style="color: #666;">Here is the details of your recent transaction.</p>
-                            <p style="color: #666;">Transaction Details:</p>
-                                <h4><strong>Transaction ID:</strong> ${id}</h4>
-                                <h4> <strong>Date:</strong> ${date} </h4>
-                                <h4> <strong>Amount:</strong> ${sendAmount} </h4> 
-                                <h4> <strong>Recipient:</strong> ${rate}</h4>
-                                <h4> <strong>Recipient:</strong> ${receiveAmount}</h4>
-                                <h4> <strong>Recipient:</strong> ${receiver}</h4>
-                            <p style="color: #666;">Thank you for choosing Wosiwosi Money for your financial transactions. If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
-                            <p style="color: #999;">Best regards,</p>
-                            <p style="color: #999;">The Wosiwosi Money Team</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" style="background-color: #f5f5f5; padding: 20px;">
-                            <p style="color: #999; font-size: 12px;">This email is a notification related to your [Your Platform Name] account. If you received this email in error, please disregard it.</p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+//     <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
+//         <tr>
+//             <td align="center">
+//                 <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
+//                     <tr>
+//                         <td align="center" style="padding: 40px;">
+//                             <h1 style="color: #333;">Transaction ${transactionStatus}</h1>
+//                             <p style="color: #666;">Hello ${userName},</p>
+//                             <p style="color: #666;">Here is the details of your recent transaction.</p>
+//                             <p style="color: #666;">Transaction Details:</p>
+//                                 <h4><strong>Transaction ID:</strong> ${id}</h4>
+//                                 <h4> <strong>Date:</strong> ${date} </h4>
+//                                 <h4> <strong>Amount:</strong> ${sendAmount} </h4> 
+//                                 <h4> <strong>Recipient:</strong> ${rate}</h4>
+//                                 <h4> <strong>Recipient:</strong> ${receiveAmount}</h4>
+//                                 <h4> <strong>Recipient:</strong> ${receiver}</h4>
+//                             <p style="color: #666;">Thank you for choosing Wosiwosi Money for your financial transactions. If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
+//                             <p style="color: #999;">Best regards,</p>
+//                             <p style="color: #999;">The Wosiwosi Money Team</p>
+//                         </td>
+//                     </tr>
+//                     <tr>
+//                         <td align="center" style="background-color: #f5f5f5; padding: 20px;">
+//                             <p style="color: #999; font-size: 12px;">This email is a notification related to your [Your Platform Name] account. If you received this email in error, please disregard it.</p>
+//                         </td>
+//                     </tr>
+//                 </table>
+//             </td>
+//         </tr>
+//     </table>
 
-</body>
-</html>
-`
+// </body>
+// </html>
+// `
 
 module.exports ={
     welcome:welcomMail,
     idApprove:idApproveMail,
-    fxNotification:transactionNotification
+    // fxNotification:transactionNotification
 }
