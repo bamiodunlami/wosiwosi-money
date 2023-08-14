@@ -9,6 +9,11 @@ a {
   color: #575757;
 }
 
+.logo{
+  width: 50px;
+  height: auto;
+}
+
 .inputs {
   font-size: 20px;
 }

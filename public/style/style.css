@@ -40,12 +40,12 @@ a {
 }
 
 .logo{
-  width: 60px;
+  width: 170px;
   height: auto;
 }
 
 .web-nav-padding {
-  padding: 20px 18%;
+  padding: 13px 18%;
 }
 
 .default-padding {
@@ -235,6 +235,11 @@ input[type="number"]::-webkit-outer-spin-button {
     text-decoration: none;
   }
 
+  .logo{
+    width: 150px;
+    height: auto;
+  } 
+
   .nav-login{
     padding-left: 0%;
   }
@@ -244,7 +249,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .web-nav-padding {
-    padding: 20px 6%;
+    padding: 13px 6%;
   }
 
   .default-padding {
