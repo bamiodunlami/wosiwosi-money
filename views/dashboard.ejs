@@ -111,6 +111,7 @@
                      <!-- select receiver -->
                      <div class="rec-main-bar " id="rec-bar">
                             <h4 class="sub-title text-center">Select Receiver</h4>
+                            <p class="alert alert-light text-center">Click on the receiver to select</p>
 
                             <div class="row rec-bar">
                             <% if (user.receiver.length==0){%>
@@ -136,7 +137,8 @@
 
                     <!-- select card option -->
                     <div class="rec-main-bar" id="pay-option">
-                    <h4 class="text-center sub-title">Payment Option</h4>
+                    <h4 class="text-center sub-title">Select Payment Option</h4>
+                    <p class="alert alert-light text-center">Click on the paryment option to select</p>
                         <div class="row rec-bar">
                             <% if (user.cardDetails.length==0){%>
                                 <div class="text-center" style="padding-bottom: 10px;">
@@ -173,7 +175,7 @@
                                         <h6 class="text-center sub-title">Receiver</h6>
                                       <h6 class="account-details">Name: <span class="account-details-value cAcctName"></span></h6>
                                       <h6 class="account-details">Account No.: <span class="account-details-value cAcctNumber"></span></h6>
-                                      <h6 class="account-details">Bank name: <span class="account-details-value cBank"></span></h6>
+                                      <h6 class="account-details">Bank: <span class="account-details-value cBank"></span></h6>
                                     </div>
                                 </div>
 
