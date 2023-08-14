@@ -18,7 +18,7 @@ const Rate = mongo.ExRate
     // })
 
   const exRate=  (req, res)=>{
-        Rate.find({})
+        Rate.findOne({})
         .then((response) =>{
             res.send(response)
         })    

@@ -18,24 +18,24 @@ $(document).ready(() => {
   try {
     // $('#accountNumber').on('focus', ()=>{
     //make a  post request to server to load available banks
-    fetch("/loadbank", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.text()) //get responses from server as a promise
-      .then((result) => {
-        //save bank names into result
-        // console.log(result)
-        let newResult = JSON.parse(result); // turn bank names to javascript object
-        let bankSelect = document.querySelector("#bankName");
-        for (let i = 0; i < newResult.length; i++) {
-          // console.log(newResult.data[i])
-          let options = `<option value="${newResult[i].code}"> ${newResult[i].name}</option>`;
-          bankSelect.innerHTML += options; //populate the option
-        }
-      });
+    // fetch("/loadbank", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // })
+    //   .then((res) => res.text()) //get responses from server as a promise
+    //   .then((result) => {
+    //     //save bank names into result
+    //     // console.log(result)
+    //     let newResult = JSON.parse(result); // turn bank names to javascript object
+    //     let bankSelect = document.querySelector("#bankName");
+    //     for (let i = 0; i < newResult.length; i++) {
+    //       // console.log(newResult.data[i])
+    //       let options = `<option value="${newResult[i].code}"> ${newResult[i].name}</option>`;
+    //       bankSelect.innerHTML += options; //populate the option
+    //     }
+    //   });
     // });
 
     //confirm account button
@@ -160,7 +160,7 @@ $(document).ready(() => {
           switch (currencyPair) {
             case "GBPtoNGN":
               // console.log(currencyPair)
-              arithmetic = result[0].GBPTONGN;
+              arithmetic = result.GBPTONGN;
               sendAmount = sendBox.val();
               totalAmount = sendAmount * arithmetic;
               takeBox.val(totalAmount.toFixed(2));
@@ -170,7 +170,7 @@ $(document).ready(() => {
 
             case "GBPtoGHS":
               // console.log(currencyPair)
-              arithmetic = result[0].GBPTOGHS;
+              arithmetic = result.GBPTOGHS;
               sendAmount = sendBox.val();
               totalAmount = sendAmount * arithmetic;
               takeBox.val(totalAmount);
@@ -179,7 +179,7 @@ $(document).ready(() => {
 
             case "GBPtoKEN":
               // console.log(currencyPair)
-              arithmetic = result[0].GBPTOKEN;
+              arithmetic = result.GBPTOKEN;
               sendAmount = sendBox.val();
               totalAmount = sendAmount * arithmetic;
               takeBox.val(totalAmount);

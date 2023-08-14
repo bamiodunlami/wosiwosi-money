@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="text-center logo-container">
-                <a href="/">Logo</a>
+              <a href="/"><img class="logo" src="images/wmi.png"></a>
             </div>
 
             <div class="col-sm-12">
@@ -84,48 +84,48 @@
                     <%}else{%>
                         <div>
                             <h6 class="alert alert-success text-center">Minimum £500, maximum £15,000</h6>
-
+                            <p><strong>Charges: £4 per £1000</strong></p>
                             <div class="transfer-form">
                                 <form class="row g-1" method="post" action="/receive">
-                                    <div class="mb-2">
-                                        <input type="number" class="form-control receiveAmount" id="floatingInput" min="500" max="15000" required>
-                                        <label for="floatingInput" class="form-label">Amount in GBP (£)</label>
+                                    <div class="mb-2 form-floating">
+                                        <input type="number" class="form-control receiveAmount" id="floatingInput" placeholder="Amount in NGN" min="500" max="15000" required>
+                                        <label for="floatingInput" class="form-label">Amount in NGN (N)</label>
                                     </div>
-                                    <div class="form-floating">
-                                        <input class="form-control equivalent" id="floatingInput" disabled >
-                                        <label for="floatingInput" class="form-label">Equivalent in Naira (N)</label>
+                                    <div class="mb-2 form-floating">
+                                        <input class="form-control equivalent" id="floatingInput" placeholder="Equivalent in GBP (£)" disabled >
+                                        <label for="floatingInput" class="form-label">Equivalent in GBP (£)</label>
                                     </div>
-                                    <h6 class="alert alert-warning receive-message" id="rate">£1 = 1180</h6>
-                                    <hr>
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingInput" required>
+                                    <h6 class="receive-message">£1 = <span id="rate"></span></h6>
+                                    <h6 class="alert alert-warning">After charges, you'll get : <strong>£<span id="total"></strong></span></h6>
+                                    <div class="mb-2 form-floating">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="UK Bank Name" required>
                                         <label for="floatingInput" class="form-label">UK Bank name</label>
                                     </div>
-                                    <div class="form-floating">
-                                        <input type="number" class="form-control" id="floatingInput" required>
+                                    <div class="mb-2 form-floating">
+                                        <input type="number" class="form-control" id="floatingInput" placeholder="UK Bank Account Number" required>
                                         <label for="floatingInput" class="form-label">UK Bank account number</label>
                                     </div>
-                                    <div class="form-floating">
-                                        <input type="number" class="form-control" id="floatingInput" required>
+                                    <div class="mb-2 form-floating">
+                                        <input type="number" class="form-control" id="floatingInput" placeholder="Sort Code" required>
                                         <label for="floatingInput" class="form-label">Sort Code</label>
                                     </div>
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingInput" required>
+                                    <div class="mb-2 form-floating">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Name On Account" required>
                                         <label for="floatingInput" class="form-label">Name on the account</label>
                                     </div>
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="floatingInput" required>
+                                    <div class="mb-2 form-floating">
+                                        <input type="text" class="form-control" id="floatingInput" placeholder="Transaction Details" required>
                                         <label for="floatingInput" class="form-label">Transaction description</label>
                                     </div>
-                                    <h6 class="alert alert-warning">Student school fees, kindly enter your CAS as description</h6>
-                                    <hr>
-                                    <div class="form-floating">
-                                        <input type="number" class="form-control" id="floatingInput" required>
-                                        <label for="floatingInput" class="form-label">Enter your BVN</label>
+                                    <h6 class="alert alert-dark">Student school fees, kindly enter your CAS as description</h6>
+                                    
+                                    <div class="mb-2 form-floating">
+                                        <input type="number" class="form-control" id="floatingInput" placeholder="Your NGN BVN" required>
+                                        <label for="floatingInput" class="form-label">Your NGN BVN</label>
                                     </div>
                                     
                                     <p>By using this service, you agreed to <a href="">terms</a>, and <a href="">privacy policy</a> of Wosiwosi Money</p>
-                                    <button class="btn btn-success btn-md" type="submit"> Procceed </button>
+                                    <button class="btn btn-success btn-md" type="submit" disabled> Procceed </button>
                                 </form>
                             </div>
                         </div>

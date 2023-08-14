@@ -42,6 +42,7 @@ const rateSchema = new mongoose.Schema({
     GBPTONGN:"string",
     GBPTOGHS:"string",
     GBPTOKEN:"string",
+    NGNTOGBP:"string"
 });
 
 //hold all transaction
@@ -59,6 +60,29 @@ const Transaction = new mongoose.model('Transaction', transactionScehma);
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+//DB Update and migration
+async function migrateUsers() {
+    try {
+  
+      const users = await ExRate.find();
+  
+      // Update each user record with the new field
+      for (let i=0; i<users.length; i++) {
+        users[i].serviceRequest = []; // Set the initial value for the new field
+        await users[i].save(); // Save the updated user record
+      }
+  
+      console.log('Data migration completed successfully.');
+      console.log(users)
+  
+      // Disconnect from MongoDB
+      await mongoose.disconnect();
+    } catch (error) {
+      console.error('Data migration failed:', error);
+    }
+  }
+//   migrateUsers();
 
 module.exports={
     mongoose:mongoose,

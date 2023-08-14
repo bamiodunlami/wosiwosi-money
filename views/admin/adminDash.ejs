@@ -93,7 +93,9 @@
                         placeholder="name@example.com"
                         value="<%=rate.GBPTONGN%>"
                       />
-                      <label for="floatingInput" class="form-label">NGN</label>
+                      <label for="floatingInput" class="form-label"
+                        >GBPTONGN</label
+                      >
                     </div>
                     <!-- ghs -->
                     <div class="mb-3 col-6 form-floating">
@@ -105,7 +107,9 @@
                         placeholder="name@example.com"
                         value="<%=rate.GBPTOGHS%>"
                       />
-                      <label for="floatingInput" class="form-label">GHS</label>
+                      <label for="floatingInput" class="form-label"
+                        >GBPTOGHS</label
+                      >
                     </div>
                     <!-- ken -->
                     <div class="mb-2 col-6 form-floating">
@@ -117,7 +121,9 @@
                         placeholder="name@example.com"
                         value="<%=rate.GBPTOKEN%>"
                       />
-                      <label for="floatingInput" class="form-label">KEN</label>
+                      <label for="floatingInput" class="form-label"
+                        >GBPTOKEN</label
+                      >
                     </div>
                     <!-- zim -->
                     <div class="mb-3 col-6 form-floating">
@@ -129,8 +135,25 @@
                         placeholder="name@example.com"
                         value="<%=rate.GBPTOZIM%>"
                       />
-                      <label for="floatingInput" class="form-label">ZIM</label>
+                      <label for="floatingInput" class="form-label"
+                        >GBPTOZIM</label
+                      >
                     </div>
+
+                    <div class="mb-3 col-6 form-floating">
+                      <input
+                        type="text"
+                        name="NGNTOGBP"
+                        class="form-control"
+                        id="floatingInput"
+                        placeholder="NGNTOGBP"
+                        value="<%=rate.NGNTOGBP%>"
+                      />
+                      <label for="floatingInput" class="form-label"
+                        >NGNTOGBP</label
+                      >
+                    </div>
+
                     <button type="submit" class="btn btn-success btn-md">
                       Update
                     </button>
@@ -155,7 +178,8 @@
                 </div>
                 <table
                   class="table table-hover table-bordered trans-table"
-                  id="trans-table">
+                  id="trans-table"
+                >
                   <thead>
                     <tr>
                       <th>Date</th>

@@ -74,6 +74,7 @@ const rate = (req, res) => {
       GBPTONGN: req.body.NGN,
       GBPTOGHS: req.body.GHS,
       GBPTOKEN: req.body.KEN,
+      NGNTOGBP: req.body.NGNTOGBP
     }).then((result) => res.redirect(req.headers.referer));
   } else {
     res.redirect("/");
