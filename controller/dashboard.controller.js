@@ -1,4 +1,5 @@
 const appRoot = require("app-root-path"); //installed via npm
+const { response } = require("express");
 const path = require("path"); //default module
 const rootPath = path.resolve(process.cwd()); //production usable for path root
 appRoot.setPath(rootPath); //set path
@@ -11,7 +12,7 @@ const stripe = require(appRoot + "/util/stripe.js"); //stripe
 
 const passport = require(appRoot + "/util/passportAuth");
 
-const mailer = require(appRoot + "/util/mailer.js")
+const mailer = require(appRoot + "/util/mailer.js");
 
 // const mailer = require (appRoot + '/api/mailer.js');
 // const sendWelcome = mailer.sendWelcome
@@ -25,7 +26,24 @@ const date = new Date();
 // render dashboard
 const dashboard = (req, res) => {
   if (req.isAuthenticated()) {
-    res.render("dashboard", { user: req.user });
+    User.findOne({ username: req.user.username }).then((result) => {
+      let transaction = result.transaction;
+      if (transaction.length > 0) {
+        let lastTransaction = transaction.length - 1;
+        let lastTransactionId = transaction[lastTransaction].flwId.toString();
+        console.log(typeof lastTransactionId);
+
+        res.render("dashboard", {
+          user: req.user,
+        });
+        // const payload = {"id": lastTransactionId}
+        // flw.Transaction.event(payload).then(response => console.log(response))
+      } else {
+        res.render("dashboard", {
+          user: req.user,
+        });
+      }
+    });
   } else {
     res.redirect("/login");
   }
@@ -386,7 +404,7 @@ const exchange = (req, res) => {
                   narration: "Wosiwosi Pay",
                   currency: req.body.takeCurrency,
                   reference: req.body.ref,
-                  callback_url:req.protocol + 's://' + req.get('host') + "/c" + "?u=" + req.body.ref,
+                  // callback_url:req.protocol + 's://' + req.get('host') + "/c" + "?u=" + req.body.ref,
                   debit_currency: req.body.takeCurrency,
                 };
 
@@ -395,6 +413,12 @@ const exchange = (req, res) => {
                 flw.Transfer.initiate(details) //start the Flutter transaction
                   .then((result) => {
                     console.log(result);
+                    iden = result.data.id.toString();
+                    const payload = { id: `${iden}` };
+                    console.log(payload);
+                    flw.Transaction.event(payload).then((response) =>
+                      console.log(response)
+                    );
                     if (result.status === "success") {
                       //upate user ransaction
                       const userTransactionUpdate = User.updateOne(
@@ -411,13 +435,13 @@ const exchange = (req, res) => {
                               takeAmount: result.data.amount,
                               rate: req.body.Base,
                               paymentStatus: "£ received",
-                              sendStatus:result.message.slice(0,15),
+                              sendStatus: result.message.slice(0, 15),
                               sender: req.user.profile.fname,
                               reciever: req.body.receiverName,
                               receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
                               senderAcct: req.body.cardEnding,
                               ref: req.body.ref,
-                              flwId: result.data.id
+                              flwId: result.data.id,
                             },
                           },
                         }
@@ -436,13 +460,13 @@ const exchange = (req, res) => {
                             takeAmount: result.data.amount,
                             rate: req.body.Base,
                             paymentStatus: "£ received",
-                            sendStatus:result.message.slice(0,15),
+                            sendStatus: result.message.slice(0, 15),
                             sender: req.user.profile.fname,
                             reciever: req.body.receiverName,
                             receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
                             senderAcct: req.body.cardEnding,
                             ref: req.body.ref,
-                            flwId: result.data.id
+                            flwId: result.data.id,
                           },
                         ],
                       });
@@ -452,7 +476,17 @@ const exchange = (req, res) => {
                         SaveTransaction.save(),
                       ]).then((results) => {
                         // console.log(results);
-                        mailer.sendFxNotification(req.user.username, "Initiated", req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base, req.body.takeCurrency+result.data.amount, req.body.receiverName )
+                        mailer.sendFxNotification(
+                          req.user.username,
+                          "Initiated",
+                          req.user.profile.fname,
+                          result.data.id,
+                          date.toJSON().slice(0, 10),
+                          req.body.sendAmount,
+                          req.body.Base,
+                          req.body.takeCurrency + result.data.amount,
+                          req.body.receiverName
+                        );
                         res.send("true");
                       });
                     } else {
@@ -471,13 +505,13 @@ const exchange = (req, res) => {
                               takeAmount: result.data.amount,
                               rate: req.body.Base,
                               paymentStatus: "£ received",
-                              sendStatus:result.message.slice(0,15),
+                              sendStatus: result.message.slice(0, 15),
                               sender: req.user.profile.fname,
                               reciever: req.body.receiverName,
                               receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
                               senderAcct: req.body.cardEnding,
                               ref: req.body.ref,
-                              flwId: result.data.id
+                              flwId: result.data.id,
                             },
                           },
                         }
@@ -496,13 +530,13 @@ const exchange = (req, res) => {
                             takeAmount: result.data.amount,
                             rate: req.body.Base,
                             paymentStatus: "£ received",
-                            sendStatus:result.message.slice(0,15),
+                            sendStatus: result.message.slice(0, 15),
                             sender: req.user.profile.fname,
                             reciever: req.body.receiverName,
                             receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
                             senderAcct: req.body.cardEnding,
                             ref: req.body.ref,
-                            flwId: result.data.id
+                            flwId: result.data.id,
                           },
                         ],
                       });
@@ -511,7 +545,17 @@ const exchange = (req, res) => {
                         userTransactionUpdate,
                         SaveTransaction.save(),
                       ]).then((results) => {
-                        mailer.sendFxNotification(req.user.username, "Failed", req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base, result.data.amount, req.body.receiverName )
+                        mailer.sendFxNotification(
+                          req.user.username,
+                          "Failed",
+                          req.user.profile.fname,
+                          result.data.id,
+                          date.toJSON().slice(0, 10),
+                          req.body.sendAmount,
+                          req.body.Base,
+                          result.data.amount,
+                          req.body.receiverName
+                        );
                         // console.log(results);
                         res.send("false");
                       });

@@ -6,14 +6,14 @@ const welcomMail =
   <head>
       <title>Welcome to Wosiwosi Money</title>
   </head>
-  <body style="font-family: Poppings, sans-serif;">
+  <body style="font-family: Poppins, sans-serif;">
   
       <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
           <tr>
               <td>
                   <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
                       <tr>
-                          <td align="center" style="padding: 40px;">
+                          <td style="padding: 40px;">
                               <h3 style="color: #333;">Welcome to Wosiwosi Money!</h3>
                               <p style="color: #666;">We're delighted to have you join our global money transfer community.</p>
                               <p style="color: #666;">At Wosiwosi Money, we're here to make your cross-border financial transactions effortless. Whether you're sending Pounds to your loved ones in West African countries or converting local currency to Pounds, we've got you covered.</p>
@@ -49,7 +49,7 @@ const welcomMail =
             <td>
                 <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
                     <tr>
-                        <td align="center" style="padding: 40px;">
+                        <td style="padding: 40px;">
                             <h3 style="color: #333;">Identity Verification Successful</h3>
                             <p style="color: #666;">We're pleased to inform you that your identity verification has been successfully completed.</p>
                             <p style="color: #666;">You can now enjoy the full benefits of our platform and start making secure transactions. Whether you're sending money, managing your account, or exploring our services, your verified identity adds an extra layer of security to your experience.</p>

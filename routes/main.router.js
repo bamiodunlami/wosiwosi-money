@@ -9,15 +9,10 @@ appRoot.setPath(rootPath); //set path
 const main = require(appRoot + "/controller/main.controller.js");
 
 // Home route
-router.get('/', (req, res)=>{
-    res.render('index', {
-        title: "Home",
-        user:req.user
-    });
-});
+router.get('/', main.home);
 
 // send today rate
-router.get('/callback', main);
+router.get('/callback', main.rate);
 
 //success
 router.get('/success', (req, res)=>{

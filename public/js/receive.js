@@ -14,7 +14,7 @@ $(document).ready(()=>{
         let balance = (receiveAmount.val() / ngnTOGbp)
         equivalent.val(balance.toFixed(2))
         // charges Cal
-        let charges = (balance * (3/100));
+        let charges = (balance/1000)*3;
         // if (balance < 99.99) charges = 2
         // if(balance < 2) charges = 0
         total.text((balance - charges).toFixed(2))
