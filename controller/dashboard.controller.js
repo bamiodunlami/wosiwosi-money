@@ -30,14 +30,14 @@ const dashboard = (req, res) => {
       let transaction = result.transaction;
       if (transaction.length > 0) {
         let lastTransaction = transaction.length - 1;
-        let lastTransactionId = transaction[lastTransaction].flwId.toString();
-        console.log(typeof lastTransactionId);
+        let lastTransactionId = JSON.stringify(transaction[lastTransaction].flwId);
+        console.log(lastTransactionId);
 
         res.render("dashboard", {
           user: req.user,
         });
-        // const payload = {"id": lastTransactionId}
-        // flw.Transaction.event(payload).then(response => console.log(response))
+        const payload = {"id": lastTransactionId}
+        flw.Transaction.verify({'id': "417079"}).then(response => console.log(response))
       } else {
         res.render("dashboard", {
           user: req.user,
@@ -413,12 +413,6 @@ const exchange = (req, res) => {
                 flw.Transfer.initiate(details) //start the Flutter transaction
                   .then((result) => {
                     console.log(result);
-                    iden = result.data.id.toString();
-                    const payload = { id: `${iden}` };
-                    console.log(payload);
-                    flw.Transaction.event(payload).then((response) =>
-                      console.log(response)
-                    );
                     if (result.status === "success") {
                       //upate user ransaction
                       const userTransactionUpdate = User.updateOne(
@@ -475,7 +469,7 @@ const exchange = (req, res) => {
                         userTransactionUpdate,
                         SaveTransaction.save(),
                       ]).then((results) => {
-                        // console.log(results);
+                        console.log(results);
                         mailer.sendFxNotification(
                           req.user.username,
                           "Initiated",

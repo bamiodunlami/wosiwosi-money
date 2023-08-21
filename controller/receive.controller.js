@@ -20,7 +20,20 @@ const receiveRequest = (req, res)=>{
     console.log(req.body)
 };
 
+const qreceive = (req, res)=>{
+        res.render('ngntogbpform', {
+            title: "Quick Receive",
+            user: req.user
+        })
+}
+
+const qreceiveRequest = (req, res)=>{
+    console.log(req.body)
+};
+
 module.exports={
     receivePage :  renderReceive,
-    request : receiveRequest
+    request : receiveRequest,
+    quickReceive:qreceive,
+    quickReceiveRequest:qreceiveRequest
 }

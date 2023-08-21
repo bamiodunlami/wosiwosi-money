@@ -12,4 +12,8 @@ const receive =  require (appRoot + '/controller/receive.controller.js')
 router.get('/receive', receive.receivePage )
 router.post('/receive', receive.request)
 
+// quick receive
+router.get('/qreceive', receive.quickReceive )
+router.post('/qreceive', receive.quickReceiveRequest)
+
 module.exports = router
