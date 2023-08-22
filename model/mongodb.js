@@ -50,12 +50,30 @@ const transactionScehma = new mongoose.Schema({
 details:[]
 });
 
+const quickReceiveSchema = mongoose.Schema({
+  fname: 'string',
+  lname: 'string',
+  address: 'string',
+  postcode: 'string',
+  phone: 'string',
+  email: 'string',
+  ukBank: 'string',
+  ukaccount: 'string',
+  sortCode: 'string',
+  nameOnAccount: 'string',
+  description: 'string',
+  bvn: 'string',
+  docLink_1:'string',
+  dockLink_2:'string'
+});
+
 
 userSchema.plugin(passportLocalMongoose)//for encrypting details
 
 const User = new mongoose.model('User', userSchema);
 const ExRate = new mongoose.model('ExRate', rateSchema);
 const Transaction = new mongoose.model('Transaction', transactionScehma);
+const QuickReceive = new mongoose.model('QuickReceive', quickReceiveSchema)
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
@@ -65,7 +83,7 @@ passport.deserializeUser(User.deserializeUser());
 async function migrateUsers() {
     try {
   
-      const users = await ExRate.find();
+      const users = await QuickReceive.find();
   
       // Update each user record with the new field
       for (let i=0; i<users.length; i++) {
@@ -82,11 +100,12 @@ async function migrateUsers() {
       console.error('Data migration failed:', error);
     }
   }
-//   migrateUsers();
+  // migrateUsers();
 
 module.exports={
     mongoose:mongoose,
     User:User,
     ExRate:ExRate,
-    Transaction:Transaction
+    Transaction:Transaction,
+    QuickReceive:QuickReceive
 }

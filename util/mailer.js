@@ -87,8 +87,109 @@ const notificationOfExchange = (to, transactionStatus, userName, id, date, sendA
   transporter.sendMail(mailOptions);
 }
 
+// quick Receive notification
+const quickReceiveNotification = (to, userName) =>{
+  option = {
+    from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
+    to:to,
+    subject: "Your NGN to GBP transfer form",
+    html:
+    `
+    <!DOCTYPE html>
+    <html>
+    <head>
+       <title>NGN to GBP Transfer form submitted</title>
+    </head>
+    <body style="font-family: Poppings, sans-serif;">
+    
+       <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
+           <tr>
+               <td>
+                   <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
+                       <tr>
+                           <td style="padding: 40px;">
+                               <h3 style="color: #333;">Dear ${userName} your NGN to GBP transfer form has been submitted</h3>
+                               <p style="color: #666;">Thank you for using this service, we will process your transfer soon.</p>
+                               <p style="color: #999;">Wosiwosi Money Team</p>
+                           </td>
+                       </tr>
+                       <tr>
+                       </tr>
+                   </table>
+               </td>
+           </tr>
+       </table>
+    
+    </body>
+    </html>
+    
+    ` 
+
+  }
+  transporter.sendMail(option)
+}
+
+
+// quick Receive notification
+const adminQuickReceiveNotification = (to, userName, fname, lname, address, postcode, phone, email, ukBank, ukAccount, ukSort, ukBankName, description, bvn,idLink) =>{
+    option = {
+    from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
+    to:to,
+    subject: "NGN TO GBP Transfer Form",
+    html:
+    `
+    <!DOCTYPE html>
+    <html>
+    <head>
+       <title>NGN to GBP Transfer form submitted</title>
+    </head>
+    <body style="font-family: Poppings, sans-serif;">
+    
+       <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
+           <tr>
+               <td>
+                   <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
+                       <tr>
+                           <td style="padding: 40px;">
+                               <h3 style="color: #333;">${userName} submitted NGN to GBP transfer form</h3>
+                               <p style="color: #666;">Here are the details filled in:</p>
+                               <p>First Name: ${fname}</p>
+                               <p>Last Name: ${lname}</p>
+                               <p>Address: ${address}</p>
+                               <p>Postcode: ${postcode}</p>
+                               <p>Phone: ${phone}</p>
+                               <p>Email: ${email}</p>
+                               <p>UK Bank: ${ukBank}</p>
+                               <p>UK Account Number: ${ukAccount}</p>
+                               <p>UK Account Sort-code: ${ukSort}</p>
+                               <p>UK Name on Bank: ${ukBankName}</p>
+                               <p>Transfer description: ${description}</p>
+                               <p>BVN: ${bvn}</p>
+                               <p>Identification Link: ${idLink}</p>
+                               <p style="color: #999;">Wosiwosi Money Team</p>
+                           </td>
+                       </tr>
+                       <tr>
+                       </tr>
+                   </table>
+               </td>
+           </tr>
+       </table>
+    
+    </body>
+    </html>
+    
+    ` 
+
+  }
+  transporter.sendMail(option)
+}
+
+
 module.exports = {
   sendWelcome: welcomeMail,
   sendApprove: idApprove,
-  sendFxNotification:notificationOfExchange
+  sendFxNotification:notificationOfExchange,
+  quickReceive:quickReceiveNotification,
+  adminQuickReceive:adminQuickReceiveNotification
 };
