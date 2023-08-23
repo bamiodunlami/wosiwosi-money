@@ -103,7 +103,7 @@ hr {
 /* table */
 .transactions{  
   margin-top: 10px;
-    overflow-x: scroll;
+    overflow: scroll;
     max-height: 800px;
     padding: 30px;
     background-color: #f9f9f9;
@@ -121,6 +121,10 @@ hr {
   border: solid 1px #d7d7d7;
 }
 
+.customer-bar{
+  overflow: scroll;
+  max-height: 400px;
+}
 
 @media (max-width: 1200px) {
   body {
