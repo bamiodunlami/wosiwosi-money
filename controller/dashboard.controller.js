@@ -33,15 +33,16 @@ const dashboard = async (req, res) => {
       if (transaction.length > 0) {
         let lastTransaction = transaction.length - 1;
         let lastTransactionId = transaction[lastTransaction].flwId;
-        // console.log(lastTransactionId)
+        console.log(lastTransactionId)
         const payload = { id: lastTransactionId.toString() };
         flw.Transfer.get_a_transfer(payload)
         .then((response) =>{
+          console.log(response)
             User.updateOne({username:req.user.username, "transaction.flwId":lastTransactionId},{
               $set: {
                 "transaction.$.sendStatus": response.status,
               },
-            })
+            }).then(resp => console.log(resp))
       });
       // ------------------------------------
         res.render("dashboard", {
