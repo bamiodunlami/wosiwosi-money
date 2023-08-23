@@ -18,24 +18,24 @@ $(document).ready(() => {
   try {
     // $('#accountNumber').on('focus', ()=>{
     //make a  post request to server to load available banks
-    // fetch("/loadbank", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // })
-    //   .then((res) => res.text()) //get responses from server as a promise
-    //   .then((result) => {
-    //     //save bank names into result
-    //     // console.log(result)
-    //     let newResult = JSON.parse(result); // turn bank names to javascript object
-    //     let bankSelect = document.querySelector("#bankName");
-    //     for (let i = 0; i < newResult.length; i++) {
-    //       // console.log(newResult.data[i])
-    //       let options = `<option value="${newResult[i].code}"> ${newResult[i].name}</option>`;
-    //       bankSelect.innerHTML += options; //populate the option
-    //     }
-    //   });
+    fetch("/loadbank", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.text()) //get responses from server as a promise
+      .then((result) => {
+        //save bank names into result
+        // console.log(result)
+        let newResult = JSON.parse(result); // turn bank names to javascript object
+        let bankSelect = document.querySelector("#bankName");
+        for (let i = 0; i < newResult.length; i++) {
+          // console.log(newResult.data[i])
+          let options = `<option value="${newResult[i].code}"> ${newResult[i].name}</option>`;
+          bankSelect.innerHTML += options; //populate the option
+        }
+      });
     // });
 
     //confirm account button
