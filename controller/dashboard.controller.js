@@ -24,20 +24,21 @@ const Transaction = mongo.Transaction;
 const date = new Date();
 
 // render dashboard
-const dashboard = (req, res) => {
+const dashboard = async (req, res) => {
   if (req.isAuthenticated()) {
-    User.findOne({ username: req.user.username }).then((result) => {
+    await User.findOne({ username: req.user.username }).then((result) => {
       let transaction = result.transaction;
       if (transaction.length > 0) {
         let lastTransaction = transaction.length - 1;
         let lastTransactionId = JSON.stringify(transaction[lastTransaction].flwId);
-        console.log(lastTransactionId);
-
+        console.log(typeof lastTransactionId + ` ${lastTransactionId}`);
+        const payload = { id: lastTransactionId };
+        flw.Transaction.verify(payload).then((response) =>
+          console.log(response)
+        );
         res.render("dashboard", {
           user: req.user,
         });
-        const payload = {"id": lastTransactionId}
-        flw.Transaction.verify({'id': "417079"}).then(response => console.log(response))
       } else {
         res.render("dashboard", {
           user: req.user,

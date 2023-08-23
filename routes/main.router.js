@@ -19,10 +19,11 @@ router.get('/success', (req, res)=>{
     res.render('success')
 })
 
-//success
+//fail
 router.get('/fail', (req, res)=>{
     res.render('fail')
 })
+
 
 //handle logout
 router.get("/logout", function (req, res) {

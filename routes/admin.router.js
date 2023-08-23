@@ -49,4 +49,7 @@ router.post('/adminreg', adminRegistration);
 //update rate
 router.post('/updaterate', updateRate )
 
+// verify transaction
+router.post('/verifyTransaction', admin.verify)
+
 module.exports=router;

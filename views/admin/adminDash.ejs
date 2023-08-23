@@ -165,7 +165,45 @@
             <div class="div-col col-6">
               <div class="customer-bar">
                 <h4 class="text-center">Customers</h4>
+                <table  class="table table-hover table-bordered trans-table" id="trans-table">
+                <thead>
+                  <tr>
+                    <th>F Name</th>
+                    <th>L Name</th>
+                    <th>Reg as</th>
+                    <th>Status</th>
+                    <th>ID proof</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <%for(let i=regUser.length-1; i>=0; i--){%>
+                  <tr>
+                    <td><%=regUser[i].profile.fname%></td>
+                    <td><%=regUser[i].profile.lname%></td>
+                    <td><%=regUser[i].regAs%></td>
+                    <td><%=regUser[i].status%></td>
+                    <td><%=regUser[i].proof.faceMatchResult%></td>
+                  </tr>
+                  <%}%>
+                </tbody>
+              </table>
               </div>
+            </div>
+          </div>
+
+          <!-- verify transaction -->
+          <div class="row transactions"> 
+            <div class="transactionVerify col-6">
+              <h6 class="text-center">Verify customer Transaction</h6>
+              <form>
+                  <div class="mb-2 form-floating">
+                    <input type="text" class="form-control tInput" name="flwId" id="floatingInput" placeholder="Transaction ID" required>
+                    <label for="floatingInput" class="form-label">Transaction ID</label>
+                  </div>
+                  <button type="submit" id="tVerify" class="btn btn-success btn-md">Verify</button>
+                  <h6 id="msg"></h6>
+              </form>
             </div>
           </div>
 
@@ -192,6 +230,7 @@
                       <th>Ref</th>
                       <th>£ Status</th>
                       <th>R Status</th>
+                      <th>flw ID</th>
                     </tr>
                   </thead>
 
@@ -208,6 +247,7 @@
                       <td><%=transaction[i].details[0].ref%></td>
                       <td><%=transaction[i].details[0].paymentStatus%></td>
                       <td><%=transaction[i].details[0].sendStatus%></td>
+                      <td><%=transaction[i].details[0].flwId%></td>
                     </tr>
                     <%}%>
                   </tbody>
@@ -227,5 +267,6 @@
       integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
       crossorigin="anonymous"
     ></script>
+    <script src="js/admin.js"></script>
   </body>
 </html>

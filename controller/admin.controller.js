@@ -10,6 +10,8 @@ const User = mongo.User;
 const Transaction = mongo.Transaction;
 const Rate = mongo.ExRate;
 
+const flw = require(appRoot + "/util/flutterWave"); //flutter module
+
 // Render admin Page
 const renderPage = async (req, res) => {
   if (req.isAuthenticated()) {
@@ -18,17 +20,16 @@ const renderPage = async (req, res) => {
       res.redirect("/adminlog");
     } else {
       // render transaction, customer and exchange rate
-      await Transaction.find().then((result) => {
-        // get exchange rate
-        Rate.findOne({}).then((rate) => {
+      const regUser = await User.find()
+      const rate= await Rate.findOne()
+      const transaction = await Transaction.find()
           res.render("admin/adminDash", {
             user: req.user,
-            transaction: result,
+            transaction: transaction,
             rate: rate,
+            regUser:regUser
           });
-        });
-      });
-    }
+      }
   } else {
     res.redirect("/adminlog");
   }
@@ -81,9 +82,24 @@ const rate = (req, res) => {
   }
 };
 
+// verify transaction
+const tVerify = (req, res) =>{
+  if(req.isAuthenticated()){
+    const payload = { id:req.body.id};
+    console.log(payload)
+    flw.Transaction.verify(payload).then((response) =>{
+      res.send(response)
+    }
+    );
+  }else{
+    res.redirect('/adminLog')
+  }
+}
+
 module.exports = {
   renderAdminPage: renderPage,
   renderAdminLogin: adminLogin,
   adminRegistration: register,
   updateRate: rate,
+  verify:tVerify
 };

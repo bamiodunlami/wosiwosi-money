@@ -94,7 +94,7 @@ hr {
 
 /* admin Account  Panel*/
 .admin-panel {
-  padding: 10% 5%;
+  padding: 3% 5%;
 }
 
 
@@ -114,7 +114,8 @@ hr {
   padding: 5px;
 }
 .exchange-bar,
-.customer-bar{
+.customer-bar,
+.transactionVerify{
   padding: 30px;
   background-color: #f9f9f9;
   border: solid 1px #d7d7d7;
