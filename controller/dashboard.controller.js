@@ -26,16 +26,24 @@ const date = new Date();
 // render dashboard
 const dashboard = async (req, res) => {
   if (req.isAuthenticated()) {
+
+  // confirm previous transaction
     await User.findOne({ username: req.user.username }).then((result) => {
       let transaction = result.transaction;
       if (transaction.length > 0) {
         let lastTransaction = transaction.length - 1;
-        let lastTransactionId = JSON.stringify(transaction[lastTransaction].flwId);
-        console.log(typeof lastTransactionId + ` ${lastTransactionId}`);
-        const payload = { id: lastTransactionId };
-        flw.Transaction.verify(payload).then((response) =>
-          console.log(response)
-        );
+        let lastTransactionId = transaction[lastTransaction].flwId;
+        // console.log(lastTransactionId)
+        const payload = { id: lastTransactionId.toString() };
+        flw.Transfer.get_a_transfer(payload)
+        .then((response) =>{
+            User.updateOne({username:req.user.username, "transaction.flwId":lastTransactionId},{
+              $set: {
+                "transaction.$.sendStatus": response.status,
+              },
+            })
+      });
+      // ------------------------------------
         res.render("dashboard", {
           user: req.user,
         });
@@ -45,6 +53,7 @@ const dashboard = async (req, res) => {
         });
       }
     });
+
   } else {
     res.redirect("/login");
   }

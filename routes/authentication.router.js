@@ -23,6 +23,10 @@ router.get('/register', (req, res)=>{
     res.render('register')
 })
 
+router.get('/forgetpass', (req, res)=>{
+    res.render('forgetpassword')
+})
+
 router.post('/register', userRegistration);
 
 module.exports=router

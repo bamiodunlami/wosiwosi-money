@@ -3,20 +3,20 @@ $(document).ready(function(){
     $("#passwordMessage").hide()//hide error label
     $("#passwordMessageTwo").hide()//hide error label
 
-    $("#login-re").on('click', ()=>{
-        $("#reset-bar").hide();   
-        $("#login-bar-main").show();    
-    })
+    // $("#login-re").on('click', ()=>{
+    //     $("#reset-bar").hide();   
+    //     $("#login-bar-main").show();    
+    // })
 
-    $("#reset").on('click', ()=>{
-        $("#login-bar-main").hide();
-        $("#reset-bar").show();
-    });
+    // $("#reset").on('click', ()=>{
+    //     $("#login-bar-main").hide();
+    //     $("#reset-bar").show();
+    // });
 
-    $("#reset-login").on('click', ()=>{
-        $("#reset-bar").hide();   
-        $("#login-bar-main").show();    
-    })
+    // $("#reset-login").on('click', ()=>{
+    //     $("#reset-bar").hide();   
+    //     $("#login-bar-main").show();    
+    // })
 
     //check password and ters 
     $("#password").on('keydown', ()=>{ 

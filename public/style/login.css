@@ -91,10 +91,6 @@ hr{
    cursor:pointer;
 }
 
-.reset-bar{
-    display: none;
-}
-
 
 
 @media (max-width:520px){
