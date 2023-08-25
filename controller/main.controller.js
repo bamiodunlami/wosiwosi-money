@@ -34,10 +34,18 @@ const term = (req, res)=>{
     })
 }
 
+const contact = (req, res)=>{
+    res.render('contact', {
+        title: "Contact",
+        user:req.user
+    })
+}
+
 
 module.exports ={
     rate:rate,
     home:home,
     privacy:privacy,
-    term:term
+    term:term,
+    contact:contact
 }

@@ -28,6 +28,8 @@ router.get('/privacy', main.privacy);
 
 router.get('/terms', main.term);
 
+router.get('/contact', main.contact);
+
 
 //handle logout
 router.get("/logout", function (req, res) {
