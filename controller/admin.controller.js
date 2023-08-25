@@ -87,7 +87,7 @@ const tVerify = (req, res) =>{
   if(req.isAuthenticated()){
     const payload = { id:req.body.id};
     console.log(payload)
-    flw.Transaction.verify(payload).then((response) =>{
+    flw.Transfer.get_a_transfer(payload).then((response) =>{
       res.send(response)
     }
     );
