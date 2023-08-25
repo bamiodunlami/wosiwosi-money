@@ -185,11 +185,58 @@ const adminQuickReceiveNotification = (to, userName, fname, lname, address, post
   transporter.sendMail(option)
 }
 
+// quick Receive notification
+const resetLink = (to, link) =>{
+    option = {
+    from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
+    to:to,
+    subject: "Password reset",
+    html:
+    `
+    <!DOCTYPE html>
+    <html>
+    <head>
+       <title>Password reset</title>
+    </head>
+    <body style="font-family: Poppings, sans-serif;">
+    
+       <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
+           <tr>
+               <td>
+                   <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
+                       <tr>
+                           <td style="padding: 40px;">
+                               <h3 style="color: #333;">You requested a password reset</h3>
+                               <p>Hello, you have requested to reset you Wosiwosi Money password.</p>
+                               <p>Click the below link to reset your password now</p>
+                               <p>${link}</p>
+                               <p>If this is not from you, kindly ignore this email.</p>
+                               <p>Cheers,</p>
+                               <p style="color: #999;">Wosiwosi Money Team</p>
+                           </td>
+                       </tr>
+                       <tr>
+                       </tr>
+                   </table>
+               </td>
+           </tr>
+       </table>
+    
+    </body>
+    </html>
+    
+    ` 
+
+  }
+  transporter.sendMail(option)
+}
+
 
 module.exports = {
   sendWelcome: welcomeMail,
   sendApprove: idApprove,
   sendFxNotification:notificationOfExchange,
   quickReceive:quickReceiveNotification,
-  adminQuickReceive:adminQuickReceiveNotification
+  adminQuickReceive:adminQuickReceiveNotification,
+  resetMail:resetLink
 };

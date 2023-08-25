@@ -34,7 +34,8 @@ const userSchema = new mongoose.Schema({
     },
     cardDetails:[],
     receiver:[],
-    transaction:[]  
+    transaction:[],
+    resetLink:"string"  
 });
 
 //rate exchange
@@ -83,7 +84,7 @@ passport.deserializeUser(User.deserializeUser());
 async function migrateUsers() {
     try {
   
-      const users = await QuickReceive.find();
+      const users = await User.find();
   
       // Update each user record with the new field
       for (let i=0; i<users.length; i++) {

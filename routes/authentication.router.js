@@ -29,4 +29,10 @@ router.get('/forgetpass', (req, res)=>{
 
 router.post('/register', userRegistration);
 
+router.post('/reset', auth.reset)
+
+router.get('/pcreset', auth.changePassword)
+
+router.post('/newpass', auth.newpass)
+
 module.exports=router

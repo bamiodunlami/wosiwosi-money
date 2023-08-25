@@ -40,6 +40,7 @@ const register = async (req, res) => {
     cardDetails: [],
     receiver: [],
     transaction: [],
+    resetLink:""
   };
   const userMail=userDetails.username
   await User.register(userDetails, req.body.password, (err) => {
@@ -53,7 +54,61 @@ const register = async (req, res) => {
   });
 };
 
+// reset password
+const resetPassword = async (req, res)=>{
+   User.findOne({username:req.body.email})
+   .then((response)=>{
+    if(response == null){
+      res.send("none")
+    }else{
+      const rands=Math.floor(Math.random()*155200000008076564000);
+      const rootLin= req.protocol + '://' + req.get('host') + "/pcreset" + "?ref=" + rands
+      User.updateOne({username:req.body.email}, {
+        $set:{
+          resetLink:rands
+        }
+      }).then((resp)=>{
+        if(resp.acknowledged == true){
+          mailer.resetMail(req.body.email, rootLin);
+          res.send("true");
+        } 
+      })
+    }
+   })
+}
+
+// change password
+const changePassword = async (req, res) =>{
+  console.log(req.query)
+  res.render('change',{
+    token:req.query.ref
+  })
+}
+
+// new pass 
+const newpass = (req, res)=>{
+  User.findOne({resetLink:req.body.ref})
+  .then((response)=>{
+    if(!response){
+      res.redirect('/register')
+    }else{
+      User.changeUserPassword(req.body.ref, req.body.pass)
+        // console.log("pass set")
+      // User.updateOne({resetLink:req.body.ref},{
+      //   $set:{
+      //     resetLink:"none"
+      //   }
+      // })
+        res.redirect('/login')
+    }
+  })
+
+}
+
 module.exports = {
   renderLoginPage: login,
   userRegistration: register,
+  reset:resetPassword,
+  changePassword:changePassword,
+  newpass:newpass
 };

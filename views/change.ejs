@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Log in</title>
+    <title>Choose Password</title>
     <link rel="icon" type="image/png" href="images/icon.png">
     <!-- bootstrap -->
     <link
@@ -25,6 +25,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
   <body>
+    
     <div class="login-bar default-padding">
       <div class="container">
         <div class="row">
@@ -32,40 +33,32 @@
             <a href="/"><img class="logo" src="images/wmi.png"></a>
           </div>
 
-          <!-- login -->
-          <div class="col-12" id="login-bar-main">
-            <h6 class="text-center">Login</h6>
+          <!-- forget password -->
+          <div class="col-12 reset-bar" id="reset-bar">
+            <h6 class="text-center">Choose new passwords</h6>
+            <!-- <p><=token%> here</p> -->
+
             <div class="login-bar-cont">
-              <div class="error-message">
-                <% if (messages.error) {%> <%= messages.error %> <% } %>
+              <form action="/newpass" method="post">
+              <div class="mb-3">                
+                <label for="exampleFormControlInput1" class="form-label" >Choose a new password</label >
+                <input type="text" class="form-control" id="pasReset" name="pass" required min="8" >
               </div>
 
-              <form method="POST" action="/login">
-                <div class="mb-3">
-                  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                  <input type="email" name="username" placeholder="youmail@mail.com" class="form-control" id=""/>
-                </div>
-                <div class="mb-3">
-                  <label for="exampleFormControlTextarea1" class="form-label">Password</label>
-                  <input  type="password" name="password" class="form-control" id="" placeholder=""/>
-                </div>
-                <div class="col-12">
-                  <button type="submit" class="btn btn-md btn-primary login" id="login"> Login </button>
-                </div>
-                <!-- <a href="/forgetpass">forget password?</a> -->
+              <input type="hidden" name="ref" value="<%=token%>">
+              <!-- <div class="mb-3">                
+                <label for="exampleFormControlInput1" class="form-label">Email address</label >
+                <input type="password" placeholder="youmail@mail.com" class="form-control" id="emailField" name="email" required >
+              </div> -->
+                <p id="passwordMessage"></p>
+                <button type="submit" class="btn btn-md btn-success reset" id="changeBtn"> Change password </button>
               </form>
             </div>
 
-            <!-- <hr> -->
-
             <div class="col text-center" style="margin-top: 10px">
-              <p>
-                don't have an account?
-                <span class="sign-action"><a href="/register">Signup</a></span>
-              </p>
+              <p>  already have an account? <a href="/login">login</p>
             </div>
           </div>
-
           <!-- end -->
         </div>
       </div>

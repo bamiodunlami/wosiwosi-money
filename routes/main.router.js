@@ -24,6 +24,10 @@ router.get('/fail', (req, res)=>{
     res.render('fail')
 })
 
+router.get('/privacy', main.privacy);
+
+router.get('/terms', main.term);
+
 
 //handle logout
 router.get("/logout", function (req, res) {
@@ -33,5 +37,6 @@ router.get("/logout", function (req, res) {
       res.redirect("/");
     });
 });
+
 
 module.exports=router

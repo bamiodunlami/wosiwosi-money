@@ -20,8 +20,24 @@ const rate = (req, res)=>{
     res.send()
 }
 
+const privacy = (req, res)=>{
+    res.render('privacy', {
+        title: "Pricacy Policy",
+        user:req.user
+    })
+}
+
+const term = (req, res)=>{
+    res.render('terms', {
+        title: "Terms of use",
+        user:req.user
+    })
+}
+
 
 module.exports ={
     rate:rate,
-    home:home
+    home:home,
+    privacy:privacy,
+    term:term
 }

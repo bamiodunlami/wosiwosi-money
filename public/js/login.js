@@ -48,4 +48,44 @@ $(document).ready(function(){
         }
     })
     
+
+    // reset password
+    const emailField = $('#emailField')
+    const resetBtn = $("#resetBtn")
+    resetBtn.on('click', (e)=>{
+        e.preventDefault()
+        const details = {
+            email:emailField.val()
+        }
+        fetch('/reset', {
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify(details)
+        }).then(response => response.text())
+        .then((result)=>{
+            if(result == "true"){
+                alert("Password reset link sent to your mail");
+            }else{
+                alert("Email does not exist");
+            }
+        })
+    })
+
+
+    // reset password check length
+        //check password and ters 
+        $("#pasReset").on('keydown', ()=>{ 
+            let password=$("#pasReset").val();
+            if(password.length <= 8){
+                $("#passwordMessage").text("Weak Password")            
+                $("#passwordMessage").show()//hide error label
+                $("#changeBtn").prop("disabled", true)
+            }
+            else{        
+                $("#passwordMessage").hide()//hide error label
+                $("#changeBtn").prop("disabled", false)
+            }
+        })
 });
