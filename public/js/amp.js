@@ -79,7 +79,7 @@ $(document).ready(() => {
       e.preventDefault();
       let details = {
         acctNumber: $("#accountNumber").val(),
-        acctName: $("#acctName").val(),
+        acctName: $("#account-msg").text(),
         bankName: $("#bankName option:selected").val(),
         bankRealName: $("#bankName option:selected").html(),
       };
