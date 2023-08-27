@@ -1,5 +1,9 @@
-/node_module
+/public/js/minified/
+node_modules/
 npm-debug.log
+yarn-error.log
 .DS_Store
 .env
+.env.local
+.env.production
 .vscode/

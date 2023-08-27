@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "minify-js": "terser ./public/js/*.js --output ./public/js/minified --compress --mangle"
   },
   "author": "Wosiwosi-bamidele",
   "license": "ISC",
@@ -28,5 +29,8 @@
     "passport-local-mongoose": "^8.0.0",
     "stripe": "^12.2.0",
     "yoti": "4.3.0"
+  },
+  "devDependencies": {
+    "terser": "^5.19.2"
   }
 }
