@@ -79,7 +79,6 @@ const resetPassword = async (req, res)=>{
 
 // change password
 const changePassword = async (req, res) =>{
-  console.log(req.query)
   res.render('change',{
     token:req.query.ref
   })
@@ -89,18 +88,12 @@ const changePassword = async (req, res) =>{
 const newpass = (req, res)=>{
   User.findOne({resetLink:req.body.ref})
   .then((response)=>{
-    if(!response){
-      res.redirect('/register')
-    }else{
-      User.changeUserPassword(req.body.ref, req.body.pass)
-        // console.log("pass set")
-      // User.updateOne({resetLink:req.body.ref},{
-      //   $set:{
-      //     resetLink:"none"
-      //   }
-      // })
-        res.redirect('/login')
-    }
+      response.setPassword(req.body.pass, (err, user)=>{
+        if(err) console.log(err)
+        user.save()
+        res.redirect('/login');
+      })
+
   })
 
 }

@@ -66,7 +66,7 @@ $(document).ready(function(){
         }).then(response => response.text())
         .then((result)=>{
             if(result == "true"){
-                alert("Password reset link sent to your mail");
+                alert("Password reset link sent to your mail, it may take up to 2min to appear on your mail.");
             }else{
                 alert("Email does not exist");
             }
