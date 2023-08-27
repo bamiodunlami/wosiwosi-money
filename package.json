@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "minify-js": "terser ../public/js/*.js --output ../public/js/minified --compress --mangle"
+    "minify-js": "terser ./public/js/*.js --output ./public/minified --compress --mangle"
   },
   "author": "Wosiwosi-bamidele",
   "license": "ISC",
