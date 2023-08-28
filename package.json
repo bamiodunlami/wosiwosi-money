@@ -29,8 +29,5 @@
     "passport-local-mongoose": "^8.0.0",
     "stripe": "^12.2.0",
     "yoti": "4.3.0"
-  },
-  "devDependencies": {
-    "terser": "^5.19.2"
   }
 }

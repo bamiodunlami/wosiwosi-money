@@ -79,6 +79,11 @@ const resetPassword = async (req, res)=>{
 
 // change password
 const changePassword = async (req, res) =>{
+  User.updateOne({resetLink:req.body.ref},{
+    $set:{
+      resetLink:""
+    }
+  })
   res.render('change',{
     token:req.query.ref
   })
