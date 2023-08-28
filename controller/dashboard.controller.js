@@ -26,7 +26,6 @@ const date = new Date();
 // render dashboard
 const dashboard = async (req, res) => {
   if (req.isAuthenticated()) {
-
   // confirm previous transaction
     await User.findOne({ username: req.user.username }).then((result) => {
       let transaction = result.transaction;
@@ -37,7 +36,6 @@ const dashboard = async (req, res) => {
         const payload = { id: lastTransactionId.toString() };
         flw.Transfer.get_a_transfer(payload)
         .then((response) =>{
-          console.log(response)
             User.updateOne({username:req.user.username, "transaction.flwId":lastTransactionId},{
               $set: {
                 "transaction.$.sendStatus": response.status,
