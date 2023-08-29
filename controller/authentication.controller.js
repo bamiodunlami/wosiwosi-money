@@ -81,7 +81,7 @@ const resetPassword = async (req, res)=>{
 const changePassword = async (req, res) =>{
   User.updateOne({resetLink:req.query.ref},{
     $set:{
-      resetLink:"none"
+      resetLink:Math.floor(Math.random()*121)
     }
   }).then(response => (console.log(response)))
   res.render('change',{
