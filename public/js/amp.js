@@ -164,7 +164,7 @@ $(document).ready(() => {
               sendAmount = sendBox.val();
               totalAmount = sendAmount * arithmetic;
               takeBox.val(totalAmount.toFixed(2));
-
+              $('#rateValue').text(`£1 = NGN ${arithmetic} (send £10 minimum)`);
               validate();
               break;
 

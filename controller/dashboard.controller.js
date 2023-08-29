@@ -36,6 +36,7 @@ const dashboard = async (req, res) => {
         const payload = { id: lastTransactionId.toString() };
         flw.Transfer.get_a_transfer(payload)
         .then((response) =>{
+          // console.log(response)
             User.updateOne({username:req.user.username, "transaction.flwId":lastTransactionId},{
               $set: {
                 "transaction.$.sendStatus": response.status,
@@ -390,6 +391,7 @@ const exchange = (req, res) => {
                       receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
                       senderAcct: req.body.cardEnding,
                       ref: req.body.ref,
+                      flwId:"00112233",
                     },
                   ],
                 });
