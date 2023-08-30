@@ -31,6 +31,10 @@ i.tool {
   font-size: 14px;
 }
 
+.showSendMessage{
+  display: none;
+}
+
 /* Start */
 .main-row {
   height: 100vh;

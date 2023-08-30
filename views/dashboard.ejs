@@ -51,15 +51,17 @@
                                 <div class="col-4 text-center second-currency-item-code-div">
                                     <select class="select" name="takeCurrency" id="takeCurrency">
                                         <option value="NGN" selected>NGN</option> 
-                                        <!-- <option value="GHS">GSH</option>
-                                        <option value="KEN">KEN</option> -->
+                                        <option value="GHS">GSH</option>
+                                        <!-- <option value="KEN">KEN</option> -->
                                         <!-- <option value="GBP">GBP</option> -->
                                         <!-- <option value="USD">USD</option> -->
                                     </select>
                             </div>
 
                             </div> 
-                            <p style="color:#868686"><span id="rateValue"><strong></strong></span></p>
+                            <h6><strong>£1 = <span id="rateValue"></span></strong></h6>
+                            <h6>Send minimum of £10</h6>
+                            <h6 class="showSendMessage" id="sendMessage">Maximum send amount exceeded, kindly contact us for this transaction <a href="/contact">here</a></h6>
                             <% if(user.status==true){ %>
                                 <div class="row">
                                     <button class="btn-send" id="btn-send" disabled> complete </button>

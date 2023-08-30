@@ -119,6 +119,8 @@ $(document).ready(() => {
       .then((result) => {
         result = JSON.parse(result);
 
+        $('#rateValue').text(`NGN ${result.GBPTONGN}`);
+
         //detect which base currency customer pics
         $("#sendCurrency").on("change", () => {
           sendCurrency = $("#sendCurrency").val();
@@ -159,12 +161,11 @@ $(document).ready(() => {
         function compute() {
           switch (currencyPair) {
             case "GBPtoNGN":
-              // console.log(currencyPair)
               arithmetic = result.GBPTONGN;
               sendAmount = sendBox.val();
               totalAmount = sendAmount * arithmetic;
               takeBox.val(totalAmount.toFixed(2));
-              $('#rateValue').text(`£1 = NGN ${arithmetic} (send £10 minimum)`);
+              $('#rateValue').text(`NGN ${arithmetic}`);
               validate();
               break;
 
@@ -174,6 +175,7 @@ $(document).ready(() => {
               sendAmount = sendBox.val();
               totalAmount = sendAmount * arithmetic;
               takeBox.val(totalAmount);
+              $('#rateValue').text(`GHS ${arithmetic}`);
               validate();
               break;
 
@@ -193,13 +195,20 @@ $(document).ready(() => {
         //check imput validation
         function validate() {
           //sendBox validation
-          if (sendBox.val() > 4.99) {
-            $("#btn-send").css("background-color", "#009933");
-            $("#btn-send").prop("disabled", false);
-          } else {
+          if (sendBox.val() > 2000.00){
             $("#btn-send").css("background-color", "#8b8b8b");
             $("#btn-send").prop("disabled", true);
+            $('#sendMessage').removeClass("showSendMessage")
           }
+          else if (sendBox.val() > 4.99) {
+            $("#btn-send").css("background-color", "#009933");
+            $("#btn-send").prop("disabled", false);
+            $('#sendMessage').addClass("showSendMessage")
+          } else if (sendBox.val() <= 4.99){
+            $("#btn-send").css("background-color", "#8b8b8b");
+            $("#btn-send").prop("disabled", true);
+            $('#sendMessage').addClass("showSendMessage")
+          } 
 
           //takeBox Validation
           // if(sendBox.val()>4.99){
