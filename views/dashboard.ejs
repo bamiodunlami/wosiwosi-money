@@ -113,7 +113,7 @@
                      <!-- select receiver -->
                      <div class="rec-main-bar " id="rec-bar">
                             <h4 class="sub-title text-center">Select Receiver</h4>
-                            <p class="alert alert-light text-center">Click on the receiver to select</p>
+                            <p class="alert alert-light text-center">Click on the receiver box to select</p>
 
                             <div class="row rec-bar">
                             <% if (user.receiver.length==0){%>
@@ -132,15 +132,15 @@
                                     </div>
                                 </div>
                          <%}}%>    
-                         <div style="margin-bottom: 5px;" > <a class="text-start" href="/receiver">Add Receiver</a></div>
+                         <div style="margin-bottom: 5px;" > <a class="text-start" href="/receiver">Add new receiver</a></div>
                          <div class="buttons"><button class="btn btn-dark btn-md" id="back">Back</button></div>
                         </div>                          
                      </div>
 
                     <!-- select card option -->
                     <div class="rec-main-bar" id="pay-option">
-                    <h4 class="text-center sub-title">Select Payment Option</h4>
-                    <p class="alert alert-light text-center">Click on the paryment option to select</p>
+                    <h4 class="text-center sub-title">Select a payment card</h4>
+                    <p class="alert alert-light text-center">Click on the card box to select card</p>
                         <div class="row rec-bar">
                             <% if (user.cardDetails.length==0){%>
                                 <div class="text-center" style="padding-bottom: 10px;">
@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                             <%}}%> 
-                            <div style="margin-bottom: 5px;" > <a class="text-start" href="/receiver">Add Receiver</a></div>
+                            <div style="margin-bottom: 5px;" > <a class="text-start" href="/receiver">Add new card</a></div>
                             <div class="buttons"><button class="btn btn-dark btn-md" id="back-again">Back</button></div>
                         </div>
                     </div>
