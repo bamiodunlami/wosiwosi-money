@@ -85,12 +85,14 @@ const rate = (req, res) => {
 // verify transaction
 const tVerify = (req, res) =>{
   if(req.isAuthenticated()){
-    const payload = { id:req.body.id};
-    console.log(payload)
-    flw.Transfer.get_a_transfer(payload).then((response) =>{
-      res.send(response)
+      const payload = { id:req.body.id};
+      if(req.body.id ==""){
+
+      }else{
+      flw.Transfer.get_a_transfer(payload).then((response) =>{
+        res.send(response)
+      });
     }
-    );
   }else{
     res.redirect('/adminLog')
   }

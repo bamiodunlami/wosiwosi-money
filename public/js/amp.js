@@ -26,6 +26,7 @@ $(document).ready(() => {
     })
       .then((res) => res.text()) //get responses from server as a promise
       .then((result) => {
+        try{
         //save bank names into result
         // console.log(result)
         let newResult = JSON.parse(result); // turn bank names to javascript object
@@ -35,6 +36,9 @@ $(document).ready(() => {
           let options = `<option value="${newResult[i].code}"> ${newResult[i].name}</option>`;
           bankSelect.innerHTML += options; //populate the option
         }
+      }catch(e){
+        // console.log(e)
+      }
       });
     // });
 
@@ -195,7 +199,7 @@ $(document).ready(() => {
         //check imput validation
         function validate() {
           //sendBox validation
-          if (sendBox.val() > 2000.00){
+          if (sendBox.val() > 100.00){
             $("#btn-send").css("background-color", "#8b8b8b");
             $("#btn-send").prop("disabled", true);
             $('#sendMessage').removeClass("showSendMessage")
