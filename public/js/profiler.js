@@ -1,6 +1,6 @@
 
-$(document).ready(()=>{    
-
+// $(document).ready(()=>{    
+try{
     editProfile();
 
     // $('#proofs').hide()
@@ -50,5 +50,5 @@ $('#save-btn').on('click', (e)=>{
         if(result =="true") window.location.reload()
     })
 })
-    
-})
+}catch(e){}
+// })

@@ -1,0 +1,1 @@
+try{let e=$(".receiveAmount"),t=$(".equivalent"),a=$("#total");fetch("/rate",{method:"GET",headers:{"Content-Type":"application/json"}}).then((e=>e.json())).then((n=>{let o=JSON.parse(n.NGNTOGBP);$("#rate").text(o),e.on("keyup",(()=>{let n=e.val()/o;t.val(n.toFixed(2));let l=n/1e3*3;a.text((n-l).toFixed(2))}))}))}catch(e){}

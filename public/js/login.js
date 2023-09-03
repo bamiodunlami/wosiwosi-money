@@ -1,5 +1,5 @@
-$(document).ready(function(){
-    
+// $(document).ready(function(){
+try{
     $("#passwordMessage").hide()//hide error label
     $("#passwordMessageTwo").hide()//hide error label
 
@@ -88,4 +88,5 @@ $(document).ready(function(){
                 $("#changeBtn").prop("disabled", false)
             }
         })
-});
+    }catch(e){}
+// });

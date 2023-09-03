@@ -1,0 +1,1 @@
+window.addEventListener("message",(function(e){if(console.log("Message received",e.data),"SUCCESS"===e.data.eventType)window.location.href="/idv";else if("ERROR"===e.data.eventType){window.location.href="/idv";e.data.eventCode}}));

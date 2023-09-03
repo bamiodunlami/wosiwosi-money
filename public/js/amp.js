@@ -1,4 +1,6 @@
-$(document).ready(() => {
+// let jq = jQuery.noConflict();
+// $(document).ready(() => {
+  try{
   let sendCurrency, takeCurrency, currencyPair, arithmetic;
   let sendAmount, takeAmount, totalAmount;
   let receiverJson, cardJson;
@@ -372,4 +374,8 @@ $(document).ready(() => {
     });
     // ::::::::::::::::::::::::::::
   } catch (err) {}
-});
+}catch(e){
+
+}
+// });
+

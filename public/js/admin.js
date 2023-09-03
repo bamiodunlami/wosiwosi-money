@@ -1,5 +1,5 @@
-$(document).ready(()=>{
-    
+// $(document).ready(()=>{
+    try{
     const verificationButton = $('#tVerify')
     const idInput = $('.tInput')
     verificationButton.on('click', (e)=>{
@@ -18,5 +18,5 @@ $(document).ready(()=>{
             alert(result.status)
         })
     })
-
-})
+}catch(e){}
+// })

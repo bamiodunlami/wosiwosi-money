@@ -1,5 +1,5 @@
 
-$(document).ready(()=>{
+// $(document).ready(()=>{
     try{
    // JS for receiver page
    $("#addrec-bar").hide();
@@ -16,13 +16,18 @@ $(document).ready(()=>{
         }, 
     })
     .then((res)=> res.text())//get responses from server as a promise
-    .then((result)=>{ //save bank names into result
+    .then((result)=>{ 
+        try{
+        //save bank names into result
         let newResult=JSON.parse(result)// turn bank names to javascript object
         let bankSelect= document.querySelector('#bankName');
         for (let i = 0; i < newResult.length; i++) {
             let options=`<option value="${newResult[i].code}"> ${newResult[i].name}</option>`
             bankSelect.innerHTML+=options//populate the option
-        }   
+        }
+     }catch(e){
+        
+     }     
     });
 
     
@@ -224,6 +229,5 @@ $(document).ready(()=>{
         });
     }
 }catch(e){
-    return
 }
-});
+// });
