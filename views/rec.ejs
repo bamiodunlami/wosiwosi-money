@@ -30,7 +30,7 @@
 
                 <!--------- Receiver bars------------>
                 <div class="col-md-10 col-sm-12 info-bar">
-                        <h4 class="sub-title text-center"> Payment References</h4>
+                        <h4 class="sub-title text-center"> Payment Methods</h4>
                           <div class="row rec-section" id="rec-section"> 
                               <% if (receiver.length ==0){%>
                                 <div class="div rec-section-bar">
@@ -38,7 +38,7 @@
                                 <!-- <p class="text-center notice">Kindly press the button to add receiver below</p> -->
                               </div>
                               <%}else{ %>
-                                <h6 class="text-center">Receivers</h6>  
+                                <h5 class="">Receiver details</h5>  
                                 <%for(let i=0; i<receiver.length; i++){%>
                                   <div class="col-md-6 " style="padding-bottom: 20px; padding-left: 0;">
                                       <div class="accoutn-details-bar" id="account-details-bar<%=i%>">
@@ -80,13 +80,13 @@
 
                         <!-- Card payment method -->
                       <div class="row rec-section" id="rec-section"> 
-                        <p class="text-center alert alert-dark" role="alert">Details 100% secured</p>
+                        <p class="text-center alert alert-light" role="alert">Details 100% secured</p>
                           <% if (card.length ==0){%>
                             <div class="div rec-section-bar">
                             <h5 class="text-center notice">No card added</h5>
                           </div>
                           <%}else{%>
-                            <h5 class="text-center" id="card">Payment Methods</h5> 
+                            <h5 class="" id="card">Payment Methods</h5> 
                             <% for(let i=0; i<card.length; i++){%>
                               <div class="col-md-6 " style="padding-bottom: 20px; padding-left: 0;">
                                   <div class="accoutn-details-bar">
@@ -114,7 +114,7 @@
 
                                       <div class="mb-2">
                                           <label>Expiration</label>
-                                          <input type="text" name="expDate" class="form-control inputs" id="expiry-date" maxlength="5" required  >
+                                          <input type="text" name="expDate" class="form-control inputs" id="expiry-date"  maxlength="5" required  >
                                       </div>
                                       
 

@@ -16,6 +16,7 @@ const login = (req, res) => {
 
 // registration
 const register = async (req, res) => {
+  // const tok=Math.floor(Math.random()*15500123801);
   const userDetails = {
     username: req.body.username,
     status: true,
@@ -40,15 +41,18 @@ const register = async (req, res) => {
     cardDetails: [],
     receiver: [],
     transaction: [],
-    resetLink:""
+    resetLink:"",
+    verifyMail:false
   };
   const userMail=userDetails.username
+  const rootLin= req.protocol + '://' + req.get('host') + "/veri" + "?ref=" + userMail
   await User.register(userDetails, req.body.password, (err) => {
     if (err) {
       console.log(err);
       res.redirect("/");
     } else {
       mailer.sendWelcome(userMail);
+      mailer.emailVerification(userMail, rootLin)
       res.redirect("/login");
     }
   });
@@ -103,10 +107,35 @@ const newpass = (req, res)=>{
   })
 }
 
+const resendVerification = (req, res)=>{
+  const rootLin= req.protocol + '://' + req.get('host') + "/veri" + "?ref=" + req.user.username
+  mailer.emailVerification(req.user.username, rootLin)
+  res.redirect('/dashboard')
+}
+
+const mailVerified = (req, res)=>{
+  email=req.query.ref
+  User.findOne({username:email})
+  .then((response) => {
+    if (!response) res.redirect('/dashboard');
+    User.updateOne({username:email},{
+      $set:{
+        verifyMail:true
+      }
+    }).then((response) => {
+        res.render('success')
+    })
+  })
+  // res.redirect('/dashboard')
+}
+
+
 module.exports = {
   renderLoginPage: login,
   userRegistration: register,
   reset:resetPassword,
   changePassword:changePassword,
-  newpass:newpass
+  newpass:newpass,
+  resendVerification:resendVerification,
+  mailVerified:mailVerified
 };

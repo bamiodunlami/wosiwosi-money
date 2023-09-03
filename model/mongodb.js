@@ -35,7 +35,8 @@ const userSchema = new mongoose.Schema({
     cardDetails:[],
     receiver:[],
     transaction:[],
-    resetLink:"string"  
+    resetLink:"string",
+    verifyMail:"boolean"
 });
 
 //rate exchange
@@ -88,12 +89,12 @@ async function migrateUsers() {
   
       // Update each user record with the new field
       for (let i=0; i<users.length; i++) {
-        users[i].serviceRequest = []; // Set the initial value for the new field
+        users[i].verifyMail = false; // Set the initial value for the new field
         await users[i].save(); // Save the updated user record
       }
   
       console.log('Data migration completed successfully.');
-      console.log(users)
+      console.log(users);
   
       // Disconnect from MongoDB
       await mongoose.disconnect();

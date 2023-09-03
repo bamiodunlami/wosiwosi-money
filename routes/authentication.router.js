@@ -35,4 +35,8 @@ router.get('/pcreset', auth.changePassword)
 
 router.post('/newpass', auth.newpass)
 
+router.get('/resendVerification', auth.resendVerification)
+
+router.get('/veri', auth.mailVerified)
+
 module.exports=router

@@ -266,7 +266,7 @@ const addCard = async (req, res) => {
       (err, customer) => {
         if (err) {
           // if there's  error in adding card
-          console.log(err.message);
+          // console.log(err.message);
           res.send(false);
         } else {
           // if ther's no error in adding card

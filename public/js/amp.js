@@ -112,6 +112,35 @@ $(document).ready(() => {
       }
     });
 
+    //card Details
+  $('#btn-addCard').on('click', (e)=>{
+    e.preventDefault();
+    let details ={
+        cardName:$('#nameOnCard').val(),
+        cardNumber: $('#cc-number').val(),
+        expDate:$("#expiry-date" ).val(),
+        cvv:$("#cvv").val()
+    }
+    fetch ('/addCard', {
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+        },
+        body:JSON.stringify(details)
+    })
+    .then(response => response.text())
+    .then((result) => {
+        if(result == "false"){
+            $('#card-msg').show()
+            $('#card-msg').text("Card Details incorrect")
+        }
+        else{
+            window.location.reload()
+        }
+    })
+  });
+    
+
     // EXCHANGE MONEY
     fetch("/rate", {
       method: "GET",
@@ -223,7 +252,7 @@ $(document).ready(() => {
           //     $('#btn-send').prop('disabled', true);
           // }
         }
-      });
+    });
 
     //get reciver option
     $("#btn-send").on("click", () => {

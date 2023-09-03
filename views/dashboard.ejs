@@ -17,6 +17,9 @@
                     <!--EXCHANGE BAR -->
                     <div class="row exchange-main-bar" id="exchange-bar">
                     <h4 class="sub-title text-center">Transfer details</h4>
+                    <% if(user.verifyMail == false){%>
+                        <p class="text-center alert alert-warning">Check your mail inbox for email verification, or <a href="/resendVerification">resend</a></p>
+                    <%}%>
                     <div class="col-sm-12 col-md-12 exchange-bar">
                         <div class=" row first-currency-item">
                                 <div class="col-5 first-currency-item-div text-start">
@@ -59,10 +62,15 @@
                             </div>
 
                             </div> 
-                            <h6><strong>£1 = <span id="rateValue"></span></strong></h6>
+                            <h6 class="alert alert-success"><strong>£1 = <span id="rateValue"></span></strong></h6>
+                            <h6><strong>£0.00 transfer fee</strong></h6>
                             <h6>Send minimum of £10</h6>
                             <h6 class="showSendMessage" id="sendMessage">Maximum send amount exceeded, kindly contact us for this transaction <a href="/contact">here</a></h6>
-                            <% if(user.status==true){ %>
+                            <%if(user.verifyMail==false){ %>
+                                <div class="row">
+                                    <button class="btn btn-secondary" disabled>Pending Vefification</button>
+                                </div>
+                            <% }else if(user.status==true){ %>
                                 <div class="row">
                                     <button class="btn-send" id="btn-send" disabled> complete </button>
                                 </div>

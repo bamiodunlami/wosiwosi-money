@@ -89,7 +89,7 @@
                         <%}else if(user.cardDetails.length==0){%>
                             <h6>Step 3 of 4</h6>
                             <p class="alert alert-warning text-center" role="alert">Add a payment method</p>
-                            <p class="alert alert-light">The account from which money is sent</p>
+                            <p class="alert alert-light">The account from which money is transfered</p>
                             <div class="col-md-12 rec-form-bar" id="addrec-bar">
                                 <div class="col-md-12" id="card-details-bar">
                                     <form method="POST" action="/addCard" >
@@ -105,7 +105,7 @@
 
                                     <div class="mb-3">
                                         <label>Expiration</label>
-                                        <input type="text" name="expDate" class="form-control inputs" id="expiry-date" maxlength="5" required placeholder="MM/YY" >
+                                        <input type="text" name="expDate" class="form-control inputs" id="expiry-date" maxlength="5" required >
                                     </div>
                                     
 
@@ -113,12 +113,11 @@
                                       <label>CVV</label>
                                       <input type="text" name="cvv" class="form-control inputs" id="cvv" maxlength="3"  required >
                                   </div>
-
+                                  <h6 id="card-msg" class="alert alert-danger" role="alert"></h6>
                                     <div class="mb-3">
                                       <button type="submit" class="btn btn-outline-success btn-sm" id="btn-addCard">Add card</button>
                                     </div>
                               </form>
-                              <h5 id="card-msg" class="alert alert-danger" role="alert"></h5>
                             </div>
                             </div>
 
