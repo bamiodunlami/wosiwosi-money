@@ -316,7 +316,7 @@ const removeCard = async (req, res) => {
 const exchange = (req, res) => {
   try {
     if (req.isAuthenticated()) {
-      console.log(req.body);
+      // console.log(req.body);
       let SelectedCard = req.body.cardEnding.slice(12, 16); //card selected
       // console.log(req.body.takeAmount)
       let paymentCard, cardToken;
@@ -324,7 +324,7 @@ const exchange = (req, res) => {
       for (let i = 0; i < savedCard.length; i++) {
         paymentCard = savedCard[i].cardNumberEnding; //select the card user choose
         cardToken = savedCard[i].customerOwner; //select the user stripe token
-        console.log("correct card", SelectedCard, paymentCard)
+        // console.log("correct card", SelectedCard, paymentCard)
         if (paymentCard == SelectedCard) {
           
           cardToken = cardToken; //save token to token
@@ -340,7 +340,7 @@ const exchange = (req, res) => {
             function (err, charge) {
               if (err) {
                 // transaction fail
-                console.error(err.message);
+                // console.error(err.message);
                 console.log("Stripe fail");
 
                 //upate user transaction
@@ -364,6 +364,7 @@ const exchange = (req, res) => {
                         receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
                         senderAcct: req.body.cardEnding,
                         ref: req.body.ref,
+                        flwId: "00112233",
                       },
                     },
                   }
@@ -398,7 +399,7 @@ const exchange = (req, res) => {
                   userTransactionUpdate,
                   SaveTransaction.save(),
                 ]).then((results) => {
-                  res.send("false");
+                  res.send(false);
                 });
               } else {
                 console.log("strip charge succesful");
@@ -420,7 +421,7 @@ const exchange = (req, res) => {
 
                 flw.Transfer.initiate(details) //start the Flutter transaction
                   .then((result) => {
-                    console.log(result);
+                    // console.log(result);
                     if (result.status === "success") {
                       //upate user ransaction
                       const userTransactionUpdate = User.updateOne(
@@ -489,7 +490,7 @@ const exchange = (req, res) => {
                           req.body.takeCurrency + result.data.amount,
                           req.body.receiverName
                         );
-                        res.send("true");
+                        res.send(true);
                       });
                     } else {
                       // console.log(result.message);
@@ -559,7 +560,7 @@ const exchange = (req, res) => {
                           req.body.receiverName
                         );
                         // console.log(results);
-                        res.send("false");
+                        res.send(false);
                       });
                     }
                   })
