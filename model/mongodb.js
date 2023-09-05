@@ -36,7 +36,8 @@ const userSchema = new mongoose.Schema({
     receiver:[],
     transaction:[],
     resetLink:"string",
-    verifyMail:"boolean"
+    verifyMail:"boolean",
+    referalCode:"string"
 });
 
 //rate exchange

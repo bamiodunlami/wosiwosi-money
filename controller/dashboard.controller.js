@@ -334,7 +334,7 @@ const exchange = (req, res) => {
             {
               amount: req.body.sendAmount, // Charge amount in cents
               currency: req.body.sendCurrency, //Currency
-              description: "Wosiwosi Pay", //description
+              description: "Wosiwosi", //description
               customer: cardToken,
             },
             function (err, charge) {
@@ -410,7 +410,7 @@ const exchange = (req, res) => {
                   account_bank: req.body.bankCode,
                   account_number: req.body.accountNumber,
                   amount: req.body.takeAmount, //amount converted to
-                  narration: "Wosiwosi Pay",
+                  narration: "Wosiwosi",
                   currency: req.body.takeCurrency,
                   reference: req.body.ref,
                   // callback_url:req.protocol + 's://' + req.get('host') + "/c" + "?u=" + req.body.ref,

@@ -16,7 +16,13 @@
 
                     <!--EXCHANGE BAR -->
                     <div class="row exchange-main-bar" id="exchange-bar">
-                    <h4 class="sub-title text-center">Transfer details</h4>
+                        
+                    <!-- <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                        <h6 class="text-center">Get £3 on referal, code is Bami77 </h6>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div> -->
+
+
                     <% if(user.verifyMail == false){%>
                         <p class="text-center alert alert-warning">Check your mail inbox for email verification, or <a href="/resendVerification">resend</a></p>
                     <%}%>
@@ -62,10 +68,22 @@
                             </div>
 
                             </div> 
-                            <h6 class="alert alert-light">Ghana, Uganda and Kenya coming soon</h6>
-                            <h6 class="alert alert-success"><strong>£1 = <span id="rateValue"></span></strong></h6>
-                            <h6><strong>£0.00 transfer fee</strong></h6>
-                            <h6>Send minimum of £10</h6>
+                            <h6>£10 minimum allowed</h6>
+                            <!-- <h6 class="alert alert-light">Ghana, Uganda and Kenya coming soon</h6> -->
+                            <h6 class="alert alert-success"><strong>£1 = <span id="rateValue"></span></strong> | £0.00 FX fee</h6>
+                            <!-- <h6><strong>£0.00 transfer fee</strong></h6> -->
+
+                            <div  class="promo row">
+                                <div class="col-8">
+                                    <div class="mb-2">
+                                        <input class="form-control" placeholder="Enter promo code">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-success btn-sm">Apply</button>
+                                </div>
+                            </div>
+
                             <h6 class="showSendMessage" id="sendMessage">Maximum send amount exceeded, kindly contact us for this transaction <a href="/contact">here</a></h6>
                             <%if(user.verifyMail==false){ %>
                                 <div class="row">
