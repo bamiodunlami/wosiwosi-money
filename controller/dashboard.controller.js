@@ -316,16 +316,17 @@ const removeCard = async (req, res) => {
 const exchange = (req, res) => {
   try {
     if (req.isAuthenticated()) {
-      // console.log(req.body);
-      let SelectedCard = req.body.cardEnding.slice(13, 16); //card selected
+      console.log(req.body);
+      let SelectedCard = req.body.cardEnding.slice(12, 16); //card selected
       // console.log(req.body.takeAmount)
       let paymentCard, cardToken;
       let savedCard = req.user.cardDetails; //retreive user saved card
       for (let i = 0; i < savedCard.length; i++) {
         paymentCard = savedCard[i].cardNumberEnding; //select the card user choose
         cardToken = savedCard[i].customerOwner; //select the user stripe token
-
+        console.log("correct card", SelectedCard, paymentCard)
         if (paymentCard == SelectedCard) {
+          
           cardToken = cardToken; //save token to token
 
           //stipe charge customer
