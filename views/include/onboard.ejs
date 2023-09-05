@@ -2,7 +2,7 @@
                     <% if(user.profile.fname==""){ %>
 
                         <!-- ONETIME UNBOARDING PROFILE COMPLETE -->
-                            <h6>Step 1 of 4</h6>
+                            <h6>Step 1 of 3</h6>
                           <p class="alert alert-warning text-center" role="alert">Kindly complete your profile</p>
                         <div class="row profile-bar">
                             <div class="col-sm-12 ">
@@ -61,7 +61,7 @@
 
                          <!-- RECEIVER UNBOARDING -->
                          <%}else if(user.receiver.length==0){%>
-                            <h6>Step 2 of 4</h6>
+                            <h6>Step 2 of 3</h6>
                             <p class="alert alert-warning text-center" role="alert">Kindly add receiver details </p>
                             <p class="alert alert-light">Account that receives money</p>
                             <div class="col-md-12 rec-form-bar" id="addrec-bar">
@@ -87,7 +87,7 @@
 
                         <!-- ADD PAYMENT CARD UNBORADING -->
                         <%}else if(user.cardDetails.length==0){%>
-                            <h6>Step 3 of 4</h6>
+                            <h6>Step 3 of 3</h6>
                             <p class="alert alert-warning text-center" role="alert">Add a payment method</p>
                             <p class="alert alert-light"><i class="fa-solid fa-lock fa-sm"></i>Details 100% safe and secured</p>
                         <div class="col-md-12 rec-form-bar" id="addrec-bar">
@@ -108,11 +108,13 @@
                              </div>
                        </div>
 
-                        <%}else if(user.proof.faceMatchResult!="APPROVE"){%>
+                        <%}%>
+                        
+                        <!-- else if(user.proof.faceMatchResult!="APPROVE"){
                             <h6>Step 4 of 4</h6>
                             <p class="alert alert-warning text-center notice" role="alert">Kindly verify your identity, it takes just 30 seconds</p>
                             <div class="kyc-item-id">
                                   <a href="/verify" class="btn btn-success btn-md text-center">Click to verify ID</a>
                               </div>
-                    <%}%>
+                    } -->
                 <!-- -----------------------end------------- -->
