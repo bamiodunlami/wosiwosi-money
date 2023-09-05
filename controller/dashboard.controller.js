@@ -340,7 +340,7 @@ const exchange = (req, res) => {
             function (err, charge) {
               if (err) {
                 // transaction fail
-                // console.error(err.message);
+                console.error(err.message);
                 console.log("Stripe fail");
 
                 //upate user transaction
