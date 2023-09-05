@@ -248,6 +248,16 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 0;
 }
 
+/* .cardForm{
+  padding: 20px;
+  border: solid 1px #000; */
+/* } */
+.cardForm{
+  padding: 10px;
+  background-color: #efefef;
+  margin: 10px 0;
+}
+
 /* ---------Profile Page------- */
 .profile-bar {
   background-color: #f7f7f7;

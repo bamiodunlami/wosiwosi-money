@@ -17,6 +17,7 @@
     <link href="style/dash.css" rel="stylesheet">
     <!-- Jquaery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://js.stripe.com/v3/"></script>
   </head>
   <body>
 
@@ -38,7 +39,7 @@
                                 <!-- <p class="text-center notice">Kindly press the button to add receiver below</p> -->
                               </div>
                               <%}else{ %>
-                                <h5 class="">Receiver details</h5>  
+                                <h6 class="">Receiver's Bank Details</h6>  
                                 <%for(let i=0; i<receiver.length; i++){%>
                                   <div class="col-md-6 " style="padding-bottom: 20px; padding-left: 0;">
                                       <div class="accoutn-details-bar" id="account-details-bar<%=i%>">
@@ -80,7 +81,7 @@
 
                         <!-- Card payment method -->
                       <div class="row rec-section" id="rec-section"> 
-                        <p class="text-center alert alert-light" role="alert">Details 100% secured</p>
+                        <p class="text-center alert alert-warning" role="alert"><i class="fa-solid fa-lock fa-sm"></i>Details 100% safe and secured</p>
                           <% if (card.length ==0){%>
                             <div class="div rec-section-bar">
                             <h5 class="text-center notice">No card added</h5>
@@ -91,7 +92,7 @@
                               <div class="col-md-6 " style="padding-bottom: 20px; padding-left: 0;">
                                   <div class="accoutn-details-bar">
                                     <h6 class="account-details"><span class="account-details-value" id="cardName<%=i%>"><%=card[i].cardOwner%></span></h6>
-                                    <p class="account-details"><span class="account-details-value" id="cardDigit<%=i%>">xxxxxxxxxxxxx<%=card[i].cardNumberEnding%></span></p>
+                                    <p class="account-details"><span class="account-details-value" id="cardDigit<%=i%>">************<%=card[i].cardNumberEnding%></span></p>
                                     <button class="btn btn-danger btn-sm removeCard">Remove</button>
                                   </div>
                               </div>
@@ -100,36 +101,23 @@
                     <!-- add another card -->
                     
                         <div class="col-md-12 rec-form-bar" id="addrec-bar">
-                                  <div class="col-md-12" id="card-details-bar">
-                                      <form method="POST" action="/addCard" >
-                                      <div class="mb-2">
-                                        <label>Name on card</label>
-                                        <input type="text" name='cardName' class="form-control inputs" id="nameOnCard" required>
-                                      </div>
-
-                                      <div class="mb-2">
-                                        <label>Card number</label>
-                                        <input type="text" name="cardNumber" class="form-control inputs" id="cc-number" maxlength="16" required >
-                                      </div>
-
-                                      <div class="mb-2">
-                                          <label>Expiration</label>
-                                          <input type="text" name="expDate" class="form-control inputs" id="expiry-date"  maxlength="5" required  >
-                                      </div>
-                                      
-
-                                      <div class="mb-2">
-                                        <label>CVV</label>
-                                        <input type="text" name="cvv" class="form-control inputs" id="cvv" maxlength="3" required >
+                               <div class="col-md-12" id="card-details-bar">
+                                <form id="payment-form">
+                                  <div class="form-group">
+                                    <!-- <label for="card-element">Credit or debit card</label> -->
+                                    <div class="cardForm" id="card-element">
+                                      <!-- A Stripe Element will be inserted here. -->
                                     </div>
-
-                                      <div class="mb-2">
-                                        <button type="submit" class="btn btn-success btn-md" id="btn-addCard">Add</button>
-                                      </div>
+                                
+                                    <!-- Used to display form errors. -->
+                                    <div id="card-errors" role="alert"></div>
+                                  </div>
+                                  <h6 class="card-msg alert alert-danger" role="alert"></h6>
+                                  <button type="submit" class="btn btn-success btn-md">Add Card</button>
                                 </form>
                               </div>
                         </div>
-                          <h6 id="card-msg" class="alert alert-danger" role="alert"></h6>
+
                         <div class="add-rec-btn"><button id="add-card" class="btn btn-outline-dark btn-sm">Click to add card</button></div>
                   </div>
                   
@@ -142,7 +130,9 @@
     <!-- ---------------------------------------------------- -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="min/receiver.js" type="application/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>   
+    <script src="min/receiver.js" type="application/javascript"></script> 
+    <script src="min/stripe.js"></script>
+
 </body>
 </html>

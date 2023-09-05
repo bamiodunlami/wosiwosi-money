@@ -45,6 +45,10 @@ app.use(verification)
 app.use(receive)
 // app.use(authentication);
 
+app.get('/stripe', (req, res)=>{
+  res.render('stripe')
+})
+
 //404
 app.use((req, res)=>{
   res.redirect('/');

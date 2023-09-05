@@ -1,2 +1,2 @@
-const stripe = require ('stripe')(process.env.STRIPE_TEST);
+const stripe = require ('stripe')(process.env.WOSIWOSI_STRIPE_KEY);
 module.exports=stripe

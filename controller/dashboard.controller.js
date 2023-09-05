@@ -26,7 +26,7 @@ const date = new Date();
 // render dashboard
 const dashboard = async (req, res) => {
   if (req.isAuthenticated()) {
-  // confirm previous transaction
+    // confirm previous transaction
     await User.findOne({ username: req.user.username }).then((result) => {
       let transaction = result.transaction;
       if (transaction.length > 0) {
@@ -34,16 +34,21 @@ const dashboard = async (req, res) => {
         let lastTransactionId = transaction[lastTransaction].flwId;
         // console.log(lastTransactionId)
         const payload = { id: lastTransactionId.toString() };
-        flw.Transfer.get_a_transfer(payload)
-        .then((response) =>{
+        flw.Transfer.get_a_transfer(payload).then((response) => {
           // console.log(response)
-            User.updateOne({username:req.user.username, "transaction.flwId":lastTransactionId},{
+          User.updateOne(
+            {
+              username: req.user.username,
+              "transaction.flwId": lastTransactionId,
+            },
+            {
               $set: {
                 "transaction.$.sendStatus": response.status,
               },
-            }).then(resp => {})
-      });
-      // ------------------------------------
+            }
+          ).then((resp) => {});
+        });
+        // ------------------------------------
         res.render("dashboard", {
           user: req.user,
         });
@@ -53,7 +58,6 @@ const dashboard = async (req, res) => {
         });
       }
     });
-
   } else {
     res.redirect("/login");
   }
@@ -249,46 +253,36 @@ const removeReceiverDetails = async (req, res) => {
 // add payment card
 const addCard = async (req, res) => {
   if (req.isAuthenticated()) {
-    const cardInfo = {
-      object: "card",
-      number: req.body.cardNumber, // Card number
-      exp_month: req.body.expDate.slice(0, 2), // Expiration month (2-digit)
-      exp_year: req.body.expDate.slice(3, 5), // Expiration year (4-digit)
-      cvc: req.body.cvv, // CVC code
-    };
+    const customerToken = req.body;
+    // console.log(customerToken);
 
-    await stripe.customers.create(
-      {
+    await stripe.customers
+      .create({
         name: req.body.cardName,
         email: req.user.username,
-        source: cardInfo,
-      },
-      (err, customer) => {
-        if (err) {
-          // if there's  error in adding card
-          // console.log(err.message);
-          res.send(false);
-        } else {
-          // if ther's no error in adding card
-          infoToSave = {
-            cardNumberEnding: req.body.cardNumber.slice(13, 16),
-            cardOwner: req.body.cardName,
-            customerOwner: customer.id,
-          };
+        source: customerToken.id,
+      })
+      .then((customer) => {
+        infoToSave = {
+          cardNumberEnding: customerToken.card.last4,
+          cardOwner: `${req.user.profile.fname} ${req.user.profile.lname}`,
+          customerOwner: customer.id,
+        };
 
-          User.updateOne(
-            { username: req.user.username },
-            {
-              $push: {
-                cardDetails: infoToSave,
-              },
-            }
-          ).then((response) => {
-            res.redirect(req.headers.referer);
-          });
-        }
-      }
-    );
+        User.updateOne(
+          { username: req.user.username },{
+            $push: {
+              cardDetails: infoToSave,
+            },
+          }).then((response) => {
+          // console.log("Customer created with payment method:", customer);
+          res.send(true);
+        });
+      })
+      .catch((error) => {
+        res.send(false);
+        // console.error("Error creating customer:", error);
+      });
   } else {
     res.redirect("/");
   }
@@ -296,23 +290,25 @@ const addCard = async (req, res) => {
 
 //   remove payment card
 const removeCard = async (req, res) => {
-  try {
-    const cardValue = {};
-    await User.updateOne(
-      { username: req.user.username },
-      {
-        $pull: {
-          cardDetails: {
-            cardNumberEnding: req.body.cardLastDigit,
-            cardOwner: req.body.nameOnCard,
+  if (req.isAuthenticated()) {
+    try {
+      const cardValue = {};
+      await User.updateOne(
+        { username: req.user.username }, {
+          $pull: {
+            cardDetails: {
+              cardNumberEnding: req.body.cardLastDigit,
+              // cardOwner: req.body.nameOnCard,
+            },
           },
-        },
-      }
-    ).then((response) => {
-      res.send(true);
-    });
-  } catch (e) {
-    console.log(e);
+        }).then((response) => {
+        res.send(true);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  } else {
+    res.redirect("/login");
   }
 };
 
@@ -391,7 +387,7 @@ const exchange = (req, res) => {
                       receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
                       senderAcct: req.body.cardEnding,
                       ref: req.body.ref,
-                      flwId:"00112233",
+                      flwId: "00112233",
                     },
                   ],
                 });

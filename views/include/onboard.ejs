@@ -89,37 +89,24 @@
                         <%}else if(user.cardDetails.length==0){%>
                             <h6>Step 3 of 4</h6>
                             <p class="alert alert-warning text-center" role="alert">Add a payment method</p>
-                            <p class="alert alert-light">The account from which money is transfered</p>
-                            <div class="col-md-12 rec-form-bar" id="addrec-bar">
-                                <div class="col-md-12" id="card-details-bar">
-                                    <form method="POST" action="/addCard" >
-                                    <div class="mb-3">
-                                      <label>Name on card</label>
-                                      <input type="text" name='cardName' class="form-control inputs" id="nameOnCard"  required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                      <label>Card number</label>
-                                      <input type="text" name="cardNumber" class="form-control inputs" id="cc-number" maxlength="16" required >
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label>Expiration</label>
-                                        <input type="text" name="expDate" class="form-control inputs" id="expiry-date" maxlength="5" required >
-                                    </div>
-                                    
-
-                                    <div class="mb-3">
-                                      <label>CVV</label>
-                                      <input type="text" name="cvv" class="form-control inputs" id="cvv" maxlength="3"  required >
-                                  </div>
-                                  <h6 id="card-msg" class="alert alert-danger" role="alert"></h6>
-                                    <div class="mb-3">
-                                      <button type="submit" class="btn btn-outline-success btn-sm" id="btn-addCard">Add card</button>
-                                    </div>
-                              </form>
-                            </div>
-                            </div>
+                            <p class="alert alert-light"><i class="fa-solid fa-lock fa-sm"></i>Details 100% safe and secured</p>
+                        <div class="col-md-12 rec-form-bar" id="addrec-bar">
+                            <div class="col-md-12" id="card-details-bar">
+                               <form id="payment-form">
+                                 <div class="form-group">
+                                   <!-- <label for="card-element">Credit or debit card</label> -->
+                                   <div class="cardForm" id="card-element">
+                                     <!-- A Stripe Element will be inserted here. -->
+                                   </div>
+                               
+                                   <!-- Used to display form errors. -->
+                                   <div id="card-errors" role="alert"></div>
+                                 </div>
+                                 <h6 class="card-msg alert alert-danger" role="alert"></h6>
+                                 <button type="submit" class="btn btn-success btn-md">Add Card</button>
+                               </form>
+                             </div>
+                       </div>
 
                         <%}else if(user.proof.faceMatchResult!="APPROVE"){%>
                             <h6>Step 4 of 4</h6>
