@@ -102,30 +102,30 @@ passport.deserializeUser(User.deserializeUser());
 async function migrateUsers() {
     try {
   
-      const savePromo = new Promo({
-        codeType:"promo",
-        code:"firsUse",
-        startDate:"",
-        endDate:"",
-        active:true,
-        value:5,
-        maxUse:1
-      })
+      // const savePromo = new Promo({
+      //   codeType:"promo",
+      //   code:"firsUse",
+      //   startDate:"",
+      //   endDate:"",
+      //   active:true,
+      //   value:5,
+      //   maxUse:1
+      // })
 
-      savePromo.save()
-      // const users = await User.find();
+      // savePromo.save()
+      const users = await User.find();
   
-      // // Update each user record with the new field
-      // for (let i=0; i<users.length; i++) {
-      //   users[i].referalCode.code = `${users[i].profile.fname.slice(0,3)}${Math.floor(Math.random()*135)}`; // Set the initial value for the new field
-      //   await users[i].save(); // Save the updated user record
-      // }
+      // Update each user record with the new field
+      for (let i=0; i<users.length; i++) {
+        users[i].referalCode.code = `${users[i].profile.fname.slice(0,3).toLowerCase()}${Math.floor(Math.random()*135)}`; // Set the initial value for the new field
+        await users[i].save(); // Save the updated user record
+      }
   
-      // console.log('Data migration completed successfully.');
-      // console.log(users);
+      console.log('Data migration completed successfully.');
+      console.log(users);
   
       // Disconnect from MongoDB
-      // await mongoose.disconnect();
+      await mongoose.disconnect();
     } catch (error) {
       console.error('Data migration failed:', error);
     }
