@@ -10,7 +10,7 @@ const User = mongo.User;
 
 const home = (req, res)=>{
     res.render('index', {
-        title: "Home",
+        title: "Wosiwosi Money | Send and receive money with good rate",
         user:req.user
     });
 }

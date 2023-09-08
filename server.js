@@ -19,6 +19,7 @@ const admin = require (`${__dirname}/routes/admin.router.js`)// admin module
 const authentication = require (`${__dirname}/routes/authentication.router.js`)//authentication module
 const main =  require (`${__dirname}/routes/main.router.js`)//main module
 const verification =  require (`${__dirname}/routes/verification.route.js`)//main module
+const promo =  require (`${__dirname}/routes/promo.route.js`)//main module
 
 
 const receive = require (`${__dirname}/routes/receive.route.js`)
@@ -41,6 +42,7 @@ app.use(admin);
 app.use(authentication)
 app.use(main)
 app.use(verification)
+app.use(promo)
 
 app.use(receive)
 // app.use(authentication);

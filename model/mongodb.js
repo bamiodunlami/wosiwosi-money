@@ -37,7 +37,11 @@ const userSchema = new mongoose.Schema({
     transaction:[],
     resetLink:"string",
     verifyMail:"boolean",
-    referalCode:"string"
+    referalCode:{
+      code:"string",
+      usage:[]
+    },
+    promo:[]
 });
 
 //rate exchange
@@ -70,13 +74,25 @@ const quickReceiveSchema = mongoose.Schema({
   dockLink_2:'string'
 });
 
+// promo
+const promoSchema = mongoose.Schema({
+  codeType:"String",
+  code:"String",
+  startDate:"Date",
+  endDate:"Date",
+  active:"Boolean",
+  value:"number",
+  maxUse:"number"
+})
+
 
 userSchema.plugin(passportLocalMongoose)//for encrypting details
 
 const User = new mongoose.model('User', userSchema);
 const ExRate = new mongoose.model('ExRate', rateSchema);
 const Transaction = new mongoose.model('Transaction', transactionScehma);
-const QuickReceive = new mongoose.model('QuickReceive', quickReceiveSchema)
+const QuickReceive = new mongoose.model('QuickReceive', quickReceiveSchema);
+const Promo = new mongoose.model('Promo', promoSchema)
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
@@ -86,19 +102,30 @@ passport.deserializeUser(User.deserializeUser());
 async function migrateUsers() {
     try {
   
-      const users = await User.find();
+      const savePromo = new Promo({
+        codeType:"promo",
+        code:"firsUse",
+        startDate:"",
+        endDate:"",
+        active:true,
+        value:5,
+        maxUse:1
+      })
+
+      savePromo.save()
+      // const users = await User.find();
   
-      // Update each user record with the new field
-      for (let i=0; i<users.length; i++) {
-        users[i].verifyMail = false; // Set the initial value for the new field
-        await users[i].save(); // Save the updated user record
-      }
+      // // Update each user record with the new field
+      // for (let i=0; i<users.length; i++) {
+      //   users[i].referalCode.code = `${users[i].profile.fname.slice(0,3)}${Math.floor(Math.random()*135)}`; // Set the initial value for the new field
+      //   await users[i].save(); // Save the updated user record
+      // }
   
-      console.log('Data migration completed successfully.');
-      console.log(users);
+      // console.log('Data migration completed successfully.');
+      // console.log(users);
   
       // Disconnect from MongoDB
-      await mongoose.disconnect();
+      // await mongoose.disconnect();
     } catch (error) {
       console.error('Data migration failed:', error);
     }
@@ -110,5 +137,6 @@ module.exports={
     User:User,
     ExRate:ExRate,
     Transaction:Transaction,
-    QuickReceive:QuickReceive
+    QuickReceive:QuickReceive,
+    Promo:Promo
 }
