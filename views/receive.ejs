@@ -1,16 +1,13 @@
-<%- include("include/headerdashboard") -%>
+<%- include("include/header") -%>
 
-<div class="section-one">
+<div class="main-section">
     <div class="container">
         <div class="row">
-            <div class="text-center logo-container">
-              <a href="/"><img class="logo" src="images/wmi.png"></a>
-            </div>
+            <h4 class="alert alert-success text-center"><strong>NGN TO GBP FORM</strong></h4>
 
-            <div class="col-sm-12">
+            <!-- <div class="col-sm-12">
                         <div>
                             <h6 class="alert alert-success text-center">NGN TO GBP FORM</h6>
-                            <p><strong>Charges: £4 per £1000</strong></p>
                             <div class="transfer-form">
                                 <form class="row g-1" method="post" action="/receive">
                                     <div class="mb-2 form-floating">
@@ -61,10 +58,54 @@
                                 </form>
                             </div>
                         </div>
-            </div>
+            </div> -->
+        
+            <div class="forms-bar ">
+                <!-- section one -->
+                <section class="section-one" id="section-one">
+                    <h6>1 of 3</h6>
+                    <div class="col-12 mb-3 form-border">
+                        <label for="email" class="form-label">Enter your email</label>
+                        <input type="email" name="email" class="form-control form-control-lg" id="email" required>
+                    </div>
 
+                    <div class="col-12 mb-3 form-border textInput hide">
+                        <label for="fname" class="form-label">Enter your first name</label>
+                        <input type="text" name="fname" class="form-control form-control-lg" id="fname" required>
+                    </div>
+
+                    <div class="col-12 mb-3 form-border textInput hide">
+                        <label for="lname" class="form-label">Enter your last name</label>
+                        <input type="text" name="lname" class="form-control form-control-lg" id="lname" required>
+                    </div>
+
+                    <div class="col-12 mb-3 form-border textInput hide">
+                        <label for="password" class="form-label">Choose a password</label>
+                        <input type="password" name="email" class="form-control form-control-lg" id="password" required>
+                    </div>
+                    <div id="confirmEmailId">
+                        <button class="btn btn-success btn-md" id="confirmMail">Next</button>
+                    </div>
+                    <div id="registerEmailId" class="hide">
+                        <button class="btn btn-success btn-md" id="registerEmail">Next</button>
+                    </div>
+                </section>
+
+                <section class="section-two" id="section-two">
+                    <h6>2 of 3</h6>
+                    <div class="col-12 mb-3 form-border">
+                        <label for="bvn" class="form-label">Enter your BVN</label>
+                        <input type="number" name="bvn" class="form-control form-control-lg" id="bvn" required>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-success btn-md" id="backToEmail">Back</button>
+                        <button class="btn btn-success btn-md" id="confirmBVN">Next</button>
+                    </div>
+                </section>
+
+            </div>
         </div>
     </div>
 </div>
         
-<%- include("include/footerdashboard") -%>
+<%- include("include/footer") -%>

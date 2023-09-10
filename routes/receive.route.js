@@ -10,7 +10,9 @@ const passport = require(appRoot + '/util/passportAuth.js')
 const receive =  require (appRoot + '/controller/receive.controller.js')
 
 router.get('/receive', receive.receivePage )
-router.post('/receive', receive.request)
+router.post('/registeruser', receive.registerUser)
+router.post('/verifyMail', receive.verifyEmail)
+router.post('/verifybvn', receive.verifyBVN)
 
 // quick receive
 router.get('/qreceive', receive.quickReceive )

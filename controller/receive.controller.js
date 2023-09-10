@@ -1,26 +1,79 @@
-const appRoot = require ('app-root-path');
-const path = require ('path');
-const rootPath = path.resolve(process.cwd())
-appRoot.setPath(rootPath)
+const appRoot = require("app-root-path");
+const path = require("path");
+const rootPath = path.resolve(process.cwd());
+appRoot.setPath(rootPath);
 
-const passport = require(appRoot + '/util/passportAuth.js')
-const model =  require(appRoot + '/model/mongodb.js')
-const newQReceive = model.QuickReceive
-const mailer =  require (appRoot + '/util/mailer.js')
+const passport = require(appRoot + "/util/passportAuth.js");
+const model = require(appRoot + "/model/mongodb.js");
+const User = model.User;
+// const newQReceive = model.QuickReceive
+const mailer = require(appRoot + "/util/mailer.js");
 
-const renderReceive = (req, res)=>{
-    if(req.isAuthenticated()){
-        res.render('receive', {
-            title: "Receive",
-            user: req.user
-        })
-    }else{
-        res.redirect('/login')
-    }
-}
+date = new Date()
 
-const receiveRequest = (req, res)=>{
-    console.log(req.body)
+const renderReceive = (req, res) => {
+  res.render("receive", {
+    title: "Receive",
+    user: req.user,
+  });
+};
+
+// register user
+const registerUser = async (req, res) => {
+  const userDetails = {
+    username: req.body.email,
+    status: true,
+    regDate: date.toJSON(),
+    regTerm: true,
+    regAs: "",
+    profile: {
+      fname: "",
+      lname: "",
+      phone: "",
+      dob: "",
+      street: "",
+      postcode: "",
+      city: "",
+      country: "",
+      Nationality: "",
+    },
+    proof: {
+      sessionId: "",
+      faceMatchResult: "",
+    },
+    cardDetails: [],
+    receiver: [],
+    transaction: [],
+    resetLink: "",
+    verifyMail: false,
+  };
+  const userMail=userDetails.username
+  const rootLin= req.protocol + '://' + req.get('host') + "/veri" + "?ref=" + userMail
+  await User.register(userDetails, req.body.pass, (err)=>{
+    if (err) {
+        console.log(err);
+       res.send(false)
+      } else {
+        mailer.sendWelcome(userMail);
+        mailer.emailVerification(userMail, rootLin)
+        res.send(true)
+      }
+  })
+};
+
+const verifyEmail = async (req, res) => {
+  // console.log(req.body)
+  const verifyEmail = User.findOne({ username: req.body.email });
+  const response = await verifyEmail;
+  if (response) {
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+};
+
+const verifyBVN = (req, res) => {
+  console.log(req.body);
 };
 
 const qreceive = (req, res)=>{
@@ -55,9 +108,11 @@ const qreceiveRequest = (req, res)=>{
     })
 };
 
-module.exports={
-    receivePage :  renderReceive,
-    request : receiveRequest,
-    quickReceive:qreceive,
-    quickReceiveRequest:qreceiveRequest
-}
+module.exports = {
+  receivePage: renderReceive,
+  registerUser: registerUser,
+  verifyEmail: verifyEmail,
+  verifyBVN: verifyBVN,
+  quickReceive:qreceive,
+  quickReceiveRequest:qreceiveRequest
+};

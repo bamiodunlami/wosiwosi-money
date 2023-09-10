@@ -89,7 +89,7 @@ float:right
 } */
 
 /* Exchange bar */
-.exchange-bar {
+/* .exchange-bar {
   padding: 40px;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   background-color: #fff;
@@ -176,7 +176,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .select{
   border:none
-}
+} */
 
 
 /* section 2 */
@@ -208,16 +208,6 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 85vh;
   padding: 10% 30%;
 }
-
-/* .contact-details{
-  padding: 20px;
-}
-
-.each-contact-details{
-  padding: 10px 20px;
-  border: solid 1px #b5b5b5;
-  border-radius: 10px;
-} */
 
 
 /* -----------Mobile---------- */
@@ -293,7 +283,7 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 20px;
     box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
   } */
-  .exchange-bar-currency {
+  /* .exchange-bar-currency {
     padding: 30px;
   }
 
@@ -323,7 +313,7 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 5px;
     border-radius: 10px;
     margin-bottom: 10px;
-  }
+  } */
 
 
 
