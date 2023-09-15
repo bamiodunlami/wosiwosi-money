@@ -13,6 +13,9 @@
                     <%- include("include/onboard") -%>
 
                 <%}else{%>
+                    <!--EXCHANGE BAR -->
+                    <div class="row exchange-main-bar" id="exchange-bar">
+
 
                     <% if(user.verifyMail == false){%>
                         <p class="text-center alert alert-warning">Check your mail inbox for email verification, or <a href="/resendVerification">resend</a></p>
@@ -22,8 +25,6 @@
                         <p class="text-center alert alert-warning">Add a payment method, <a href="/receiver">add receiver</a></p>
                     <%}%>
 
-                    <!--EXCHANGE BAR -->
-                    <div class="row exchange-main-bar" id="exchange-bar">
 
                     <!-- <div class="alert alert-secondary alert-dismissible fade show" role="alert">
                         <h6 class="text-center">Coming soon: Refer and get £3, code is <strong><=user.referalCode.code></strong></h6>
