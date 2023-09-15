@@ -8,11 +8,15 @@
 
                 <!--------- col 10  transaction bars------------>
                 <div class="col-md-10 col-sm-12 info-bar">
-                <% if(user.profile.fname=="" ||user.receiver.length==0 || user.cardDetails.length==0){%>
-                  
-                  <%- include("include/onboard") -%>
+                <% if(user.profile.fname==""){%>
+
+                    <%- include("include/onboard") -%>
 
                 <%}else{%>
+
+                    <% if(user.verifyMail == false){%>
+                        <p class="text-center alert alert-warning">Check your mail inbox for email verification, or <a href="/resendVerification">resend</a></p>
+                    <%}%>
 
                     <!--EXCHANGE BAR -->
                     <div class="row exchange-main-bar" id="exchange-bar">
@@ -22,10 +26,6 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                       </div>
 
-
-                    <% if(user.verifyMail == false){%>
-                        <p class="text-center alert alert-warning">Check your mail inbox for email verification, or <a href="/resendVerification">resend</a></p>
-                    <%}%>
                     <div class="col-sm-12 col-md-12 exchange-bar">
                         <div class=" row first-currency-item">
                                 <div class="col-5 first-currency-item-div text-start">
@@ -137,18 +137,17 @@
                             </div>
                         </div>
                         <!-- ---------------------- -->
-                    
+                
                      <!-- select receiver -->
                      <div class="rec-main-bar " id="rec-bar">
-
-                 <% if(user.proof.faceMatchResult!="APPROVE"){%>
-                            <h5 class="alert alert-warning">Identity Verification</h5>
-                            <h6 class="alert alert-light" role="alert">For security and safety reasons, kindly verify your identity, it takes just 30 seconds</h6>
+                        <%if(user.proof.faceMatchResult!="APPROVE"){%>
+                            <h6 class="alert alert-warning">Identity Verification</h6>
+                            <h6 class="alert alert-light" role="alert">Due to the UK regulation and safety reasons, kindly verify your identity, it takes just 30 seconds</h6>
                             <div class="kyc-item-id">
-                                  <a href="/verify" class="btn btn-success btn-md text-center">Click to verify ID</a>
-                              </div>
-                   <% }else{%> 
-
+                                    <a href="/verify" class="btn btn-success btn-md text-center">Click to verify ID</a>
+                                </div>
+                        <%}else{%>
+                            
                             <h4 class="sub-title text-center">Select Receiver</h4>
                             <p class="alert alert-light text-center">Click on the receiver box to select</p>
 

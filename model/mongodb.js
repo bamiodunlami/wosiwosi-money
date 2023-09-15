@@ -41,7 +41,12 @@ const userSchema = new mongoose.Schema({
       code:"string",
       usage:[]
     },
-    promo:[]
+    promo:[],
+    receive:{
+      bvn:'string',
+      bvnVerify:"boolean",
+      transaction:[]
+    }
 });
 
 //rate exchange
@@ -117,7 +122,7 @@ async function migrateUsers() {
   
       // Update each user record with the new field
       for (let i=0; i<users.length; i++) {
-        users[i].referalCode.code = `${users[i].profile.fname.slice(0,3).toLowerCase()}${Math.floor(Math.random()*135)}`; // Set the initial value for the new field
+        users[i].receive.bvnVerify = false
         await users[i].save(); // Save the updated user record
       }
   

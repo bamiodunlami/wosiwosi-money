@@ -2,7 +2,7 @@
                     <% if(user.profile.fname==""){ %>
 
                         <!-- ONETIME UNBOARDING PROFILE COMPLETE -->
-                            <h6>Step 1 of 3</h6>
+                            <!-- <h6>Step 1 of 3</h6> -->
                           <p class="alert alert-warning text-center" role="alert">Kindly complete your profile</p>
                         <div class="row profile-bar">
                             <div class="col-sm-12 ">
@@ -59,8 +59,8 @@
                             </div>
 
 
-                         <!-- RECEIVER UNBOARDING -->
-                         <%}else if(user.receiver.length==0){%>
+                         <!-- RECEIVER UNBOARDING
+                         <}else if(user.receiver.length==0){>
                             <h6>Step 2 of 3</h6>
                             <p class="alert alert-warning text-center" role="alert">Kindly add receiver details </p>
                             <p class="alert alert-light">Account that receives money</p>
@@ -85,8 +85,8 @@
                                 </div>
                             </div>
 
-                        <!-- ADD PAYMENT CARD UNBORADING -->
-                        <%}else if(user.cardDetails.length==0){%>
+                        ADD PAYMENT CARD UNBORADING
+                        <}else if(user.cardDetails.length==0){>
                             <h6>Step 3 of 3</h6>
                             <p class="alert alert-warning text-center" role="alert">Add a payment method</p>
                             <p class="alert alert-light"><i class="fa-solid fa-lock fa-sm"></i>Details 100% safe and secured</p>
@@ -94,19 +94,15 @@
                             <div class="col-md-12" id="card-details-bar">
                                <form id="payment-form">
                                  <div class="form-group">
-                                   <!-- <label for="card-element">Credit or debit card</label> -->
                                    <div class="cardForm" id="card-element">
-                                     <!-- A Stripe Element will be inserted here. -->
                                    </div>
-                               
-                                   <!-- Used to display form errors. -->
                                    <div id="card-errors" role="alert"></div>
                                  </div>
                                  <h6 class="card-msg alert alert-danger" role="alert"></h6>
                                  <button type="submit" class="btn btn-success btn-md">Add Card</button>
                                </form>
                              </div>
-                       </div>
+                       </div> -->
 
                         <%}%>
                         

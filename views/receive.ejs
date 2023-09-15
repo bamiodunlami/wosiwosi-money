@@ -1,9 +1,11 @@
-<%- include("include/header") -%>
-
+<%- include ("include/header") -%>
 <div class="main-section">
     <div class="container">
         <div class="row">
-            <h4 class="alert alert-success text-center"><strong>NGN TO GBP FORM</strong></h4>
+
+            <div>
+                <h4 class="">NGN TO GBP FORM</h4>                
+            </div>
 
             <!-- <div class="col-sm-12">
                         <div>
@@ -61,51 +63,144 @@
             </div> -->
         
             <div class="forms-bar ">
+                <% if(!user){%>
                 <!-- section one -->
                 <section class="section-one" id="section-one">
-                    <h6>1 of 3</h6>
+                    <h5 class="alert alert-dark">Kindly Login</h5>
+                        <% if (messages.error){%>
+                            <p class="alert alert-danger"><%= messages.error %></p>  
+                            <%}%> 
+                    <form action="/verifyMail" method="post"> 
                     <div class="col-12 mb-3 form-border">
                         <label for="email" class="form-label">Enter your email</label>
-                        <input type="email" name="email" class="form-control form-control-lg" id="email" required>
+                        <input type="email" name="username" class="form-control form-control-lg" id="email" required>
                     </div>
 
-                    <div class="col-12 mb-3 form-border textInput hide">
+                    <div class="col-12 mb-3 form-border textInput">
+                        <label for="password" class="form-label">Enter password</label>
+                        <input type="password" name="password" class="form-control form-control-lg" id="password" required>
+                    </div>
+
+                    <div id="confirmEmailId">
+                        <button type="submit" class="btn btn-success btn-md">Next</button>
+                    </div>
+                    <div style="margin-top:5px;">
+                     <h6><a href="" id="showRegistration">I don't have an account</a></h6> 
+                    </div>
+                    </form>
+
+                </section>
+
+                <!-- register user -->
+                <section class="registration-section hide" id="reg-section">
+                <form action="/registerUser" method="post"> 
+                    <div class="col-12 mb-3 form-border">
+                        <label for="email" class="form-label">Enter your email</label>
+                        <input type="email" name="username" class="form-control form-control-lg" id="email" required>
+                    </div>
+
+                    <div class="col-12 mb-3 form-border">
                         <label for="fname" class="form-label">Enter your first name</label>
                         <input type="text" name="fname" class="form-control form-control-lg" id="fname" required>
                     </div>
 
-                    <div class="col-12 mb-3 form-border textInput hide">
+                    <div class="col-12 mb-3 form-border">
                         <label for="lname" class="form-label">Enter your last name</label>
                         <input type="text" name="lname" class="form-control form-control-lg" id="lname" required>
                     </div>
 
-                    <div class="col-12 mb-3 form-border textInput hide">
+                    <div class="col-12 mb-3 form-border">
+                        <label for="phone" class="form-label">Enter your phone number</label>
+                        <input type="number" name="phone" class="form-control form-control-lg" id="phone" required>
+                    </div>
+
+                    <div class="col-12 mb-3 form-border textInput">
                         <label for="password" class="form-label">Choose a password</label>
-                        <input type="password" name="email" class="form-control form-control-lg" id="password" required>
+                        <input type="password" name="password" class="form-control form-control-lg" id="password" required>
                     </div>
-                    <div id="confirmEmailId">
-                        <button class="btn btn-success btn-md" id="confirmMail">Next</button>
+
+                    <button type="submit" class="btn btn-success btn-md">Next</button>
+
+                    <div style="margin-top:5px;">
+                     <h6>have an account?<a href="/receive"> click here</a></h6> 
                     </div>
-                    <div id="registerEmailId" class="hide">
-                        <button class="btn btn-success btn-md" id="registerEmail">Next</button>
+
+                </form>
+                </section>
+                <%}else{%>
+
+                <!-- section two -->
+                <section class="section-two" id="section-two">
+                <form action="receiveRequest" method="post">
+                    <div class="col-12 mb-3 form-border">
+                        <label for="receiveAmount" class="form-label">Enter amount in Naira</label>
+                        <input type="number" name="receiveAmount" class="form-control form-control-lg" id="receiveAmount" required>
                     </div>
+                    
+                    <div class="col-12 mb-3 form-border">
+                        <label for="total" class="form-label">Equivalent in Pounds</label>
+                        <input type="number" name="equivalent" class="form-control form-control-lg" id="equivalent">
+                    </div>
+
+                    <div>
+                        <h6 class="alert alert-success"><strong>NGN 1 = <span id="rate"></span> | £0.00 FX fee</strong><br>
+                        £20,000 maximum transaction allowed, <a href="/contact">contact us</a> for higher transaction.</h6>   
+                    </div>
+                    <div id="validate"></div>
+
+                    <div class="col-12 mb-3 form-border">
+                        <label for="ukAccountName" class="form-label">Enter transaction description</label>
+                        <select name="description" class="form-select form-select-lg form-control" aria-label="Large select example" id="selection" required>
+                            <option value="select">Choose a description</option>
+                            <option value="school">School fee</option>
+                            <option value="purchase">Purchase</option>
+                            <!-- <option value="bank">Bank transaction</option> -->
+                        </select>
+                    </div>
+                    <div id="optionbase"></div>
+                    <div>
+                        <div id="emessage"></div>
+                        <button type="submit" class="btn btn-success btn-md" id="confirmExchange">Confirm</button>
+                    </div>
+
+
+
+                </form>
                 </section>
 
-                <section class="section-two" id="section-two">
-                    <h6>2 of 3</h6>
+                <!-- section three -->
+                <section id="section-three">
+                    <h6>3 of 3</h6>
+                    <h6 class="alert alert-warning">
+                        <strong>Due to the government regulation on money excahgne, you are required to provide the followings</strong>
+                       <br>
+                        <ul>
+                            <li>Your BVN</li>
+                            <li>A proof of ID (passport or BRP only)</li>
+                            <li>A proof of address (Utility or bank statements)</li>
+                        </ul>
+                    </h6>
                     <div class="col-12 mb-3 form-border">
-                        <label for="bvn" class="form-label">Enter your BVN</label>
-                        <input type="number" name="bvn" class="form-control form-control-lg" id="bvn" required>
+                        <label for="bvnNumber" class="form-label">Enter your BVN</label>
+                        <input type="number" name="bvnNumber" class="form-control form-control-lg" id="bvnNumber" required>
+                    </div>
+                    <div class="col-12 mb-3 form-border">
+                        <label for="bvnNumber" class="form-label">Upload valid ID</label>
+                        <input type="file" name="validID" class="form-control form-control-lg" id="validID" required>
+                    </div>
+                    <div class="col-12 mb-3 form-border">
+                        <label for="proofOfAddress" class="form-label">Enter proof of address</label>
+                        <input type="file" name="proofOfAddress" class="form-control form-control-lg" id="proofOfAddress" required>
                     </div>
                     <div>
-                        <button class="btn btn-outline-success btn-md" id="backToEmail">Back</button>
-                        <button class="btn btn-success btn-md" id="confirmBVN">Next</button>
+                        <button class="btn btn-outline-success btn-md" id="backToSectionTwo">Back</button>
+                        <button class="btn btn-success btn-md" id="confirmExchange">Confirm</button>
                     </div>
                 </section>
-
+                <%}%>
             </div>
         </div>
     </div>
 </div>
         
-<%- include("include/footer") -%>
+<script src="js/receive.js"></script>

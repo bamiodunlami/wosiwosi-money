@@ -10,12 +10,19 @@ const passport = require(appRoot + '/util/passportAuth.js')
 const receive =  require (appRoot + '/controller/receive.controller.js')
 
 router.get('/receive', receive.receivePage )
-router.post('/registeruser', receive.registerUser)
-router.post('/verifyMail', receive.verifyEmail)
-router.post('/verifybvn', receive.verifyBVN)
+
+router.post('/verifyMail', passport.authenticate("local", {failureRedirect:"/receive", failureFlash:true}),(req, res)=>{
+    res.redirect('/receive')
+});
+
+router.post('/registerUser', receive.registerUser)
+
+router.post ('/receiveRequest', receive.receiveRequest)
+
+// router.post('/verifybvn', receive.verifyBVN)
 
 // quick receive
-router.get('/qreceive', receive.quickReceive )
-router.post('/qreceive', receive.quickReceiveRequest)
+// router.get('/qreceive', receive.quickReceive )
+// router.post('/qreceive', receive.quickReceiveRequest)
 
 module.exports = router

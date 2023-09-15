@@ -35,10 +35,10 @@ section {
 }
 
 
-/* section two ngntogbpform ejs*/
-.section-one{
-    padding: 10%;
-}
+/* section two ngntogbpform ejs
+.registration-section{
+    display: none;
+} */
 
 @media (max-width: 520px) {
   .logo-container {
@@ -55,8 +55,7 @@ section {
 
 
   /* section two ngntogbpform ejs*/
-.section-one{
-    padding: 5%;
-}
-
+/* .section-one{
+    padding: 10%;
+} */
 }
