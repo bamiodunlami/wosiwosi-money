@@ -16,15 +16,19 @@
 
                     <% if(user.verifyMail == false){%>
                         <p class="text-center alert alert-warning">Check your mail inbox for email verification, or <a href="/resendVerification">resend</a></p>
+                    <%}else if (user.receiver.length==0){%>
+                        <h6 class="text-center alert alert-warning">Add a receiver, <a href="/receiver">click here</a></h6>
+                    <%}else if (user.cardDetails.length==0){%>
+                        <p class="text-center alert alert-warning">Add a payment method, <a href="/receiver">add receiver</a></p>
                     <%}%>
 
                     <!--EXCHANGE BAR -->
                     <div class="row exchange-main-bar" id="exchange-bar">
 
-                    <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-                        <h6 class="text-center">Coming soon: Refer and get £3, code is <strong><%=user.referalCode.code%></strong></h6>
+                    <!-- <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                        <h6 class="text-center">Coming soon: Refer and get £3, code is <strong><=user.referalCode.code></strong></h6>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                      </div>
+                      </div> -->
 
                     <div class="col-sm-12 col-md-12 exchange-bar">
                         <div class=" row first-currency-item">
@@ -147,7 +151,7 @@
                                     <a href="/verify" class="btn btn-success btn-md text-center">Click to verify ID</a>
                                 </div>
                         <%}else{%>
-                            
+
                             <h4 class="sub-title text-center">Select Receiver</h4>
                             <p class="alert alert-light text-center">Click on the receiver box to select</p>
 
