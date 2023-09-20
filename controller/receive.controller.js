@@ -84,6 +84,7 @@ const receiveRequest = async (req, res) => {
         }).then(respones => console.log())
 
         try {
+          const rootLin= req.protocol + '://' + req.get('host') + "/response"
           const response = await got.post("https://api.flutterwave.com/v3/payments", {
               headers: {
                   Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`
@@ -92,7 +93,7 @@ const receiveRequest = async (req, res) => {
                   tx_ref: details.id.toString(),
                   amount:req.body.receiveAmount,
                   currency: "NGN",
-                  redirect_url: `http://localhost:3000/response`,
+                  redirect_url: rootLin,
                   // meta: {
                   //     consumer_id: 23,
                   //     consumer_mac: "92a3-912ba-1192a"
