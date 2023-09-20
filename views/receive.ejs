@@ -144,14 +144,14 @@
 
                     <div>
                         <h6 class="alert alert-success"><strong>NGN 1 = <span id="rate"></span> | £0.00 FX fee</strong><br>
-                        £20,000 maximum transaction allowed, <a href="/contact">contact us</a> for higher transaction.</h6>   
+                        £10,000 maximum transaction allowed, <a href="/contact">contact us</a> for higher transaction.</h6>   
                     </div>
                     <div id="validate"></div>
 
                     <div class="col-12 mb-3 form-border">
                         <label for="ukAccountName" class="form-label">Enter transaction description</label>
-                        <select name="description" class="form-select form-select-lg form-control" aria-label="Large select example" id="selection" required>
-                            <option value="select">Choose a description</option>
+                        <select name="description" class="form-select form-select-lg form-control" id="selection" required>
+                            <option value="">Choose a description</option>
                             <option value="school">School fee</option>
                             <option value="purchase">Purchase</option>
                             <!-- <option value="bank">Bank transaction</option> -->
@@ -160,7 +160,8 @@
                     <div id="optionbase"></div>
                     <div>
                         <div id="emessage"></div>
-                        <button type="submit" class="btn btn-success btn-md" id="confirmExchange">Confirm</button>
+                        <div><p>by clicking the confirm button, you agree to accept our <a href="/terms">Terms</a> and <a href="/privacy">privacy policy</a></p></div>
+                        <button type="submit" class="btn btn-success btn-md" id="confirmExchange" disabled>Confirm</button>
                     </div>
 
 

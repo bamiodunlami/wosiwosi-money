@@ -42,11 +42,13 @@ const userSchema = new mongoose.Schema({
       usage:[]
     },
     promo:[],
-    receive:{
-      bvn:'string',
-      bvnVerify:"boolean",
-      transaction:[]
-    }
+    identity:{
+      bvn:"string",
+      bvnVerify:"Boolean",
+      pass:"string",
+      pAddress:"string"
+    },
+    receiveRequest:[]
 });
 
 //rate exchange
@@ -122,7 +124,12 @@ async function migrateUsers() {
   
       // Update each user record with the new field
       for (let i=0; i<users.length; i++) {
-        users[i].receive.bvnVerify = false
+        users[i].identity = {
+          bvn:"",
+          bvnVerify:false,
+          pass:"",
+          pAddress:""
+        },
         await users[i].save(); // Save the updated user record
       }
   

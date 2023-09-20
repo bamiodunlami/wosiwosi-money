@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "minify": "terser public/js/amp.js -c -m --output public/min/amp.js"
+    "minify": "terser public/js/receive.js -c -m --output public/min/receive.js"
   },
   "author": "Wosiwosi-bamidele",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "express-flash": "^0.0.2",
     "express-session": "^1.17.3",
     "flutterwave-node-v3": "^1.0.0",
+    "got": "^11.8.6",
     "md5": "^2.3.0",
     "mongoose": "^7.4.1",
     "multer": "^1.4.5-lts.1",

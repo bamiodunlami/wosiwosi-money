@@ -88,17 +88,17 @@ const notificationOfExchange = (to, transactionStatus, userName, id, date, sendA
 }
 
 // quick Receive notification
-const quickReceiveNotification = (to, userName) =>{
+const receiveFail = (to, userName, id) =>{
   option = {
     from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
     to:to,
-    subject: "Your NGN to GBP transfer form",
+    subject: "Your NGN to GBP failed",
     html:
     `
     <!DOCTYPE html>
     <html>
     <head>
-       <title>NGN to GBP Transfer form submitted</title>
+       <title>NGN to GBP Transfer failed</title>
     </head>
     <body style="font-family: Poppings, sans-serif;">
     
@@ -108,8 +108,9 @@ const quickReceiveNotification = (to, userName) =>{
                    <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
                        <tr>
                            <td style="padding: 40px;">
-                               <h3 style="color: #333;">Dear ${userName} your NGN to GBP transfer form has been submitted</h3>
-                               <p style="color: #666;">Thank you for using this service, we will process your transfer soon.</p>
+                               <h3 style="color: #333;">Dear ${userName} your NGN to GBP transfer failed</h3>
+                               <p style="color: #666;">Transaction:</p>
+                               <h4><strong>Transaction ID:</strong> ${id}</h4>
                                <p style="color: #999;">Wosiwosi Money Team</p>
                            </td>
                        </tr>
@@ -130,18 +131,18 @@ const quickReceiveNotification = (to, userName) =>{
 }
 
 
-// quick Receive notification
-const adminQuickReceiveNotification = (to, userName, fname, lname, address, postcode, phone, email, ukBank, ukAccount, ukSort, ukBankName, description, bvn,idLink) =>{
+// Admin quick Receive notification
+const receiveSuccessAdmin = (to, fname, lname, id, txId) =>{
     option = {
     from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
     to:to,
-    subject: "NGN TO GBP Transfer Form",
+    subject: "NGN TO GBP Request",
     html:
     `
     <!DOCTYPE html>
     <html>
     <head>
-       <title>NGN to GBP Transfer form submitted</title>
+       <title>NGN to GBP Transfer request</title>
     </head>
     <body style="font-family: Poppings, sans-serif;">
     
@@ -151,21 +152,55 @@ const adminQuickReceiveNotification = (to, userName, fname, lname, address, post
                    <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
                        <tr>
                            <td style="padding: 40px;">
-                               <h3 style="color: #333;">${userName} submitted NGN to GBP transfer form</h3>
-                               <p style="color: #666;">Here are the details filled in:</p>
+                               <h3 style="color: #333;">${fname} has successfully made a payment for NGN to GBP transaction</h3>
+                               <p style="color: #666;">Details:</p>
                                <p>First Name: ${fname}</p>
                                <p>Last Name: ${lname}</p>
-                               <p>Address: ${address}</p>
-                               <p>Postcode: ${postcode}</p>
-                               <p>Phone: ${phone}</p>
-                               <p>Email: ${email}</p>
-                               <p>UK Bank: ${ukBank}</p>
-                               <p>UK Account Number: ${ukAccount}</p>
-                               <p>UK Account Sort-code: ${ukSort}</p>
-                               <p>UK Name on Bank: ${ukBankName}</p>
-                               <p>Transfer description: ${description}</p>
-                               <p>BVN: ${bvn}</p>
-                               <p>Identification Link: ${idLink}</p>
+                               <p>BVN/Passport ID: ${id}</p>
+                               <p>Transaction ID: ${txId}</p>
+                               <p style="color: #999;">Wosiwosi Money Team</p>
+                           </td>
+                       </tr>
+                       <tr>
+                       </tr>
+                   </table>
+               </td>
+           </tr>
+       </table>
+    
+    </body>
+    </html>
+    
+    ` 
+
+  }
+  transporter.sendMail(option)
+}
+
+const receiveSuccess = (to, fname, txId) =>{
+    option = {
+    from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
+    to:to,
+    subject: "Payment received",
+    html:
+    `
+    <!DOCTYPE html>
+    <html>
+    <head>
+       <title>Payment received</title>
+    </head>
+    <body style="font-family: Poppings, sans-serif;">
+    
+       <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
+           <tr>
+               <td>
+                   <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
+                       <tr>
+                           <td style="padding: 40px;">
+                               <h3 style="color: #333;">Dear ${fname} your NGN to GBP payment received.</h3>
+                               <p style="color: #666;">Details:</p>
+                               <p>Transaction ID: ${txId}</p>
+                               <h3 style="color: #333;">Transfer process has now been initiated</h3>
                                <p style="color: #999;">Wosiwosi Money Team</p>
                            </td>
                        </tr>
@@ -231,7 +266,7 @@ const resetLink = (to, link) =>{
   transporter.sendMail(option)
 }
 
-// quick Receive notification
+// mail verification
 const emailConfirmation = (to, link) =>{
     option = {
     from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
@@ -277,13 +312,61 @@ const emailConfirmation = (to, link) =>{
   transporter.sendMail(option)
 }
 
+// Reset password
+const sendIdentity = (to, fname) =>{
+    option = {
+    from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
+    to:to,
+    subject: "Verification needed",
+    html:
+    `
+    <!DOCTYPE html>
+    <html>
+    <head>
+       <title>Verification needed</title>
+    </head>
+    <body style="font-family: Poppings, sans-serif;">
+    
+       <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
+           <tr>
+               <td>
+                   <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
+                       <tr>
+                           <td style="padding: 40px;">
+                               <h3>Dear ${fname} we are currently working on your transfer but according to the UK law and money laundry regulation, we are require to get the followings from you before the final state of the GBP transfer</h3>
+                               <h3>Your Nigeria BVN</h3>
+                               <h3>A valid ID (Passport, Driving lisence or BRP)</h3>
+                               <h3>A proof of address (Utility bill, local tax bill)</h3>
+                               <h3>Kindly reply to this email with the requested document or reply to media@wosiwosi.co.uk to help us speed up your transfer.</h3>
+                               <p>Cheers,</p>
+                               <p style="color: #999;">Wosiwosi Money Team</p>
+                           </td>
+                       </tr>
+                       <tr>
+                       </tr>
+                   </table>
+               </td>
+           </tr>
+       </table>
+    
+    </body>
+    </html>
+    
+    ` 
+
+  }
+  transporter.sendMail(option)
+}
+
 
 module.exports = {
   sendWelcome: welcomeMail,
   sendApprove: idApprove,
   sendFxNotification:notificationOfExchange,
-  quickReceive:quickReceiveNotification,
-  adminQuickReceive:adminQuickReceiveNotification,
+  receiveFail:receiveFail,
+  receiveSuccessAdmin:receiveSuccessAdmin,
+  receiveSuccess:receiveSuccess,
   resetMail:resetLink,
-  emailVerification: emailConfirmation
+  emailVerification: emailConfirmation,
+  sendIdentity:sendIdentity
 };

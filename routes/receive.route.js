@@ -19,6 +19,8 @@ router.post('/registerUser', receive.registerUser)
 
 router.post ('/receiveRequest', receive.receiveRequest)
 
+router.get('/response', receive.receivePaymanetResponse)
+
 // router.post('/verifybvn', receive.verifyBVN)
 
 // quick receive
