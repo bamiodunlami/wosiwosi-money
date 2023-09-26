@@ -20,16 +20,16 @@ const renderPage = async (req, res) => {
       res.redirect("/adminlog");
     } else {
       // render transaction, customer and exchange rate
-      const regUser = await User.find()
-      const rate= await Rate.findOne()
-      const transaction = await Transaction.find()
-          res.render("admin/adminDash", {
-            user: req.user,
-            transaction: transaction,
-            rate: rate,
-            regUser:regUser
-          });
-      }
+      const regUser = await User.find();
+      const rate = await Rate.findOne();
+      const transaction = await Transaction.find();
+      res.render("admin/adminDash", {
+        user: req.user,
+        transaction: transaction,
+        rate: rate,
+        regUser: regUser,
+      });
+    }
   } else {
     res.redirect("/adminlog");
   }
@@ -75,7 +75,7 @@ const rate = (req, res) => {
       GBPTONGN: req.body.NGN,
       GBPTOGHS: req.body.GHS,
       GBPTOKEN: req.body.KEN,
-      NGNTOGBP: req.body.NGNTOGBP
+      NGNTOGBP: req.body.NGNTOGBP,
     }).then((result) => res.redirect(req.headers.referer));
   } else {
     res.redirect("/");
@@ -83,25 +83,89 @@ const rate = (req, res) => {
 };
 
 // verify transaction
-const tVerify = (req, res) =>{
-  if(req.isAuthenticated()){
-      const payload = { id:req.body.id};
-      if(req.body.id ==""){
-
-      }else{
-      flw.Transfer.get_a_transfer(payload).then((response) =>{
-        res.send(response)
+const tVerify = (req, res) => {
+  if (req.isAuthenticated()) {
+    const payload = { id: req.body.id };
+    if (req.body.id == "") {
+    } else {
+      flw.Transfer.get_a_transfer(payload).then((response) => {
+        res.send(response);
       });
     }
-  }else{
-    res.redirect('/adminLog')
+  } else {
+    res.redirect("/adminLog");
   }
-}
+};
+
+// Manaual Tranaction
+const manualTransaction = (req, res) => {
+  try {
+    // Upadate user transaction
+    const userTransactionUpdate = User.updateOne(
+      { username: req.body.customerMail },
+      {
+        $push: {
+          transaction: {
+            date: date.toJSON().slice(0, 10),
+            time: date.toJSON().slice(11, 15),
+            currencyPair: "GBPTONGN",
+            sendCurrency: "GBP",
+            sendAmount: req.body.gbpAmount,
+            takeCurrency: "NGN",
+            takeAmount: req.body.nairaAmount,
+            rate: req.body.rate,
+            promo: "0",
+            paymentStatus: "Success",
+            sendStatus: "Sucess",
+            sender: "manual transaction",
+            reciever: "manual transaction",
+            receiverAcct: req.body.accountName,
+            senderAcct: "manual",
+            ref: "manual transaction",
+            flwId: "manual transaction",
+          },
+        },
+      }
+    )
+
+    //update general transaction db
+    const SaveTransaction = new Transaction({
+      details: [
+        {
+          date: date.toJSON().slice(0, 10),
+          time: date.toJSON().slice(11, 15),
+          currencyPair: "GBPTONGN",
+          sendCurrency: "GBP",
+          sendAmount: req.body.gbpAmount,
+          takeCurrency: "NGN",
+          takeAmount: req.body.nairaAmount,
+          rate: req.body.rate,
+          promo: "0",
+          paymentStatus: "Success",
+          sendStatus: "Sucess",
+          sender: "manual transaction",
+          reciever: "manual transaction",
+          receiverAcct: req.body.accountName,
+          senderAcct: "manual",
+          ref: "manual transaction",
+          flwId: "manual transaction",
+        },
+      ],
+    })
+
+    Promise.all([userTransactionUpdate, SaveTransaction.save()])
+    .then((result)=>{
+      res.redirect('/')
+    });
+
+  } catch (e) {}
+};
 
 module.exports = {
   renderAdminPage: renderPage,
   renderAdminLogin: adminLogin,
   adminRegistration: register,
   updateRate: rate,
-  verify:tVerify
+  verify: tVerify,
+  manualTransaction: manualTransaction,
 };

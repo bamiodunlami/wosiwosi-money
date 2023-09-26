@@ -52,4 +52,7 @@ router.post('/updaterate', updateRate )
 // verify transaction
 router.post('/verifyTransaction', admin.verify)
 
+// verify transaction
+router.post('/manualTransaction', admin.manualTransaction)
+
 module.exports=router;
