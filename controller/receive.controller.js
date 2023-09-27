@@ -143,6 +143,7 @@ const receivePaymanetResponse = async (req, res) =>{
     if(status !="success"){
       res.redirect('/receive')
       mailer.receiveFail(req.user.username, req.user.profile.fname, req.query.tx_ref)
+      mailer.receiveFail("bamidele@wosiwosi.co.uk", req.user.profile.fname, req.query.tx_ref)
     } else{
       res.redirect('/success')
       mailer.receiveSuccess(req.user.username, req.user.profile.fname, req.query.tx_ref)
