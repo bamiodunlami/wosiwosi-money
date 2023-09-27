@@ -1,7 +1,7 @@
 const got = require ('got')
 
 const appRoot = require("app-root-path");
-const { response } = require("express");
+// const { response } = require("express");
 const path = require("path");
 const rootPath = path.resolve(process.cwd());
 appRoot.setPath(rootPath);
@@ -146,7 +146,7 @@ const receivePaymanetResponse = async (req, res) =>{
     } else{
       res.redirect('/success')
       mailer.receiveSuccess(req.user.username, req.user.profile.fname, req.query.tx_ref)
-      mailer.receiveSuccessAdmin("seyiawo@wosiwosi.co.uk", req.user.profile.fname, req.user.profile.lname, req.user.identity.bvnVerify, req.query.tx_ref)
+      mailer.receiveSuccessAdmin("bamidele@wosiwosi.co.uk", req.user.profile.fname, req.user.profile.lname, req.user.identity.bvnVerify, req.query.tx_ref)
       if(req.user.identity.bvnVerify === false){
         mailer.sendIdentity(req.user.username, req.user.profile.fname)
       }else{}

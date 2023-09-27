@@ -1,1 +1,1 @@
-try{const t=$("#tVerify"),e=$(".tInput");t.on("click",(t=>{t.preventDefault();let n={id:e.val()};fetch("/verifyTransaction",{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify(n)}).then((t=>t.json())).then((t=>{alert(t.status)}))}))}catch(t){}
+try{const t=$("#tVerify"),e=$(".tInput");t.on("click",(t=>{t.preventDefault();let n={id:e.val()};fetch("/verifyTransaction",{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify(n)}).then((t=>t.json())).then((t=>{alert(t.data.complete_message)}))}))}catch(t){}

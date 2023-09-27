@@ -85,10 +85,12 @@ const rate = (req, res) => {
 // verify transaction
 const tVerify = (req, res) => {
   if (req.isAuthenticated()) {
-    const payload = { id: req.body.id };
+    // req.body.id 
+    const payload = { id:"60191035" };
     if (req.body.id == "") {
     } else {
       flw.Transfer.get_a_transfer(payload).then((response) => {
+        // console.log(response)
         res.send(response);
       });
     }

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "minify": "terser public/js/receive.js -c -m --output public/min/receive.js"
+    "minify": "terser public/js/admin.js -c -m --output public/min/admin.js"
   },
   "author": "Wosiwosi-bamidele",
   "license": "ISC",

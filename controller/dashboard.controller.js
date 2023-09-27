@@ -43,7 +43,7 @@ const dashboard = async (req, res) => {
             },
             {
               $set: {
-                "transaction.$.sendStatus": response.status,
+                "transaction.$.sendStatus": response.data.status,
               },
             }
           ).then((resp) => {});
