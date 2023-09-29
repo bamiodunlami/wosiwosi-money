@@ -34,21 +34,30 @@ const dashboard = async (req, res) => {
         let lastTransactionId = transaction[lastTransaction].flwId;
         // console.log(lastTransactionId)
         const payload = { id: lastTransactionId.toString() };
-        flw.Transfer.get_a_transfer(payload).then((response) => {
+        flw.Transfer.get_a_transfer(payload)
+        .then((response) => {
           // console.log(response)
-          User.updateOne(
-            {
-              username: req.user.username,
-              "transaction.flwId": lastTransactionId,
-            },
-            {
+          if(response.status == "success" && response.data.status == "SUCCESSFUL" ){
+            User.updateOne({ username: req.user.username, "transaction.flwId": lastTransactionId},{
               $set: {
-                "transaction.$.sendStatus": response.data.status,
-              },
-            }
-          ).then((resp) => {});
+                  "transaction.$.sendStatus": response.data.status,
+                }
+              }).then((resp) => {});
+          }else if(response.status == "success" && response.data.status != "SUCCESSFUL"){
+            User.updateOne({ username: req.user.username, "transaction.flwId": lastTransactionId},{
+              $set: {
+                  "transaction.$.sendStatus": "PROCESSING",
+                }
+              }).then((resp) => {});
+          }else{
+            User.updateOne({ username: req.user.username, "transaction.flwId": lastTransactionId},{
+              $set: {
+                  "transaction.$.sendStatus": "FAILED",
+                }
+              }).then((resp) => {});
+          }
         });
-        // ------------------------------------
+        // --------remder dashboard----------------------------
         res.render("dashboard", {
           user: req.user,
         });
@@ -483,17 +492,8 @@ const exchange = (req, res) => {
                         SaveTransaction.save(),
                       ]).then((results) => {
                         console.log(results);
-                        mailer.sendFxNotification(
-                          req.user.username,
-                          "Initiated",
-                          req.user.profile.fname,
-                          result.data.id,
-                          date.toJSON().slice(0, 10),
-                          req.body.sendAmount,
-                          req.body.Base,
-                          req.body.takeCurrency + result.data.amount,
-                          req.body.receiverName
-                        );
+                        mailer.sendFxNotification(req.user.username, "Initiated", req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base, req.body.takeCurrency + result.data.amount,  req.body.receiverName );
+                        mailer.adminfxnotification("bamidele@wosiwosi.co.uk", "initiated",req.user.profile.fname,result.data.id, date.toJSON().slice(0, 10),req.body.sendAmount, req.body.Base, req.body.takeCurrency + result.data.amount, req.body.receiverName )
                         res.send(true);
                       });
                     } else {
@@ -554,17 +554,8 @@ const exchange = (req, res) => {
                         userTransactionUpdate,
                         SaveTransaction.save(),
                       ]).then((results) => {
-                        mailer.sendFxNotification(
-                          req.user.username,
-                          "Failed",
-                          req.user.profile.fname,
-                          result.data.id,
-                          date.toJSON().slice(0, 10),
-                          req.body.sendAmount,
-                          req.body.Base,
-                          result.data.amount,
-                          req.body.receiverName
-                        );
+                        mailer.sendFxNotification( req.user.username, "Failed", req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base,  req.body.takeCurrency + result.data.amount,  req.body.receiverName );
+                        mailer.adminfxnotification("bamidele@wosiwosi.co.uk", "Failed",req.user.profile.fname,result.data.id, date.toJSON().slice(0, 10),req.body.sendAmount, req.body.Base, req.body.takeCurrency + result.data.amount, req.body.receiverName )
                         // console.log(results);
                         res.send(false);
                       });

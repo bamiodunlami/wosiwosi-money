@@ -87,6 +87,51 @@ const notificationOfExchange = (to, transactionStatus, userName, id, date, sendA
   transporter.sendMail(mailOptions);
 }
 
+const adminfxnotification = (to, transactionStatus, userName, id, date, sendAmount, rate, receiveAmount, receiver)=>{
+    mailOptions = {
+      from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
+      to:to,
+      subject: "Your transaction",
+      html: `<!DOCTYPE html>
+      <html>
+      <head>
+          <title>Transaction Successful</title>
+      </head>
+      <body style="font-family: Poppings, sans-serif;">
+      
+          <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
+              <tr>
+                  <td align="center">
+                      <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
+                          <tr>
+                              <td style="padding: 40px;">
+                                  <h3 style="color: #333;">Transaction ${transactionStatus}</h3>
+                                  <p style="color: #666;">GBP to NGN transaction made by ${userName}</p>
+                                  <p style="color: #666;">Transaction Details:</p>
+                                      <h4><strong>Transaction ID:</strong> ${id}</h4>
+                                      <h4> <strong>Date:</strong> ${date} </h4>
+                                      <h4> <strong>Amount:</strong> £${sendAmount/100} </h4> 
+                                      <h4> <strong>Exchange Rate:</strong> ${rate}</h4>
+                                      <h4> <strong>Amount Received:</strong> ${receiveAmount}</h4>
+                                      <h4> <strong>Recipient:</strong> ${receiver}</h4>
+                                  <p style="color: #999;">Best regards,</p>
+                                  <p style="color: #999;">The Wosiwosi Money Team</p>
+                              </td>
+                          </tr>
+                          <tr>
+                          </tr>
+                      </table>
+                  </td>
+              </tr>
+          </table>
+      
+      </body>
+      </html>
+      `
+    }
+    transporter.sendMail(mailOptions);
+  }
+
 // quick Receive notification
 const receiveFail = (to, userName, id) =>{
   option = {
@@ -363,6 +408,7 @@ module.exports = {
   sendWelcome: welcomeMail,
   sendApprove: idApprove,
   sendFxNotification:notificationOfExchange,
+  adminfxnotification:adminfxnotification,
   receiveFail:receiveFail,
   receiveSuccessAdmin:receiveSuccessAdmin,
   receiveSuccess:receiveSuccess,
