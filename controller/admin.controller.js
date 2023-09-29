@@ -89,7 +89,7 @@ const tVerify = (req, res) => {
     if (req.body.id == "") {
     } else {
       flw.Transfer.get_a_transfer(payload).then((response) => {
-        // console.log(response)
+        console.log(response)
         res.send(response);
       });
     }
