@@ -10,7 +10,8 @@ const User = mongo.User;
 const Transaction = mongo.Transaction;
 const Rate = mongo.ExRate;
 
-const flw = require(appRoot + "/util/flutterWave"); //flutter module
+const flw = require(appRoot + "/util/flutterWave.js"); //flutter module
+const mailer = require(appRoot + "/util/mailer.js"); //flutter module
 
 // Render admin Page
 const renderPage = async (req, res) => {
@@ -176,6 +177,11 @@ const singlePage = async (req, res) =>{
   res.redirect('/login')
 }
 }
+
+const sendMail = async (req, res) =>{
+  mailer.sendeMail(req.body.receiver, req.body.subject, req.body.name, req.body.body)
+}
+
 module.exports = {
   renderAdminPage: renderPage,
   renderAdminLogin: adminLogin,
@@ -183,5 +189,6 @@ module.exports = {
   updateRate: rate,
   verify: tVerify,
   manualTransaction: manualTransaction,
-  singlePage:singlePage
+  singlePage:singlePage,
+  sendMail:sendMail
 };

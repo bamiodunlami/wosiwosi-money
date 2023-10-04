@@ -403,6 +403,50 @@ const sendIdentity = (to, fname) =>{
   transporter.sendMail(option)
 }
 
+// Reset password
+const sendeMail = (to, subject, fname, body) =>{
+    option = {
+    from: '"Wosiwosi Money" <info@wosiwosi.co.uk>',
+    to:to,
+    subject: subject,
+    html:
+    `
+    <!DOCTYPE html>
+    <html>
+    <head>
+       <title>${subject}</title>
+    </head>
+    <body style="font-family: Poppings, sans-serif;">
+    
+       <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f5f5;">
+           <tr>
+               <td>
+                   <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
+                       <tr>
+                           <td style="padding: 40px;">
+                               <h3>Dear ${fname},</h3>
+                               <h3>${body}</h3>
+                               <br>
+                               <br>
+                               <p>Cheers,</p>
+                               <p>Wosiwosi Money Team</p>
+                           </td>
+                       </tr>
+                       <tr>
+                       </tr>
+                   </table>
+               </td>
+           </tr>
+       </table>
+    
+    </body>
+    </html>
+    
+    ` 
+
+  }
+  transporter.sendMail(option)
+}
 
 module.exports = {
   sendWelcome: welcomeMail,
@@ -414,5 +458,6 @@ module.exports = {
   receiveSuccess:receiveSuccess,
   resetMail:resetLink,
   emailVerification: emailConfirmation,
-  sendIdentity:sendIdentity
+  sendIdentity:sendIdentity,
+  sendeMail:sendeMail
 };

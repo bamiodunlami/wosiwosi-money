@@ -57,4 +57,6 @@ router.post('/manualTransaction', admin.manualTransaction)
 
 router.get('/customer', admin.singlePage)
 
+router.post('/sendemail', admin.sendMail)
+
 module.exports=router;

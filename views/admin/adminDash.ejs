@@ -126,7 +126,6 @@
                               <th>Receive</th>
                               <th>Rate</th>
                               <th>Promo</th>
-                              <th>Ref</th>
                               <th>£ Status</th>
                               <th>flw ID</th>
                             </tr>
@@ -143,7 +142,6 @@
                               <td><%=transaction[i].details[0].takeAmount%></td>
                               <td><%=transaction[i].details[0].rate%></td>
                               <td><%=transaction[i].details[0].promo%></td>
-                              <td><%=transaction[i].details[0].ref%></td>
                               <td><%=transaction[i].details[0].paymentStatus%></td>
                               <td><%=transaction[i].details[0].flwId%></td>
                             </tr>
@@ -216,9 +214,6 @@
                     <th>F Name</th>
                     <th>L Name</th>
                     <th>Email</th>
-                    <th>Reg as</th>
-                    <th>Status</th>
-                    <th>ID Sesssion</th>
                     <th>ID proof</th>
                   </tr>
                 </thead>
@@ -230,9 +225,6 @@
                     <td><%=regUser[i].profile.fname%></td>
                     <td><%=regUser[i].profile.lname%></td>
                     <td><a href="/customer?username=<%=regUser[i].username%>"><%=regUser[i].username%></a></td>
-                    <td><%=regUser[i].regAs%></td>
-                    <td><%=regUser[i].status%></td>
-                    <td><%=regUser[i].proof.sessionId%></td>
                     <td><%=regUser[i].proof.faceMatchResult%></td>
                   </tr>
                   <%}%>

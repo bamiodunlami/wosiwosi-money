@@ -103,12 +103,12 @@
                                   <tr>
                                     <th>S/N</th>
                                     <th>Date</th>
-                                    <th>Ref</th>
                                     <th>Send</th>
                                     <th>Rate</th>
                                     <th>Receive</th>
                                     <th>£ Status</th>
                                     <th>Receiver</th>
+                                    <th>Receive Account</th>
                                     <th>NGN Status</th>
                                     <th>FLW id</th>
                                   </tr>
@@ -119,12 +119,12 @@
                                         <tr>
                                           <td><%=i+1%></td>
                                           <td><%=data.transaction[i].date%></td>
-                                          <td><%=data.transaction[i].ref%></td>
                                           <td><%=data.transaction[i].sendAmount/100%></td>
                                           <td><%=data.transaction[i].rate%></td>
                                           <td><%=data.transaction[i].takeAmount%></td>
                                           <td><%=data.transaction[i].paymentStatus%></td>
                                           <td><%=data.transaction[i].reciever%></td>
+                                          <td><%=data.transaction[i].receiverAcct%></td>
                                           <td><%=data.transaction[i].sendStatus%></td>
                                           <td><%=data.transaction[i].flwId%></td>
                                         </tr>
@@ -142,19 +142,49 @@
           </div>
 
 
-                   <!-- verify transaction -->
-                   <div class=" transactionVerify col-md-6">
-                    <h6 class="text-center">Verify customer Transaction</h6>
-                    <form>
-                        <div class="mb-2 form-floating">
-                          <input type="text" class="form-control tInput" name="flwId" id="floatingInput" placeholder="Transaction ID" required>
-                          <label for="floatingInput" class="form-label">Transaction ID</label>
-                        </div>
-                        <button type="submit" id="tVerify" class="btn btn-success btn-md">Verify</button>
-                        <h6 id="msg"></h6>
-                    </form>
-                  </div>  
-        
+            <!-- verify transaction -->
+            <div class=" transactionVerify col-md-6">
+            <h6 class="text-center">Verify customer Transaction</h6>
+                <form>
+                    <div class="mb-2 form-floating">
+                        <input type="text" class="form-control tInput" name="flwId" id="floatingInput" placeholder="Transaction ID" required>
+                        <label for="floatingInput" class="form-label">Transaction ID</label>
+                    </div>
+                    <button type="submit" id="tVerify" class="btn btn-success btn-md">Verify</button>
+                    <h6 id="msg"></h6>
+                </form>
+
+                <!-- block user -->
+                <hr>
+                <h5 class="alert alert-dark">Block user</h5>
+                <form action="/blockuser" method="post">
+                    <h6><%=data.username%></h6>
+                    <input type="hidden" name="receiver" value="<%=data.username%>">
+                    <button type="submit" id="blockuser" class="btn btn-danger btn-sm">Block now</button>
+                </form>
+            </div>  
+
+
+            <!--Send Email-->
+            <div class=" transactionVerify col-md-6">
+            <h6 class="text-center">Send mail</h6>
+                <form action="/sendemail" method="post">
+                    <div class="mb-2">
+                        <label class="form-label">Subject</label>
+                        <input type="text" class="form-control" name="subject" id="mailbody" required>
+                    </div>
+
+                    <div class="mb-2 ">
+                        <label class="form-label">Email body</label>
+                        <textarea class="form-control" name="body" id="mailbody" required></textarea>
+                    </div>
+                    <input type="hidden" name="receiver" value="<%=data.username%>">
+                    <input type="hidden" name="name" value="<%=data.profile.fname%>">
+
+                    <button type="submit" id="sendmail" class="btn btn-success btn-md">Verify</button>
+                    <h6 id="msg"></h6>
+                </form>
+            </div>  
           
           <%}%>
         </div>
