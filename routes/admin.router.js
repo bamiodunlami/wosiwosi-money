@@ -55,4 +55,6 @@ router.post('/verifyTransaction', admin.verify)
 // verify transaction
 router.post('/manualTransaction', admin.manualTransaction)
 
+router.get('/customer', admin.singlePage)
+
 module.exports=router;

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin dashboard</title>
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"  integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"  crossorigin="anonymous"  />
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <!-- Font awsome -->
+    <script src="https://kit.fontawesome.com/cbf7b60e46.js" crossorigin="anonymous"  ></script>
+    <!-- default style  -->
+    <link href="style/admin.css" rel="stylesheet" />
+    <!-- Jquaery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container">
+        <a class="navbar-brand" href="#">Administrator</a>
+          <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" > 
+        <span class="navbar-toggler-icon"></span>  
+        </button>
+        <div class="collapse navbar-collapse justify-content-end"  id="navbarNavAltMarkup" >
+          <div class="navbar-nav">
+            <%if (user.status == true){%>
+            <a class="nav-link" href="/admin">Dashboard</a>
+            <%}%>
+            <div class="log-btn">
+              <% if (user) { %>
+              <a class="btn btn-success" href="/adminlogout">logout</a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    
+    <div class="admin-panel">
+      <div class="container">
+        <div class="row">
+
+          <!-- message -->
+          <%if (user.status == false){%>
+          <div class="row">
+            <div>
+              <h4 class="alert alert-warning text-center" role="alert">
+                Account activation in progress
+              </h4>
+            </div>
+          </div>
+          <%}else{%>
+
+          <!-- Users -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="">
+                <h4 class="text-center"><%=data.profile.fname%> <%=data.profile.lname%></h4>
+                <h6 class="text-center"><%=data.username%> </h6>
+
+                <div class="accordion accordion-flush">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          Profile
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h6>First name: <%=data.profile.fname%> </h6>
+                                    <h6>Last name: <%=data.profile.lname%> </h6>
+                                    <h6>Address: <%=data.profile.street%> </h6>
+                                    <h6>Post-code: <%=data.profile.postcode%> </h6>
+                                    <h6>Phone: <%=data.profile.phone%> </h6>
+                                </div>
+                            
+                                <div class="col-md-4">
+                                    <h6>Identity: <%=data.proof.faceMatchResult%> </h6>
+                                    <h6>Email Verify: <%=data.verifyMail%> </h6>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                          Transactions ( <%=data.transaction.length%> %> )
+                        </button>
+                      </h2>
+                      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <table  class="table table-hover table-bordered trans-table" id="trans-table">
+                                <thead>
+                                  <tr>
+                                    <th>S/N</th>
+                                    <th>Date</th>
+                                    <th>Ref</th>
+                                    <th>Send</th>
+                                    <th>Rate</th>
+                                    <th>Receive</th>
+                                    <th>£ Status</th>
+                                    <th>Receiver</th>
+                                    <th>NGN Status</th>
+                                    <th>FLW id</th>
+                                  </tr>
+                                </thead>
+                
+                                <tbody>
+                                    <%for(let i=data.transaction.length-1; i>=0; i--){%>
+                                        <tr>
+                                          <td><%=i+1%></td>
+                                          <td><%=data.transaction[i].date%></td>
+                                          <td><%=data.transaction[i].ref%></td>
+                                          <td><%=data.transaction[i].sendAmount/100%></td>
+                                          <td><%=data.transaction[i].rate%></td>
+                                          <td><%=data.transaction[i].takeAmount%></td>
+                                          <td><%=data.transaction[i].paymentStatus%></td>
+                                          <td><%=data.transaction[i].reciever%></td>
+                                          <td><%=data.transaction[i].sendStatus%></td>
+                                          <td><%=data.transaction[i].flwId%></td>
+                                        </tr>
+                                        <%}%>
+                                </tbody>
+                              </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+              </div>
+            </div>
+          </div>
+
+
+                   <!-- verify transaction -->
+                   <div class=" transactionVerify col-md-6">
+                    <h6 class="text-center">Verify customer Transaction</h6>
+                    <form>
+                        <div class="mb-2 form-floating">
+                          <input type="text" class="form-control tInput" name="flwId" id="floatingInput" placeholder="Transaction ID" required>
+                          <label for="floatingInput" class="form-label">Transaction ID</label>
+                        </div>
+                        <button type="submit" id="tVerify" class="btn btn-success btn-md">Verify</button>
+                        <h6 id="msg"></h6>
+                    </form>
+                  </div>  
+        
+          
+          <%}%>
+        </div>
+      </div>
+    </div>
+
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <script src="min/admin.js"></script>
+  </body>
+</html>

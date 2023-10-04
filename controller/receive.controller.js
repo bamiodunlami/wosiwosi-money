@@ -6,6 +6,8 @@ const path = require("path");
 const rootPath = path.resolve(process.cwd());
 appRoot.setPath(rootPath);
 
+// console.log(appRoot)
+
 const passport = require(appRoot + "/util/passportAuth.js");
 const model = require(appRoot + "/model/mongodb.js");
 const User = model.User;

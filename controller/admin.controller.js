@@ -162,6 +162,20 @@ const manualTransaction = (req, res) => {
   } catch (e) {}
 };
 
+// singlePage
+const singlePage = async (req, res) =>{
+  if(req.isAuthenticated()){
+  await User.findOne({username:req.query.username})
+  .then((response)=>{
+    res.render('admin/singlepage', {
+      data:response,
+      user:req.user
+    })
+  })
+}else{
+  res.redirect('/login')
+}
+}
 module.exports = {
   renderAdminPage: renderPage,
   renderAdminLogin: adminLogin,
@@ -169,4 +183,5 @@ module.exports = {
   updateRate: rate,
   verify: tVerify,
   manualTransaction: manualTransaction,
+  singlePage:singlePage
 };

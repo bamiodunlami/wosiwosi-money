@@ -6,24 +6,13 @@
     <title>Admin dashboard</title>
     <link rel="icon" type="image/png" href="images/icon.png">
     <!-- bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"  integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"  crossorigin="anonymous"  />
     <!-- google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <!-- Font awsome -->
-    <script
-      src="https://kit.fontawesome.com/cbf7b60e46.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://kit.fontawesome.com/cbf7b60e46.js" crossorigin="anonymous"  ></script>
     <!-- default style  -->
     <link href="style/admin.css" rel="stylesheet" />
     <!-- Jquaery -->
@@ -33,25 +22,12 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container">
         <a class="navbar-brand" href="#">Administrator</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
+          <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" > 
+        <span class="navbar-toggler-icon"></span>  
         </button>
-        <div
-          class="collapse navbar-collapse justify-content-end"
-          id="navbarNavAltMarkup"
-        >
+        <div class="collapse navbar-collapse justify-content-end"  id="navbarNavAltMarkup" >
           <div class="navbar-nav">
             <%if (user.status == true){%>
-            <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="#">Pricing</a>
             <%}%>
             <div class="log-btn">
               <% if (user) { %>
@@ -86,73 +62,28 @@
                   <form class="row g-1" action="/updaterate" method="post">
                     <!-- ngn -->
                     <div class="mb-2 col-6 form-floating">
-                      <input
-                        type="text"
-                        name="NGN"
-                        class="form-control"
-                        id="floatingInput"
-                        placeholder="name@example.com"
-                        value="<%=rate.GBPTONGN%>"
-                      />
-                      <label for="floatingInput" class="form-label"
-                        >GBPTONGN</label
-                      >
+                      <input type="text" name="NGN" class="form-control" id="floatingInput" placeholder="name@example.com" value="<%=rate.GBPTONGN%>" />
+                      <label for="floatingInput" class="form-label">GBPTONGN</label>
                     </div>
                     <!-- ghs -->
                     <div class="mb-3 col-6 form-floating">
-                      <input
-                        type="text"
-                        name="GHS"
-                        class="form-control"
-                        id="floatingInput"
-                        placeholder="name@example.com"
-                        value="<%=rate.GBPTOGHS%>"
-                      />
-                      <label for="floatingInput" class="form-label"
-                        >GBPTOGHS</label
-                      >
+                      <input type="text" name="GHS" class="form-control" id="floatingInput" placeholder="name@example.com" value="<%=rate.GBPTOGHS%>" />
+                      <label for="floatingInput" class="form-label">GBPTOGHS</label>
                     </div>
                     <!-- ken -->
                     <div class="mb-2 col-6 form-floating">
-                      <input
-                        type="text"
-                        name="KEN"
-                        class="form-control"
-                        id="floatingInput"
-                        placeholder="name@example.com"
-                        value="<%=rate.GBPTOKEN%>"
-                      />
-                      <label for="floatingInput" class="form-label"
-                        >GBPTOKEN</label
-                      >
+                      <input type="text" name="KEN" class="form-control" id="floatingInput" placeholder="name@example.com" value="<%=rate.GBPTOKEN%>"/>
+                      <label for="floatingInput" class="form-label">GBPTOKEN</label>
                     </div>
                     <!-- zim -->
                     <div class="mb-3 col-6 form-floating">
-                      <input
-                        type="text"
-                        name="ZIM"
-                        class="form-control"
-                        id="floatingInput"
-                        placeholder="name@example.com"
-                        value="<%=rate.GBPTOZIM%>"
-                      />
-                      <label for="floatingInput" class="form-label"
-                        >GBPTOZIM</label
-                      >
+                      <input type="text" name="ZIM" class="form-control" id="floatingInput" placeholder="name@example.com" value="<%=rate.GBPTOZIM%>" />
+                      <label for="floatingInput" class="form-label">GBPTOZIM</label>
                     </div>
 
                     <div class="mb-3 col-6 form-floating">
-                      <input
-                        type="text"
-                        name="NGNTOGBP"
-                        class="form-control"
-                        id="floatingInput"
-                        placeholder="NGNTOGBP"
-                        value="<%=rate.NGNTOGBP%>"
-                      />
-                      <label for="floatingInput" class="form-label"
-                        >NGNTOGBP</label
-                      >
+                      <input type="text" name="NGNTOGBP" class="form-control" id="floatingInput" placeholder="NGNTOGBP" value="<%=rate.NGNTOGBP%>"/>
+                      <label for="floatingInput" class="form-label">NGNTOGBP</label>
                     </div>
 
                     <button type="submit" class="btn btn-success btn-md">
@@ -184,10 +115,7 @@
                         <div class="admin-operation-bar-title">
                           <h4 class="text-center">Transactions</h4>
                         </div>
-                        <table
-                          class="table table-hover table-bordered trans-table"
-                          id="trans-table"
-                        >
+                        <table class="table table-hover table-bordered trans-table" id="trans-table">
                           <thead>
                             <tr>
                               <th>Date</th>
@@ -208,7 +136,7 @@
                             <%for(let i=transaction.length-1; i>=0; i--){%>
                             <tr>
                               <td><%=transaction[i].details[0].date%></td>
-                              <td><%=transaction[i].details[0].sender%></td>
+                              <td><a href="/customer?username=<%=transaction[i].details[0].senderUser%>"><%=transaction[i].details[0].senderUser%></a></td>
                               <td><%=transaction[i].details[0].currencyPair%></td>
                               <td><%=transaction[i].details[0].reciever%></td>
                               <td><%=transaction[i].details[0].sendAmount/100%></td>
@@ -301,7 +229,7 @@
                     <td><%=i+1%></td>
                     <td><%=regUser[i].profile.fname%></td>
                     <td><%=regUser[i].profile.lname%></td>
-                    <td><%=regUser[i].username%></td>
+                    <td><a href="/customer?username=<%=regUser[i].username%>"><%=regUser[i].username%></a></td>
                     <td><%=regUser[i].regAs%></td>
                     <td><%=regUser[i].status%></td>
                     <td><%=regUser[i].proof.sessionId%></td>
