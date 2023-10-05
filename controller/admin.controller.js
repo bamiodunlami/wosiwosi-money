@@ -169,6 +169,7 @@ const singlePage = async (req, res) =>{
   if(req.isAuthenticated()){
   await User.findOne({username:req.query.username})
   .then((response)=>{
+    console.log(response.receiveRequest)
     res.render('admin/singlepage', {
       data:response,
       user:req.user
