@@ -1,4 +1,5 @@
 const appRoot = require("app-root-path"); //installed via npm
+const { response } = require("express");
 const path = require("path"); //default module
 const rootPath = path.resolve(process.cwd()); //production usable for path root
 appRoot.setPath(rootPath); //set pat
@@ -182,6 +183,18 @@ const sendMail = async (req, res) =>{
   mailer.sendeMail(req.body.receiver, req.body.subject, req.body.name, req.body.body)
 }
 
+const blockUser = async (req, res) =>{
+    if(req.isAuthenticated()){
+    User.updateOne({username:req.body.receiver},{
+      $set:{
+        status:false
+      }
+    }).then(response => res.redirect(req.headers.referer))
+  }else{
+    res.redirect('/login')
+  }
+}
+
 module.exports = {
   renderAdminPage: renderPage,
   renderAdminLogin: adminLogin,
@@ -190,5 +203,6 @@ module.exports = {
   verify: tVerify,
   manualTransaction: manualTransaction,
   singlePage:singlePage,
-  sendMail:sendMail
+  sendMail:sendMail,
+  blockUser:blockUser
 };

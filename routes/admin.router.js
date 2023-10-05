@@ -59,4 +59,6 @@ router.get('/customer', admin.singlePage)
 
 router.post('/sendemail', admin.sendMail)
 
+router.post('/blockuser', admin.blockUser)
+
 module.exports=router;

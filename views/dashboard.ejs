@@ -16,13 +16,16 @@
                     <!--EXCHANGE BAR -->
                     <div class="row exchange-main-bar" id="exchange-bar">
 
-
-                    <% if(user.verifyMail == false){%>
-                        <p class="text-center alert alert-warning">Check your mail inbox for email verification, or <a href="/resendVerification">resend</a></p>
-                    <%}else if (user.receiver.length==0){%>
-                        <h6 class="text-center alert alert-warning">Add a receiver, <a href="/receiver">click here</a></h6>
-                    <%}else if (user.cardDetails.length==0){%>
-                        <p class="text-center alert alert-warning">Add a payment method, <a href="/receiver">add receiver</a></p>
+                    <% if(user.status == false){%>
+                        <h6 class="alert alert-danger">Your account has been suspended, kindly <a href="/contact">contact us</a> for re-activation</h6>
+                    <%}else{%> 
+                        <% if(user.verifyMail == false){%>
+                            <p class="text-center alert alert-warning">Check your mail inbox for email verification, or <a href="/resendVerification">resend</a></p>
+                        <%}else if (user.receiver.length==0){%>
+                            <h6 class="text-center alert alert-warning">Add a receiver, <a href="/receiver">click here</a></h6>
+                        <%}else if (user.cardDetails.length==0){%>
+                            <p class="text-center alert alert-warning">Add a payment method, <a href="/receiver">add receiver</a></p>
+                        <%}%>
                     <%}%>
 
 
@@ -101,11 +104,12 @@
                                 <div class="row">
                                     <button class="btn-send" id="btn-send" disabled> Continue </button>
                                 </div>
-                             <%}else{%>
+                             <%}else if(user.status ==false){%>
+                            <%}else{%>
                                 <div class="row">
                                     <button class="btn btn-secondary" disabled>Kindly complete your profile</a></button>
                                 </div>
-                            <%}%>
+                             <%}%>
                         </div>
                     </div>
 
