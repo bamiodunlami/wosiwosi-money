@@ -128,7 +128,9 @@
                 </form>
                 </section>
                 <%}else{%>
-
+                <% if (user.status == false){%>
+                    <h6 class="alert alert-danger">Your account has been suspended, kindly <a href="/contact">contact us</a> for re-activation</h6>
+                    <%}else{%>
                 <!-- section two -->
                 <section class="section-two" id="section-two">
                 <form action="receiveRequest" method="post">
@@ -198,6 +200,7 @@
                         <button class="btn btn-success btn-md" id="confirmExchange">Confirm</button>
                     </div>
                 </section>
+                    <%}%>
                 <%}%>
             </div>
         </div>
