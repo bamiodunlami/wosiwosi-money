@@ -156,6 +156,7 @@ const receiverPage = (req, res) => {
     res.render("rec", {
       receiver: req.user.receiver,
       card: req.user.cardDetails,
+      user:req.user
     });
   } else {
     res.redirect("/login");
