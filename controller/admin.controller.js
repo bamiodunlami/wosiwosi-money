@@ -169,7 +169,7 @@ const singlePage = async (req, res) =>{
   if(req.isAuthenticated()){
   await User.findOne({username:req.query.username})
   .then((response)=>{
-    console.log(response.receiveRequest)
+    // console.log(response.receiveRequest)
     res.render('admin/singlepage', {
       data:response,
       user:req.user
@@ -181,9 +181,12 @@ const singlePage = async (req, res) =>{
 }
 
 const sendMail = async (req, res) =>{
+  console.log(req.body)
   mailer.sendeMail(req.body.receiver, req.body.subject, req.body.name, req.body.body)
+  res.redirect(req.headers.referer)
 }
 
+//  block user
 const blockUser = async (req, res) =>{
     if(req.isAuthenticated()){
     User.updateOne({username:req.body.receiver},{
@@ -196,6 +199,20 @@ const blockUser = async (req, res) =>{
   }
 }
 
+// unblockUser
+const unblockUser = async (req, res) =>{
+  if(req.isAuthenticated()){
+  User.updateOne({username:req.body.receiver},{
+    $set:{
+      status:true
+    }
+  }).then(response => res.redirect(req.headers.referer))
+}else{
+  res.redirect('/login')
+}
+}
+
+
 module.exports = {
   renderAdminPage: renderPage,
   renderAdminLogin: adminLogin,
@@ -205,5 +222,6 @@ module.exports = {
   manualTransaction: manualTransaction,
   singlePage:singlePage,
   sendMail:sendMail,
-  blockUser:blockUser
+  blockUser:blockUser,
+  unblockUser:unblockUser
 };

@@ -60,7 +60,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="">
-                <h4 class="text-center"><%=data.profile.fname%> <%=data.profile.lname%></h4>
+                <h4 class="text-center"><%=data.profile.fname%> <%=data.profile.lname%> (<%=data.status%>)</strong></h4>
                 <h6 class="text-center"><%=data.username%> </h6>
 
                 <div class="accordion accordion-flush">
@@ -166,7 +166,7 @@
                                       <%for(let i=data.receiveRequest.length-1; i>=0; i--){%>
                                           <tr>
                                             <td><%=i+1%></td>
-                                            <td><%=data.receiveRequest[i].details.reveiveAmount%></td>
+                                            <td><%=data.receiveRequest[i].details.receiveAmount%></td>
                                             <td><%=data.receiveRequest[i].details.equivalent%></td>
                                             <td><%=data.receiveRequest[i].details.description%></td>
                                             <td><%=data.receiveRequest[i].details.purchaseOption%></td>
@@ -204,12 +204,21 @@
 
                 <!-- block user -->
                 <hr>
-                <h5 class="alert alert-dark">Block user</h5>
-                <form action="/blockuser" method="post">
-                    <h6><%=data.username%></h6>
-                    <input type="hidden" name="receiver" value="<%=data.username%>">
-                    <button type="submit" id="blockuser" class="btn btn-danger btn-sm">Block now</button>
-                </form>
+                <div class="row">
+                    <div class="col-6">
+                        <form action="/blockuser" method="post">
+                            <input type="hidden" name="receiver" value="<%=data.username%>">
+                            <button type="submit" id="blockuser" class="btn btn-danger btn-sm">Block now</button>
+                        </form>
+                    </div>
+
+                    <div class="col-6">
+                        <form action="/unblockuser" method="post">
+                            <input type="hidden" name="receiver" value="<%=data.username%>">
+                            <button type="submit" id="blockuser" class="btn btn-success btn-sm">Unlock now</button>
+                        </form>
+                    </div>
+                </div>
             </div>  
 
 
@@ -229,7 +238,7 @@
                     <input type="hidden" name="receiver" value="<%=data.username%>">
                     <input type="hidden" name="name" value="<%=data.profile.fname%>">
 
-                    <button type="submit" id="sendmail" class="btn btn-success btn-md">Verify</button>
+                    <button type="submit" id="sendmail" class="btn btn-success btn-md">Send</button>
                     <h6 id="msg"></h6>
                 </form>
             </div>  

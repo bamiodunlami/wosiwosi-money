@@ -84,7 +84,6 @@ const receiveRequest = async (req, res) => {
             receiveRequest: details,
           },
         }).then(respones => console.log())
-
         try {
           const rootLin= req.protocol + '://' + req.get('host') + "/response"
           const response = await got.post("https://api.flutterwave.com/v3/payments", {
@@ -140,7 +139,7 @@ const receiveRequest = async (req, res) => {
 
 const receivePaymanetResponse = async (req, res) =>{
   try{
-// console.log(req.query)
+console.log(req.query)
     const status = req.query.status
     if(status !="success"){
       res.redirect('/receive')

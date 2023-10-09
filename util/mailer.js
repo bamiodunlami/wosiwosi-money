@@ -424,9 +424,8 @@ const sendeMail = (to, subject, fname, body) =>{
                    <table cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);">
                        <tr>
                            <td style="padding: 40px;">
-                               <h3>Dear ${fname},</h3>
-                               <h3>${body}</h3>
-                               <br>
+                               <h4>Hi ${fname},</h4>
+                               <p>${body}</p>
                                <br>
                                <p>Cheers,</p>
                                <p>Wosiwosi Money Team</p>

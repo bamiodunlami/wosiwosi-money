@@ -61,4 +61,6 @@ router.post('/sendemail', admin.sendMail)
 
 router.post('/blockuser', admin.blockUser)
 
+router.post('/unblockuser', admin.unblockUser)
+
 module.exports=router;
