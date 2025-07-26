@@ -6,7 +6,6 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('express-flash');
 
-
 //Use module
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,6 +45,10 @@ app.use(promo);
 
 app.use(receive);
 // app.use(authentication);
+
+app.get('/health', (req, res) => {
+  res.send('OK');
+});
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);

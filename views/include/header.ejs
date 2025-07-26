@@ -1,47 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Dynamic page title -->
     <title><%= title %></title>
-    <meta property="description" content="Send to your local bank account or receive money into you foreign account in a seamless, fast and secured way.">
-    <meta property="image" content="images/shareLinkImage.jpg">
-    <link rel="icon" type="image/png" href="images/icon.png">
-     <!-- bootstrap -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <!-- google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Font awsome -->
+
+    <!-- SEO meta tags -->
+    <meta property="description" content="Send to your local bank account or receive money into your foreign account in a seamless, fast and secured way." />
+    <meta property="image" content="images/shareLinkImage.jpg" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/icon.png" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome for icons -->
     <script src="https://kit.fontawesome.com/cbf7b60e46.js" crossorigin="anonymous"></script>
-    <!-- default style  -->
-    <link href="style/style.css" rel="stylesheet">
-    <link href="style/receive.css" rel="stylesheet">
-    <!-- Jquaery -->
+
+    <!-- Custom stylesheets -->
+    <link href="style/style.css" rel="stylesheet" />
+    <link href="style/receive.css" rel="stylesheet" />
+
+    <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   </head>
   <body>
+    <!-- MVP mode notification -->
+    <div>
+      <h6 class="alert alert-success text-center">MVP MODE: TEST ONLY</h6>
+    </div>
+
+    <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg web-nav-padding">
       <div class="container">
-        <a class="navbar-brand" href="/"><img class="logo" src="images/wmo.png"></a>
+        <!-- Brand/logo -->
+        <a class="navbar-brand" href="/">
+          <img class="logo" src="images/wmo.png" alt="Logo" />
+        </a>
+        <!-- Responsive navbar toggler -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Navbar links -->
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-link" href="/dashboard">Send</a>
-            <a href="/terms" class="nav-link">Terms of use</a>
+            <a class="nav-link" href="/terms">Terms of use</a>
             <a class="nav-link" href="/contact">Contact</a>
             <div class="log-btn">
-            <% if (user) { %>
-            <a class="nav-link" href="/profile"><i class="fa-solid fa-circle-user fa-xl"></i></a> 
-            <% } else { %>
-            <a class="btn btn-outline-success" href="/login">Login</a>
-              <a class=" btn btn-success" href="/register">Signup</a>
+              <% if (user) { %>
+              <!-- Show profile icon if user is logged in -->
+              <a class="nav-link" href="/profile">
+                <i class="fa-solid fa-circle-user fa-xl"></i>
+              </a>
+              <% } else { %>
+              <!-- Show login/signup buttons if user is not logged in -->
+              <a class="btn btn-outline-success" href="/login">Login</a>
+              <a class="btn btn-success" href="/register">Signup</a>
               <% } %>
             </div>
-        </div>  
+          </div>
+        </div>
       </div>
     </nav>
-  
+  </body>
+</html>
