@@ -1,42 +1,34 @@
-const express = require ('express');
+const express = require('express');
 const router = express.Router();
 
-const appRoot = require('app-root-path'); //installed via npm
-const path = require('path'); //default module
-const rootPath = path.resolve(process.cwd()); //production usable for path root
-appRoot.setPath(rootPath); //set path
+const appRoot = require('app-root-path');
+const path = require('path');
+const rootPath = path.resolve(process.cwd());
+appRoot.setPath(rootPath);
 
-const passport= require (appRoot + '/util/passportAuth.js');
+const passport = require(`${appRoot}/util/passportAuth.js`);
+const auth = require(`${appRoot}/controller/authentication.controller.js`);
 
-const auth= require (appRoot + '/controller/authentication.controller.js');
-const renderLoginPage=  auth.renderLoginPage
-const userRegistration = auth.userRegistration
+// Login routes
+router
+  .route('/login')
+  .get(auth.renderLoginPage)
+  .post(passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }), auth.userLogin);
 
+// Registration routes
+router
+  .route('/register')
+  .get((req, res) => res.render('register'))
+  .post(auth.userRegistration);
 
-router.get('/login', renderLoginPage)
+// Password routes
+router.get('/forgetpass', (req, res) => res.render('forgetpassword'));
+router.post('/reset', auth.reset);
+router.get('/pcreset', auth.changePassword);
+router.post('/newpass', auth.newpass);
 
-router.post('/login', passport.authenticate("local", {failureRedirect:"/login", failureFlash:true}),(req, res)=>{
-    res.redirect('/dashboard')
-});
+// Verification routes
+router.get('/resendVerification', auth.resendVerification);
+router.get('/veri', auth.mailVerified);
 
-router.get('/register', (req, res)=>{
-    res.render('register')
-})
-
-router.get('/forgetpass', (req, res)=>{
-    res.render('forgetpassword')
-})
-
-router.post('/register', userRegistration);
-
-router.post('/reset', auth.reset)
-
-router.get('/pcreset', auth.changePassword)
-
-router.post('/newpass', auth.newpass)
-
-router.get('/resendVerification', auth.resendVerification)
-
-router.get('/veri', auth.mailVerified)
-
-module.exports=router
+module.exports = router;

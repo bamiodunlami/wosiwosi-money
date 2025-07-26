@@ -1,141 +1,181 @@
-const appRoot = require("app-root-path"); //installed via npm
-const path = require("path"); //default module
-const rootPath = path.resolve(process.cwd()); //production usable for path root
-appRoot.setPath(rootPath); //set path
+// Import required modules
+const appRoot = require('app-root-path'); // Handles app root path
+const path = require('path'); // Node.js path module
 
-const mailer = require(appRoot + "/util/mailer.js")
-const mongo = require(appRoot + "/model/mongodb.js");
+// Set application root path
+const rootPath = path.resolve(process.cwd());
+appRoot.setPath(rootPath);
+
+// Import custom modules using app root
+const mailer = require(appRoot + '/util/mailer.js');
+const mongo = require(appRoot + '/model/mongodb.js');
 const User = mongo.User;
+const passport = require(appRoot + '/util/passportAuth.js');
 
+// Utility: Get current date for registration
 const date = new Date();
 
-// Render Login
-const login = (req, res) => {
-  res.render("login");
+/**
+ * Render the login page
+ */
+const renderLoginPage = (req, res) => {
+  res.render('login');
 };
 
-// registration
-const register = async (req, res) => {
-  // const tok=Math.floor(Math.random()*15500123801);
+/**
+ * Handle user login POST request
+ */
+const userLogin = async (req, res) => {
+  // Authentication handled by passport middleware
+  res.redirect('/dashboard');
+};
+
+/**
+ * Handle user registration
+ */
+const userRegistration = async (req, res) => {
+  // Prepare user details object
   const userDetails = {
     username: req.body.username,
     status: true,
     regDate: date.toJSON(),
     regTerm: true,
-    regAs: "",
+    regAs: '',
     profile: {
-      fname: "",
-      lname: "",
-      phone: "",
-      dob: "",
-      street: "",
-      postcode: "",
-      city: "",
-      country: "",
-      Nationality: "",
+      fname: '',
+      lname: '',
+      phone: '',
+      dob: '',
+      street: '',
+      postcode: '',
+      city: '',
+      country: '',
+      Nationality: '',
     },
     proof: {
-      sessionId: "",
-      faceMatchResult: "",
+      sessionId: '',
+      faceMatchResult: '',
     },
     cardDetails: [],
     receiver: [],
     transaction: [],
-    resetLink:"",
-    verifyMail:false
+    resetLink: '',
+    verifyMail: false,
   };
-  const userMail=userDetails.username
-  const rootLin= req.protocol + '://' + req.get('host') + "/veri" + "?ref=" + userMail
-  await User.register(userDetails, req.body.password, (err) => {
+
+  const userMail = userDetails.username;
+  // Generate verification link
+  const verificationLink = `${req.protocol}://${req.get('host')}/veri?ref=${userMail}`;
+
+  // Register user with password
+  await User.register(userDetails, req.body.password, (err, user) => {
     if (err) {
       console.log(err);
-      res.redirect("/");
-    } else {
-      mailer.sendWelcome(userMail);
-      mailer.emailVerification(userMail, rootLin)
-      res.redirect("/login");
+      return res.redirect('/');
+    }
+    if (user) {
+      // Log the user in after registration
+      req.login(user, (err) => {
+        if (err) {
+          console.log('Login error after registration:', err);
+          return res.redirect('/login');
+        }
+        // Optionally send welcome and verification emails here
+        mailer.sendWelcome(userMail);
+        mailer.emailVerification(userMail, verificationLink);
+        res.redirect('/dashboard');
+      });
     }
   });
 };
 
-// reset password
-const resetPassword = async (req, res)=>{
-   User.findOne({username:req.body.email})
-   .then((response)=>{
-    if(response == null){
-      res.send("none")
-    }else{
-      const rands=Math.floor(Math.random()*155200000008076564000);
-      const rootLin= req.protocol + '://' + req.get('host') + "/pcreset" + "?ref=" + rands
-      User.updateOne({username:req.body.email}, {
-        $set:{
-          resetLink:rands
-        }
-      }).then((resp)=>{
-        if(resp.acknowledged == true){
-          mailer.resetMail(req.body.email, rootLin);
-          res.send("true");
-        } 
-      })
+/**
+ * Handle password reset request
+ */
+const reset = async (req, res) => {
+  // Find user by email
+  User.findOne({ username: req.body.email }).then((user) => {
+    if (!user) {
+      return res.send('none');
     }
-   })
-}
+    // Generate random reset token
+    const resetToken = Math.floor(Math.random() * 155200000008076564000);
+    const resetLink = `${req.protocol}://${req.get('host')}/pcreset?ref=${resetToken}`;
 
-// change password
-const changePassword = async (req, res) =>{
-  res.render('change',{
-    token:req.query.ref
-  })
-}
-
-// new pass 
-const newpass = (req, res)=>{
-  User.findOne({resetLink:req.body.ref})
-  .then((response)=>{
-      response.setPassword(req.body.pass, (err, user)=>{
-        if(err) console.log(err)
-        user.save()
-      
-        // reset pass link
-        User.updateOne({resetLink:req.body.ref},{
-          $set:{
-            resetLink:"none"
-          }
-        })
-        res.redirect('/login');
-      })
-  })
-}
-
-const resendVerification = (req, res)=>{
-  const rootLin= req.protocol + '://' + req.get('host') + "/veri" + "?ref=" + req.user.username
-  mailer.emailVerification(req.user.username, rootLin)
-  res.redirect('/dashboard')
-}
-
-const mailVerified = (req, res)=>{
-  email=req.query.ref
-  User.findOne({username:email})
-  .then((response) => {
-    if (!response) res.redirect('/dashboard');
-    User.updateOne({username:email},{
-      $set:{
-        verifyMail:true
+    // Update user with reset token
+    User.updateOne({ username: req.body.email }, { $set: { resetLink: resetToken } }).then((result) => {
+      if (result.acknowledged) {
+        // Send reset email
+        mailer.resetMail(req.body.email, resetLink);
+        res.send('true');
       }
-    }).then((response) => {
-        res.render('success')
-    })
-  })
-  // res.redirect('/dashboard')
-}
+    });
+  });
+};
 
+/**
+ * Render change password page
+ */
+const changePassword = async (req, res) => {
+  res.render('change', {
+    token: req.query.ref,
+  });
+};
 
+/**
+ * Handle new password submission
+ */
+const newpass = (req, res) => {
+  // Find user by reset token
+  User.findOne({ resetLink: req.body.ref }).then((user) => {
+    if (!user) {
+      return res.redirect('/login');
+    }
+    // Set new password
+    user.setPassword(req.body.pass, (err, updatedUser) => {
+      if (err) {
+        console.log(err);
+        return res.redirect('/login');
+      }
+      updatedUser.save();
+      // Invalidate reset token
+      User.updateOne({ resetLink: req.body.ref }, { $set: { resetLink: 'none' } });
+      res.redirect('/login');
+    });
+  });
+};
+
+/**
+ * Resend verification email
+ */
+const resendVerification = (req, res) => {
+  const verificationLink = `${req.protocol}://${req.get('host')}/veri?ref=${req.user.username}`;
+  mailer.emailVerification(req.user.username, verificationLink);
+  res.redirect('/dashboard');
+};
+
+/**
+ * Handle email verification
+ */
+const mailVerified = (req, res) => {
+  const email = req.query.ref;
+  User.findOne({ username: email }).then((user) => {
+    if (!user) return res.redirect('/dashboard');
+    // Set verifyMail to true
+    User.updateOne({ username: email }, { $set: { verifyMail: true } }).then(() => {
+      res.render('success');
+    });
+  });
+};
+
+// Export controller functions
 module.exports = {
-  renderLoginPage: login,
-  userRegistration: register,
-  reset:resetPassword,
-  changePassword:changePassword,
-  newpass:newpass,
-  resendVerification:resendVerification,
-  mailVerified:mailVerified
+  renderLoginPage,
+  userLogin,
+  userRegistration,
+  reset,
+  changePassword,
+  newpass,
+  resendVerification,
+  mailVerified,
 };

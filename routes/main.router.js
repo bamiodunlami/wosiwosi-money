@@ -1,44 +1,49 @@
-const express  = require ("express");
-const router = new express.Router()
+// Import required modules
+const express = require('express');
+const router = express.Router();
 
-const appRoot =  require ('app-root-path');
-const path = require ('path')
-const rootPath = path.resolve(process.cwd())
-appRoot.setPath(rootPath); //set path
+const appRoot = require('app-root-path');
+const path = require('path');
 
-const main = require(appRoot + "/controller/main.controller.js");
+// Set the application root path
+const rootPath = path.resolve(process.cwd());
+appRoot.setPath(rootPath);
+
+// Import main controller
+const main = require(appRoot + '/controller/main.controller.js');
 
 // Home route
 router.get('/', main.home);
 
-// send today rate
+// Send today's rate
 router.get('/callback', main.rate);
 
-//success
-router.get('/success', (req, res)=>{
-    res.render('success')
-})
-
-//fail
-router.get('/fail', (req, res)=>{
-    res.render('fail')
-})
-
-router.get('/privacy', main.privacy);
-
-router.get('/terms', main.term);
-
-router.get('/contact', main.contact);
-
-
-//handle logout
-router.get("/logout", function (req, res) {
-    req.logout((err) => {
-      if (err) {
-      }
-      res.redirect("/");
-    });
+// Success page
+router.get('/success', (req, res) => {
+  res.render('success');
 });
 
+// Failure page
+router.get('/fail', (req, res) => {
+  res.render('fail');
+});
 
-module.exports=router
+// Privacy policy page
+router.get('/privacy', main.privacy);
+
+// Terms and conditions page
+router.get('/terms', main.term);
+
+// Contact page
+router.get('/contact', main.contact);
+
+// Handle logout
+router.get('/logout', (req, res) => {
+  req.logout((err) => {
+    // Optionally handle error
+    res.redirect('/');
+  });
+});
+
+// Export the router
+module.exports = router;

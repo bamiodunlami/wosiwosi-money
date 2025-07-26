@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "minify": "terser public/js/admin.js -c -m --output public/min/admin.js"
+    "minify": "terser public/js/receiver.js -c -m --output public/min/receiver.js"
   },
   "author": "Wosiwosi-bamidele",
   "license": "ISC",
@@ -28,6 +28,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0",
+    "request": "^2.88.2",
     "stripe": "^12.2.0",
     "yoti": "4.3.0"
   },

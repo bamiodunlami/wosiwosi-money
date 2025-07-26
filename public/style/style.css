@@ -2,7 +2,11 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+.hidden {
+  display: none;
 }
 
 h2 {
@@ -20,7 +24,7 @@ h4 {
   font-weight: 400;
 }
 
-h5{
+h5 {
   font-size: 20px;
   font-weight: 500;
 }
@@ -39,7 +43,7 @@ a {
   text-decoration: none;
 }
 
-.logo{
+.logo {
   width: 170px;
   height: auto;
 }
@@ -53,16 +57,16 @@ a {
 }
 
 /* ------Header----------- */
-a.nav-link{
+a.nav-link {
   font-weight: 400;
   margin: 0 5px 0 5px;
 }
 
-a.nav-link:hover{
+a.nav-link:hover {
   color: #008a1e;
 }
 
-.nav-login{
+.nav-login {
   padding-left: 10%;
 }
 
@@ -179,37 +183,34 @@ input[type="number"]::-webkit-outer-spin-button {
   border:none
 } */
 
-
 /* section 2 */
 
-.contact-img{
+.contact-img {
   width: 100%;
   height: auto;
   border-radius: 20px;
 }
 
-.contact-title{
-  padding:5%;
+.contact-title {
+  padding: 5%;
 }
 
-.contact-item{
+.contact-item {
   margin-top: 15px;
 }
 
-
 /* Section three footer */
-.section-three{
+.section-three {
   padding: 20px;
   background-color: #008a1e;
   color: #fff;
 }
 
 /* Contact page */
-.contact{
+.contact {
   height: 85vh;
   padding: 10% 30%;
 }
-
 
 /* -----------Mobile---------- */
 @media (max-width: 850px) {
@@ -217,7 +218,7 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
 
   h2 {
@@ -241,12 +242,12 @@ input[type="number"]::-webkit-outer-spin-button {
     text-decoration: none;
   }
 
-  .logo{
+  .logo {
     width: 150px;
     height: auto;
-  } 
+  }
 
-  .nav-login{
+  .nav-login {
     padding-left: 0%;
   }
 
@@ -316,24 +317,21 @@ input[type="number"]::-webkit-outer-spin-button {
     margin-bottom: 10px;
   } */
 
-
-
   /* Contact page */
-.contact{
-  height: 85vh;
-  padding: 30% 5%;
-}
+  .contact {
+    height: 85vh;
+    padding: 30% 5%;
+  }
 
-.contact-details{
-  padding: 20px;
-}
+  .contact-details {
+    padding: 20px;
+  }
 
-.each-contact-details{
-  padding: 10px 20px;
-  border: solid 1px #b5b5b5;
-  border-radius: 10px;
-}
-
+  .each-contact-details {
+    padding: 10px 20px;
+    border: solid 1px #b5b5b5;
+    border-radius: 10px;
+  }
 }
 
 /* ---------------------- */

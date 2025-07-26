@@ -5,7 +5,9 @@ const passportLocalMongoose = require ('passport-local-mongoose')
 const mongoose= require ('mongoose');//mongooose database
 
 // mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser:true});
-mongoose.connect("mongodb+srv://wosiwosiMoney:" + process.env.MONGO_CODE + "@wosiwosimoney.rafed39.mongodb.net/?retryWrites=true&w=majority", {useNewUrlParser:true});
+// mongoose.connect("mongodb+srv://wosiwosiMoney:" + process.env.MONGO_CODE + "@wosiwosimoney.rafed39.mongodb.net/?retryWrites=true&w=majority", {useNewUrlParser:true});
+// mongoose.connect('mongodb+srv://wosiwosiMoney:' + process.env.MONGO_CODE + '@wosiwosimoney.rafed39.mongodb.net/?retryWrites=true&w=majority&appName=wosiwosiMoney', {useNewUrlParser:true})
+mongoose.connect('mongodb://wosiwosiMoney:WosiWosi1@ac-xxbpizw-shard-00-00.rafed39.mongodb.net:27017,ac-xxbpizw-shard-00-01.rafed39.mongodb.net:27017,ac-xxbpizw-shard-00-02.rafed39.mongodb.net:27017/?ssl=true&replicaSet=atlas-2diny9-shard-0&authSource=admin&retryWrites=true&w=majority&appName=wosiwosiMoney')
 
 
 //users
@@ -143,6 +145,14 @@ async function migrateUsers() {
     }
   }
   // migrateUsers();
+
+
+  async function getAdmin(){
+    const admin = await User.find({regAs:"admin"})
+    console.log(admin)
+  }
+
+  // getAdmin()
 
 module.exports={
     mongoose:mongoose,

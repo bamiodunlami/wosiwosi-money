@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Account</title>
+    <link rel="icon" type="image/png" href="images/icon.png" />
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/cbf7b60e46.js" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet" />
+    <!-- Custom Styles -->
+    <link href="style/dash.css" rel="stylesheet" />
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <div class="dashboard">
+      <div class="container-fluid">
+        <div class="row main-row">
+          <%- include("include/navdashboard") -%>
+          <!-- Profile Section -->
+          <div class="col-md-10 col-sm-12 info-bar">
+            <h4 class="sub-title text-center">My Profile</h4>
+            <% if (!user.profile.fname) { %>
+            <h6 class="alert alert-warning text-center notice" role="alert">Kindly complete your profile</h6>
+            <% } %>
+            <div class="row profile-bar">
+              <div class="col-sm-12">
+                <form class="row g-1" method="POST" action="/profile-update">
+                  <div class="col-md-6 form-floating">
+                    <input type="text" name="fname" class="form-control forJs fname" id="fnameInput" placeholder="First Name" required value="<%= user.profile.fname %>" />
+                    <label for="fnameInput" class="form-label">First Name</label>
+                  </div>
+                  <div class="col-md-6 form-floating">
+                    <input type="text" name="lname" class="form-control forJs lname" id="lnameInput" placeholder="Last Name" required value="<%= user.profile.lname %>" />
+                    <label for="lnameInput" class="form-label">Last Name</label>
+                  </div>
+                  <div class="col-md-12 form-floating">
+                    <input type="email" name="email" placeholder="Email" class="form-control" id="emailInput" disabled value="<%= user.username %>" />
+                    <label for="emailInput" class="form-label">Email</label>
+                  </div>
+                  <div class="col-6 form-floating">
+                    <input type="number" name="phone" placeholder="Phone" class="form-control forJs phone" id="phoneInput" required value="<%= user.profile.phone %>" />
+                    <label for="phoneInput" class="form-label">Phone</label>
+                  </div>
+                  <div class="col-6 form-floating">
+                    <input type="date" name="dob" class="form-control forJs dob" id="dobInput" required value="<%= user.profile.dob %>" />
+                    <label for="dobInput" class="form-label">Date of Birth</label>
+                  </div>
+                  <div class="col-12 form-floating">
+                    <input type="text" name="address" placeholder="Address" class="form-control forJs address" id="addressInput" required value="<%= user.profile.street %>" />
+                    <label for="addressInput" class="form-label">Address</label>
+                  </div>
+                  <div class="col-6 form-floating">
+                    <input type="text" name="city" placeholder="City" class="form-control forJs city" id="cityInput" required value="<%= user.profile.city %>" />
+                    <label for="cityInput" class="form-label">City</label>
+                  </div>
+                  <div class="col-6 form-floating">
+                    <input type="text" name="postCode" placeholder="Post code" class="form-control forJs postcode" id="postcodeInput" required value="<%= user.profile.postcode %>" />
+                    <label for="postcodeInput" class="form-label">Post Code</label>
+                  </div>
+                  <div class="col-md-6 form-floating">
+                    <select class="form-control forJs residence" name="residence" id="residenceInput">
+                      <option>United Kingdom</option>
+                    </select>
+                    <label for="residenceInput" class="form-label">Country of residence</label>
+                  </div>
+                  <div class="col-md-6 form-floating">
+                    <input type="text" name="nationality" class="form-control forJs nationality" id="nationalityInput" placeholder="Nationality" required value="<%= user.profile.Nationality %>" />
+                    <label for="nationalityInput" class="form-label">Nationality</label>
+                  </div>
+                  <div class="col-sm-12">
+                    <% if (user.profile.fname) { %>
+                    <a class="btn btn-secondary btn-md" id="edit-btn">Edit</a>
+                    <% } %>
+                    <button type="submit" id="save-btn" class="btn btn-success btn-md">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- KYC Section -->
+            <div class="row kyc-bar" id="kyc-bar">
+              <h4 class="sub-title text-center">Identity Verification</h4>
+              <div class="col-md-12 text-center">
+                <div class="kyc-item">
+                  <div class="kyc-item-id">
+                    <% if (user.proof.faceMatchResult === "APPROVE") { %>
+                    <h6 class="alert alert-success" role="alert">ID verified</h6>
+                    <% } else { %>
+                    <h6 class="alert alert-danger" role="alert">Not Verified</h6>
+                    <a href="/verify" class="btn btn-success btn-md">Verify ID</a>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Profile Section -->
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="min/profiler.js"></script>
+  </body>
+</html>

@@ -1,23 +1,22 @@
-const appRoot = require("app-root-path"); //installed via npm
-const { response } = require("express");
-const path = require("path"); //default module
+const appRoot = require('app-root-path'); //installed via npm
+const path = require('path'); //default module
 const rootPath = path.resolve(process.cwd()); //production usable for path root
 appRoot.setPath(rootPath); //set path
 
 // const fs = require("fs");
 
-const flw = require(appRoot + "/util/flutterWave"); //flutter module
+const flw = require(appRoot + '/util/flutterWave'); //flutter module
 
-const stripe = require(appRoot + "/util/stripe.js"); //stripe
+const stripe = require(appRoot + '/util/stripe.js'); //stripe
 
-const passport = require(appRoot + "/util/passportAuth");
+const passport = require(appRoot + '/util/passportAuth');
 
-const mailer = require(appRoot + "/util/mailer.js");
+const mailer = require(appRoot + '/util/mailer.js');
 
 // const mailer = require (appRoot + '/api/mailer.js');
 // const sendWelcome = mailer.sendWelcome
 
-const mongo = require(appRoot + "/model/mongodb.js"); //mongo db and strategy module
+const mongo = require(appRoot + '/model/mongodb.js'); //mongo db and strategy module
 const User = mongo.User;
 const Transaction = mongo.Transaction;
 
@@ -32,43 +31,51 @@ const dashboard = async (req, res) => {
       if (transaction.length > 0) {
         let lastTransaction = transaction.length - 1;
         let lastTransactionId = transaction[lastTransaction].flwId;
-        // console.log(lastTransactionId)
+        console.log(lastTransactionId);
         const payload = { id: lastTransactionId.toString() };
-        flw.Transfer.get_a_transfer(payload)
-        .then((response) => {
+        flw.Transfer.get_a_transfer(payload).then((response) => {
           // console.log(response)
-          if(response.status == "success" && response.data.status == "SUCCESSFUL" ){
-            User.updateOne({ username: req.user.username, "transaction.flwId": lastTransactionId},{
-              $set: {
-                  "transaction.$.sendStatus": response.data.status,
-                }
-              }).then((resp) => {});
-          }else if(response.status == "success" && response.data.status != "SUCCESSFUL"){
-            User.updateOne({ username: req.user.username, "transaction.flwId": lastTransactionId},{
-              $set: {
-                  "transaction.$.sendStatus": "PROCESSING",
-                }
-              }).then((resp) => {});
-          }else{
-            User.updateOne({ username: req.user.username, "transaction.flwId": lastTransactionId},{
-              $set: {
-                  "transaction.$.sendStatus": "FAILED",
-                }
-              }).then((resp) => {});
+          if (response.status == 'success' && response.data.status == 'SUCCESSFUL') {
+            User.updateOne(
+              { username: req.user.username, 'transaction.flwId': lastTransactionId },
+              {
+                $set: {
+                  'transaction.$.sendStatus': response.data.status,
+                },
+              }
+            ).then((resp) => {});
+          } else if (response.status == 'success' && response.data.status != 'SUCCESSFUL') {
+            User.updateOne(
+              { username: req.user.username, 'transaction.flwId': lastTransactionId },
+              {
+                $set: {
+                  'transaction.$.sendStatus': 'PROCESSING',
+                },
+              }
+            ).then((resp) => {});
+          } else {
+            User.updateOne(
+              { username: req.user.username, 'transaction.flwId': lastTransactionId },
+              {
+                $set: {
+                  'transaction.$.sendStatus': 'FAILED',
+                },
+              }
+            ).then((resp) => {});
           }
         });
         // --------remder dashboard----------------------------
-        res.render("dashboard", {
+        res.render('dashboard', {
           user: req.user,
         });
       } else {
-        res.render("dashboard", {
+        res.render('dashboard', {
           user: req.user,
         });
       }
     });
   } else {
-    res.redirect("/login");
+    res.redirect('/login');
   }
 };
 
@@ -79,10 +86,10 @@ const userProfile = async (req, res) => {
       await User.find({ username: req.user.username }).then((response) => {
         // console.log(response);
         // console.log(req.user)
-        res.render("prof", { user: req.user });
+        res.render('profile', { user: req.user });
       });
     } else {
-      res.redirect("/login");
+      res.redirect('/login');
     }
   } catch (e) {
     console.log(e);
@@ -118,11 +125,11 @@ const updateUser = async (req, res) => {
         // else
       });
     } else {
-      res.redirect("/login");
+      res.redirect('/login');
     }
   } catch (e) {
     console.log(e);
-    res.redirect("/");
+    res.redirect('/');
   }
 };
 
@@ -130,10 +137,10 @@ const updateUser = async (req, res) => {
 const userSettings = async (req, res) => {
   if (req.isAuthenticated()) {
     await User.find({ username: req.user.username }).then((response) => {
-      res.render("settings", { user: req.user });
+      res.render('settings', { user: req.user });
     });
   } else {
-    res.redirect("/");
+    res.redirect('/');
   }
 };
 
@@ -141,9 +148,9 @@ const userSettings = async (req, res) => {
 const userProof = async (req, res) => {
   try {
     if (req.isAuthenticated()) {
-      res.redirect("/verify");
+      res.redirect('/verify');
     } else {
-      res.redirect("/login");
+      res.redirect('/login');
     }
   } catch (e) {
     console.log(e);
@@ -153,23 +160,23 @@ const userProof = async (req, res) => {
 // render receiver page
 const receiverPage = (req, res) => {
   if (req.isAuthenticated()) {
-    res.render("rec", {
+    res.render('rec', {
       receiver: req.user.receiver,
       card: req.user.cardDetails,
-      user:req.user
+      user: req.user,
     });
   } else {
-    res.redirect("/login");
+    res.redirect('/login');
   }
 };
 
 //   load bank
 const banks = (req, res) => {
   try {
-    let request = require("request");
+    let request = require('request');
     let options = {
-      method: "GET",
-      url: "https://api.flutterwave.com/v3/banks/NG",
+      method: 'GET',
+      url: 'https://api.flutterwave.com/v3/banks/NG',
       headers: {
         Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
       },
@@ -184,12 +191,12 @@ const banks = (req, res) => {
         parseBank.sort((a, b) => a.name.localeCompare(b.name)); // Replace 'name' with the property you want to sort by
         res.send(JSON.stringify(parseBank, null, 2));
       } catch (e) {
-        console.error("Error parsing JSON:", e);
+        console.error('Error parsing JSON:', e);
       }
     });
   } catch (e) {
     console.log(e);
-    res.redirect("/");
+    res.redirect('/');
   }
 };
 
@@ -205,7 +212,7 @@ const bankDetails = async (req, res) => {
     res.json(response);
   } catch (e) {
     // console.log(e);
-    res.redirect("/");
+    res.redirect('/');
   }
 };
 
@@ -224,11 +231,11 @@ const receiverDetails = async (req, res) => {
         res.send(response);
       });
     } else {
-      res.redirect("/login");
+      res.redirect('/login');
     }
   } catch (e) {
     console.log(e);
-    res.redirect("/");
+    res.redirect('/');
   }
 };
 
@@ -249,11 +256,11 @@ const removeReceiverDetails = async (req, res) => {
           res.send(true);
           // res.redirect('/receiver')
         } else {
-          res.redirect("/");
+          res.redirect('/');
         }
       });
     } else {
-      res.redirect("/");
+      res.redirect('/');
     }
   } catch (e) {
     console.log(e);
@@ -280,11 +287,13 @@ const addCard = async (req, res) => {
         };
 
         User.updateOne(
-          { username: req.user.username },{
+          { username: req.user.username },
+          {
             $push: {
               cardDetails: infoToSave,
             },
-          }).then((response) => {
+          }
+        ).then((response) => {
           // console.log("Customer created with payment method:", customer);
           res.send(true);
         });
@@ -294,7 +303,7 @@ const addCard = async (req, res) => {
         // console.error("Error creating customer:", error);
       });
   } else {
-    res.redirect("/");
+    res.redirect('/');
   }
 };
 
@@ -304,21 +313,23 @@ const removeCard = async (req, res) => {
     try {
       const cardValue = {};
       await User.updateOne(
-        { username: req.user.username }, {
+        { username: req.user.username },
+        {
           $pull: {
             cardDetails: {
               cardNumberEnding: req.body.cardLastDigit,
               // cardOwner: req.body.nameOnCard,
             },
           },
-        }).then((response) => {
+        }
+      ).then((response) => {
         res.send(true);
       });
     } catch (e) {
       console.log(e);
     }
   } else {
-    res.redirect("/login");
+    res.redirect('/login');
   }
 };
 
@@ -336,7 +347,6 @@ const exchange = (req, res) => {
         cardToken = savedCard[i].customerOwner; //select the user stripe token
         // console.log("correct card", SelectedCard, paymentCard)
         if (paymentCard == SelectedCard) {
-          
           cardToken = cardToken; //save token to token
 
           //stipe charge customer
@@ -344,14 +354,14 @@ const exchange = (req, res) => {
             {
               amount: req.body.sendAmount, // Charge amount in cents
               currency: req.body.sendCurrency, //Currency
-              description: "Wosiwosi", //description
+              description: 'Wosiwosi', //description
               customer: cardToken,
             },
             function (err, charge) {
               if (err) {
                 // transaction fail
                 console.error(err.message);
-                console.log("Stripe fail");
+                console.log('Stripe fail');
 
                 //upate user transaction
                 const userTransactionUpdate = User.updateOne(
@@ -367,16 +377,16 @@ const exchange = (req, res) => {
                         takeCurrency: req.body.takeCurrency,
                         takeAmount: req.body.takeAmount,
                         rate: req.body.Base,
-                        promo:req.body.promo,
-                        paymentStatus: "failed",
-                        sendStatus: "Failed",
+                        promo: req.body.promo,
+                        paymentStatus: 'failed',
+                        sendStatus: 'Failed',
                         sender: `${req.user.profile.fname} ${req.user.profile.lname}`,
                         senderUser: req.user.username,
                         reciever: req.body.receiverName,
                         receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
                         senderAcct: req.body.cardEnding,
                         ref: req.body.ref,
-                        flwId: "00112233",
+                        flwId: '00112233',
                       },
                     },
                   }
@@ -394,29 +404,26 @@ const exchange = (req, res) => {
                       takeCurrency: req.body.takeCurrency,
                       takeAmount: req.body.takeAmount,
                       rate: req.body.Base,
-                      promo:req.body.promo,
-                      paymentStatus: "failed",
-                      sendStatus: "Failed",
+                      promo: req.body.promo,
+                      paymentStatus: 'failed',
+                      sendStatus: 'Failed',
                       sender: `${req.user.profile.fname} ${req.user.profile.lname}`,
                       senderUser: req.user.username,
                       reciever: req.body.receiverName,
                       receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
                       senderAcct: req.body.cardEnding,
                       ref: req.body.ref,
-                      flwId: "00112233",
+                      flwId: '00112233',
                     },
                   ],
                 });
 
                 //update database
-                Promise.all([
-                  userTransactionUpdate,
-                  SaveTransaction.save(),
-                ]).then((results) => {
+                Promise.all([userTransactionUpdate, SaveTransaction.save()]).then((results) => {
                   res.send(false);
                 });
               } else {
-                console.log("strip charge succesful");
+                console.log('strip charge succesful');
                 // console.log(req.protocol + '://' + req.get('host') + "/callback" + "?username=" + req.user.username + "&ref=" + req.body.ref)
                 // Stipe Charge was successful
                 //activate flutter to send
@@ -424,7 +431,7 @@ const exchange = (req, res) => {
                   account_bank: req.body.bankCode,
                   account_number: req.body.accountNumber,
                   amount: req.body.takeAmount, //amount converted to
-                  narration: "Wosiwosi",
+                  narration: 'Wosiwosi',
                   currency: req.body.takeCurrency,
                   reference: req.body.ref,
                   // callback_url:req.protocol + 's://' + req.get('host') + "/c" + "?u=" + req.body.ref,
@@ -436,7 +443,7 @@ const exchange = (req, res) => {
                 flw.Transfer.initiate(details) //start the Flutter transaction
                   .then((result) => {
                     // console.log(result);
-                    if (result.status === "success") {
+                    if (result.status === 'success') {
                       //upate user ransaction
                       const userTransactionUpdate = User.updateOne(
                         { username: req.user.username },
@@ -451,8 +458,8 @@ const exchange = (req, res) => {
                               takeCurrency: req.body.takeCurrency,
                               takeAmount: result.data.amount,
                               rate: req.body.Base,
-                              promo:req.body.promo,
-                              paymentStatus: "£ received",
+                              promo: req.body.promo,
+                              paymentStatus: '£ received',
                               sendStatus: result.message.slice(0, 15),
                               sender: `${req.user.profile.fname} ${req.user.profile.lname}`,
                               senderUser: req.user.username,
@@ -478,8 +485,8 @@ const exchange = (req, res) => {
                             takeCurrency: req.body.takeCurrency,
                             takeAmount: result.data.amount,
                             rate: req.body.Base,
-                            promo:req.body.promo,
-                            paymentStatus: "£ received",
+                            promo: req.body.promo,
+                            paymentStatus: '£ received',
                             sendStatus: result.message.slice(0, 15),
                             sender: `${req.user.profile.fname} ${req.user.profile.lname}`,
                             senderUser: req.user.username,
@@ -492,13 +499,10 @@ const exchange = (req, res) => {
                         ],
                       });
 
-                      Promise.all([
-                        userTransactionUpdate,
-                        SaveTransaction.save(),
-                      ]).then((results) => {
+                      Promise.all([userTransactionUpdate, SaveTransaction.save()]).then((results) => {
                         console.log(results);
-                        mailer.sendFxNotification(req.user.username, "Initiated", req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base, req.body.takeCurrency + result.data.amount,  req.body.receiverName );
-                        mailer.adminfxnotification("bamidele@wosiwosi.co.uk", "initiated",req.user.profile.fname,result.data.id, date.toJSON().slice(0, 10),req.body.sendAmount, req.body.Base, req.body.takeCurrency + result.data.amount, req.body.receiverName )
+                        mailer.sendFxNotification(req.user.username, 'Initiated', req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base, req.body.takeCurrency + result.data.amount, req.body.receiverName);
+                        mailer.adminfxnotification('bamidele@wosiwosi.co.uk', 'initiated', req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base, req.body.takeCurrency + result.data.amount, req.body.receiverName);
                         res.send(true);
                       });
                     } else {
@@ -516,8 +520,8 @@ const exchange = (req, res) => {
                               takeCurrency: req.body.takeCurrency,
                               takeAmount: result.data.amount,
                               rate: req.body.Base,
-                              promo:req.body.promo,
-                              paymentStatus: "£ received",
+                              promo: req.body.promo,
+                              paymentStatus: '£ received',
                               sendStatus: result.message.slice(0, 15),
                               sender: req.user.profile.fname,
                               senderUser: req.user.username,
@@ -543,8 +547,8 @@ const exchange = (req, res) => {
                             takeCurrency: req.body.takeCurrency,
                             takeAmount: result.data.amount,
                             rate: req.body.Base,
-                            promo:req.body.promo,
-                            paymentStatus: "£ received",
+                            promo: req.body.promo,
+                            paymentStatus: '£ received',
                             sendStatus: result.message.slice(0, 15),
                             sender: req.user.profile.fname,
                             senderUser: req.user.username,
@@ -557,12 +561,9 @@ const exchange = (req, res) => {
                         ],
                       });
 
-                      Promise.all([
-                        userTransactionUpdate,
-                        SaveTransaction.save(),
-                      ]).then((results) => {
-                        mailer.sendFxNotification( req.user.username, "Failed", req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base,  req.body.takeCurrency + result.data.amount,  req.body.receiverName );
-                        mailer.adminfxnotification("bamidele@wosiwosi.co.uk", "Failed",req.user.profile.fname,result.data.id, date.toJSON().slice(0, 10),req.body.sendAmount, req.body.Base, req.body.takeCurrency + result.data.amount, req.body.receiverName )
+                      Promise.all([userTransactionUpdate, SaveTransaction.save()]).then((results) => {
+                        mailer.sendFxNotification(req.user.username, 'Failed', req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base, req.body.takeCurrency + result.data.amount, req.body.receiverName);
+                        mailer.adminfxnotification('bamidele@wosiwosi.co.uk', 'Failed', req.user.profile.fname, result.data.id, date.toJSON().slice(0, 10), req.body.sendAmount, req.body.Base, req.body.takeCurrency + result.data.amount, req.body.receiverName);
                         // console.log(results);
                         res.send(false);
                       });
@@ -575,11 +576,29 @@ const exchange = (req, res) => {
         }
       }
     } else {
-      res.redirect("/login");
+      res.redirect('/login');
     }
   } catch (e) {
     console.log(e);
   }
+};
+
+const manualTx = async (req, res) => {
+  const details = {
+    account_bank: '050',
+    account_number: '5450064100',
+    amount: '30000', //amount converted to
+    narration: 'Wosiwosi',
+    currency: 'NGN',
+    reference: 'exchange',
+    // callback_url:req.protocol + 's://' + req.get('host') + "/c" + "?u=" + req.body.ref,
+    debit_currency: 'NGN',
+  };
+
+  flw.Transfer.initiate(details) //start the Flutter transaction
+    .then((result) => {
+      console.log(result);
+    });
 };
 
 module.exports = {
@@ -589,11 +608,13 @@ module.exports = {
   renderUserSettings: userSettings,
   uploadUserProof: userProof,
   renderReceiverPage: receiverPage,
-  loadBank: banks,
+  // loadBank: banks,
   confirmBankDetails: bankDetails,
   addReceiver: receiverDetails,
   removeReceiver: removeReceiverDetails,
   addPaymentCard: addCard,
   removePaymentCard: removeCard,
   createExchange: exchange,
+  manualTx,
+  manualTx,
 };
