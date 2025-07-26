@@ -6,6 +6,7 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('express-flash');
 
+
 //Use module
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
