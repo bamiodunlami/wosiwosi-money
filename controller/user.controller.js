@@ -120,32 +120,42 @@ const receiverPage = (req, res) => {
  * Fetch and return sorted list of Nigerian banks from Flutterwave API.
  */
 const loadBanks = async (req, res) => {
-  const request = require('request');
-  const options = {
-    method: 'GET',
-    url: 'https://api.flutterwave.com/v3/banks/NG',
-    headers: {
-      Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
-    },
-  };
+  // const request = require('request');
+  // const options = {
+  //   method: 'GET',
+  //   url: 'https://api.flutterwave.com/v3/banks/NG',
+  //   headers: {
+  //     Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
+  //   },
+  // };
 
-  // Make request to Flutterwave API for bank list
-  request(options, (error, response) => {
-    if (error) {
-      console.error('Bank list fetch error:', error);
-      return res.redirect('/');
-    }
-    try {
-      const bankJson = JSON.parse(response.body);
-      const banksList = bankJson.data || [];
-      // Sort banks alphabetically by name
-      banksList.sort((a, b) => a.name.localeCompare(b.name));
-      res.json(banksList);
-    } catch (e) {
-      console.error('Error parsing bank list JSON:', e);
-      res.redirect('/');
-    }
-  });
+  // // Make request to Flutterwave API for bank list
+  // request(options, (error, response) => {
+  //   if (error) {
+  //     console.error('Bank list fetch error:', error);
+  //     return res.redirect('/');
+  //   }
+  //   try {
+  //     const bankJson = JSON.parse(response.body);
+  //     const banksList = bankJson.data || [];
+  //     // Sort banks alphabetically by name
+  //     banksList.sort((a, b) => a.name.localeCompare(b.name));
+  //     res.json(banksList);
+  //   } catch (e) {
+  //     console.error('Error parsing bank list JSON:', e);
+  //     res.redirect('/');
+  //   }
+  // });
+  try {
+    const payload = {
+      country: 'NG', //Pass either NG, GH, KE, UG, ZA or TZ to get list of banks in Nigeria, Ghana, Kenya, Uganda, South Africa or Tanzania respectively
+    };
+    const loadBank = await await flw.Bank.country(payload);
+    console.log(loadBank.data);
+    res.send(loadBank.data.sort((a, b) => a.name.localeCompare(b.name))); // Sort banks alphabetically by name
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 /**
@@ -392,7 +402,7 @@ module.exports = {
   renderUserSettings: userSettings,
   uploadUserProof: userProof,
   renderReceiverPage: receiverPage,
-  loadBanks:loadBanks,
+  loadBanks: loadBanks,
   confirmBankDetails: bankDetails,
   addReceiver: receiverDetails,
   removeReceiver: removeReceiverDetails,
