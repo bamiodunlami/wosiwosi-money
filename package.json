@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "app-root-path": "^3.1.0",
-    "axios": "^1.11.0",
+    "axios": "^1.5.1",
     "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
@@ -35,5 +35,8 @@
   },
   "devDependencies": {
     "terser": "^5.19.3"
+  },
+  "resolutions": {
+    "axios": "1.5.1"
   }
 }
