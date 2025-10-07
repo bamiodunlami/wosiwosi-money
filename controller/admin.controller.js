@@ -1,5 +1,5 @@
 const appRoot = require("app-root-path"); //installed via npm
-const { response } = require("express");
+// const { response } = require("express");
 const path = require("path"); //default module
 const rootPath = path.resolve(process.cwd()); //production usable for path root
 appRoot.setPath(rootPath); //set pat
@@ -11,7 +11,7 @@ const User = mongo.User;
 const Transaction = mongo.Transaction;
 const Rate = mongo.ExRate;
 
-const flw = require(appRoot + "/util/flutterWave.js"); //flutter module
+// const flw = require(appRoot + "/util/flutterWave.js"); //flutter module
 const mailer = require(appRoot + "/util/mailer.js"); //flutter module
 
 // Render admin Page

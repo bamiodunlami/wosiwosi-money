@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Account</title>
-    <link rel="icon" type="image/png" href="images/icon.png"/>
+    <link rel="icon" type="image/png" href="images/icon.png" />
 
     <!-- Font Awesome for icons -->
     <script src="https://kit.fontawesome.com/cbf7b60e46.js" crossorigin="anonymous"></script>
@@ -34,8 +34,8 @@
           <%- include("include/navdashboard") -%>
 
           <!-- Receiver Payment Methods Section -->
-          <div class="col-md-10 col-sm-12 info-bar hidden" id="receiver-bar">
-            <h4 class="sub-title text-center">Payment Methods</h4>
+          <div class="col-md-10 col-sm-12 info-bar" id="receiver-bar">
+            <h4 class="sub-title text-center">Wallets & Payments</h4>
 
             <!-- spinner -->
             <div class="d-flex justify-content-center">
@@ -45,7 +45,7 @@
             </div>
 
             <!-- Receiver's Bank Details Section -->
-            <div class="row rec-section" id="receiver-section">
+            <div class="row rec-section hidden" id="receiver-section">
               <!-- If no receiver, show message -->
               <% if (receiver.length == 0) { %>
               <div class="div rec-section-bar">
@@ -53,23 +53,26 @@
                 <!-- <p class="text-center notice">Kindly press the button to add receiver below</p> -->
               </div>
               <% } else { %>
-              <h6>Receiver's Bank Details</h6>
-              <% for (let i = 0; i < receiver.length; i++) { %>
-              <div class="col-md-6" style="padding-bottom: 20px; padding-left: 0">
-                <div class="accoutn-details-bar" id="account-details-bar<%=i%>">
-                  <h6 class="account-details">
-                    <span class="account-details-value" id="nameOnAccount"><%= receiver[i].acctName %></span>
-                  </h6>
-                  <h6>
-                    <span class="account-details-value account-number-value" id="acctNumber<%=i%>"><%= receiver[i].acctNumber %></span>
-                  </h6>
-                  <p class="account-details">
-                    <span class="account-details-value"><%= receiver[i].bankRealName %></span>
-                  </p>
-                  <button class="btn btn-danger btn-sm remove" id="remove<%=i%>">Remove</button>
+              <h5 class="text-center">Receiver's Bank Details</h5>
+              <div class="row">
+                <% for (let i = 0; i < receiver.length; i++) { %>
+                <div class="col-md-6" style="padding-bottom: 20px; padding-left: 0">
+                  <div class="accoutn-details-bar" id="account-details-bar<%=i%>">
+                    <h6 class="account-details">
+                      <span class="account-details-value" id="nameOnAccount"><%= receiver[i].acctName %></span>
+                    </h6>
+                    <h6>
+                      <span class="account-details-value account-number-value" id="acctNumber<%=i%>"><%= receiver[i].acctNumber %></span>
+                    </h6>
+                    <p class="account-details">
+                      <span class="account-details-value"><%= receiver[i].bankRealName %></span>
+                    </p>
+                    <button class="btn btn-outline-danger btn-sm remove" id="remove<%=i%>">Remove</button>
+                  </div>
                 </div>
+                <% } %>
               </div>
-              <% } %> <% } %>
+              <% } %>
 
               <!-- Add Receiver Form -->
               <div class="col-md-12 rec-form-bar" id="addrec-bar">
@@ -97,28 +100,32 @@
             </div>
 
             <!-- Card Payment Methods Section -->
-            <div class="row rec-section" id="card-section">
-              <p class="text-center alert alert-warning" role="alert"><i class="fa-solid fa-lock fa-sm"></i> Details 100% safe and secured</p>
+            <div class="row rec-section hidden" id="card-section">
+              <p class="text-center alert alert-warning" role="alert"><i class="fa-solid fa-lock fa-sm"></i> Details encrypted and 100% secured</p>
+              <h5 class="text-center" id="card">Payment Methods</h5>
               <!-- If no card, show message -->
               <% if (card.length == 0) { %>
               <div class="div rec-section-bar">
                 <h5 class="text-center notice">No card added</h5>
               </div>
               <% } else { %>
-              <h5 id="card">Payment Methods</h5>
-              <% for (let i = 0; i < card.length; i++) { %>
-              <div class="col-md-6" style="padding-bottom: 20px; padding-left: 0">
-                <div class="accoutn-details-bar">
-                  <h6 class="account-details">
-                    <span class="account-details-value" id="cardName<%=i%>"><%= card[i].cardOwner %></span>
-                  </h6>
-                  <p class="account-details">
-                    <span class="account-details-value" id="cardDigit<%=i%>">************<%= card[i].cardNumberEnding %></span>
-                  </p>
-                  <button class="btn btn-danger btn-sm removeCard">Remove</button>
+              <div class="row">
+                <% for (let i = 0; i < card.length; i++) { %>
+
+                <div class="col-md-6" style="padding-bottom: 20px; padding-left: 0">
+                  <div class="accoutn-details-bar">
+                    <h6 class="account-details">
+                      <span class="account-details-value" id="cardName<%=i%>"><%= card[i].cardOwner %></span>
+                    </h6>
+                    <p class="account-details">
+                      <span class="account-details-value" id="cardDigit<%=i%>">************<%= card[i].cardNumberEnding %></span>
+                    </p>
+                    <button class="btn btn-outline-danger btn-sm removeCard">Remove</button>
+                  </div>
                 </div>
+                <% } %>
               </div>
-              <% } %> <% } %>
+              <% } %>
 
               <!-- Add Card Form -->
               <div class="col-md-12 rec-form-bar" id="addrec-bar">

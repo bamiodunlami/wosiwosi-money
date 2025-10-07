@@ -1,20 +1,19 @@
-// user.controller.js
-// Controller for user-related operations (dashboard, profile, cards, receivers, exchange, etc.)
-
 const appRoot = require('app-root-path'); // For resolving app root directory
 const path = require('path');
 const rootPath = path.resolve(process.cwd());
 appRoot.setPath(rootPath); // Set app root path
 
 // Utility and service modules
-const flw = require(appRoot + '/util/flutterWave'); // Flutterwave integration
 const stripe = require(appRoot + '/util/stripe.js'); // Stripe integration
 const passport = require(appRoot + '/util/passportAuth'); // Passport authentication
 const mailer = require(appRoot + '/util/mailer.js'); // Email notifications
 
 const mongo = require(appRoot + '/model/mongodb.js'); // MongoDB models
 const User = mongo.User;
+
 const Transaction = mongo.Transaction;
+
+const flw = require(appRoot + '/util/flutterWave.js');
 
 const date = new Date();
 
@@ -23,22 +22,35 @@ const date = new Date();
  */
 const dashboard = async (req, res) => {
   if (!req.isAuthenticated()) return res.redirect('/login');
-
   // Find user and check last transaction status
   const user = await User.findOne({ username: req.user.username });
   if (user && user.transaction.length > 0) {
     const lastTransaction = user.transaction[user.transaction.length - 1];
     const lastTransactionId = lastTransaction.flwId;
-    const payload = { id: lastTransactionId.toString() };
+
+    const payload = lastTransactionId.toString();
+
+    // console.log(payload);
+
+    //  const transfer = await flw.getTransfer('105718071');
+    try {
+      const transfer = await flw.getTransfer(payload);
+      const status = transfer.data.status || 'PROCESSING';
+      // console.log(status)
+      const updateUser = await User.updateOne({ username: req.user.username, 'transaction.flwId': lastTransactionId }, { $set: { 'transaction.$.sendStatus': status } });
+      //  console.log(updateUser)
+    } catch (e) {
+      console.log(e);
+    }
 
     // Check transfer status from Flutterwave
-    flw.Transfer.get_a_transfer(payload).then((response) => {
-      let status = 'FAILED';
-      if (response.status === 'success') {
-        status = response.data.status === 'SUCCESSFUL' ? 'SUCCESSFUL' : 'PROCESSING';
-      }
-      User.updateOne({ username: req.user.username, 'transaction.flwId': lastTransactionId }, { $set: { 'transaction.$.sendStatus': status } }).catch(console.log);
-    });
+    // flw.Transfer.get_a_transfer(payload).then((response) => {
+    //   let status = 'FAILED';
+    //   if (response.status === 'success') {
+    //     status = response.data.status === 'SUCCESSFUL' ? 'SUCCESSFUL' : 'PROCESSING';
+    //   }
+    //   User.updateOne({ username: req.user.username, 'transaction.flwId': lastTransactionId }, { $set: { 'transaction.$.sendStatus': status } }).catch(console.log);
+    // });
   }
   res.render('dashboard', { user: req.user });
 };
@@ -145,16 +157,26 @@ const loadBanks = async (req, res) => {
   //     res.redirect('/');
   //   }
   // });
+
   try {
-    const payload = {
-      country: 'NG', //Pass either NG, GH, KE, UG, ZA or TZ to get list of banks in Nigeria, Ghana, Kenya, Uganda, South Africa or Tanzania respectively
-    };
-    const loadBank = await await flw.Bank.country(payload);
-    // console.log(loadBank.data);
-    res.send(loadBank.data.sort((a, b) => a.name.localeCompare(b.name))); // Sort banks alphabetically by name
-  } catch (e) {
-    console.log(e);
+    const result = await flw.getBanks('NG'); // load Nigerian banks
+    res.send(result.data.sort((a, b) => a.name.localeCompare(b.name))); // Sort banks alphabetically by name
+    // res.json(result);
+    // console.log(result);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to load banks" });
+    console.log('cannot get banks');
   }
+  // try {
+  //   const payload = {
+  //     country: 'NG', //Pass either NG, GH, KE, UG, ZA or TZ to get list of banks in Nigeria, Ghana, Kenya, Uganda, South Africa or Tanzania respectively
+  //   };
+  //   const loadBank = await await flw.Bank.country(payload);
+  //   // console.log(loadBank.data);
+  //   res.send(loadBank.data.sort((a, b) => a.name.localeCompare(b.name))); // Sort banks alphabetically by name
+  // } catch (e) {
+  //   console.log(e);
+  // }
 };
 
 /**
@@ -166,10 +188,11 @@ const bankDetails = async (req, res) => {
       account_number: req.body.accountNumber,
       account_bank: req.body.bankCode,
     };
-    const response = await flw.Misc.verify_Account(payload);
-    res.json(response);
+    const response = await flw.verifyBankAccount(payload);
+    res.json(response.data);
+    // console.log(response.data);
   } catch (e) {
-    res.redirect('/');
+    res.redirect(req.headers.referer);
   }
 };
 
@@ -244,6 +267,7 @@ const removeCard = async (req, res) => {
 const exchange = async (req, res) => {
   try {
     if (!req.isAuthenticated()) return res.redirect('/login');
+
     const SelectedCard = req.body.cardEnding.slice(12, 16);
     const savedCard = req.user.cardDetails;
     let paymentCard, cardToken;
@@ -254,6 +278,7 @@ const exchange = async (req, res) => {
       cardToken = savedCard[i].customerOwner;
       if (paymentCard == SelectedCard) {
         // Charge customer via Stripe
+
         return stripe.charges.create(
           {
             amount: req.body.sendAmount,
@@ -331,8 +356,10 @@ const exchange = async (req, res) => {
               debit_currency: req.body.takeCurrency,
             };
 
-            flw.Transfer.initiate(details)
+            flw
+              .createTransfer(details)
               .then(async (result) => {
+                console.log(result.data);
                 const txData = {
                   date: date.toJSON().slice(0, 10),
                   time: date.toJSON().slice(11, 15),
@@ -370,6 +397,26 @@ const exchange = async (req, res) => {
         );
       }
     }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const exchange2 = async (req, res) => {
+  console.log('ere');
+  const payload = {
+    account_bank: '033', //ubs
+    account_number: '2061827574',
+    amount: 1000,
+    narration: 'Payment for data',
+    currency: 'NGN',
+    reference: `TRX-${Date.now()}`,
+  };
+
+  try {
+    const result = await flw.createTransfer(payload);
+    // console.log(payload);
+    console.log(result);
   } catch (e) {
     console.log(e);
   }
