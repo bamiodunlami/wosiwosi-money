@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "node server.js",
-    "minify": "terser public/js/receiver.js -c -m --output public/min/receiver.js",
+    "minify": "terser public/js/profiler.js -c -m --output public/min/profiler.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "resolutions": {

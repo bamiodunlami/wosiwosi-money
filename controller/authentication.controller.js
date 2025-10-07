@@ -71,7 +71,8 @@ const userRegistration = async (req, res) => {
   await User.register(userDetails, req.body.password, (err, user) => {
     if (err) {
       console.log(err);
-      return res.redirect('/');
+      req.flash('error', 'User already exist, kindly login');
+      res.render('login');
     }
     if (user) {
       // Log the user in after registration

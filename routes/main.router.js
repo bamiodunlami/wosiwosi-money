@@ -13,7 +13,7 @@ appRoot.setPath(rootPath);
 const main = require(appRoot + '/controller/main.controller.js');
 
 // Home route
-router.get('/', main.home);
+// router.get('/', main.home);
 
 // Send today's rate
 router.get('/callback', main.rate);

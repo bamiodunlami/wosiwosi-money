@@ -62,20 +62,19 @@ const userProfile = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     if (!req.isAuthenticated()) return res.redirect('/login');
-    const update = {
-      profile: {
-        fname: req.body.fname,
-        lname: req.body.lname,
-        phone: req.body.phone,
-        dob: req.body.dob,
-        street: req.body.address,
-        postcode: req.body.postCode,
-        city: req.body.city,
-        country: req.body.residence,
-        Nationality: req.body.nationality,
-      },
+    const user = await User.findOne({ username: req.user.username });
+    user.profile = {
+      fname: req.body.fname || user.profile.fname,
+      lname: req.body.lname || user.profile.lname,
+      phone: req.body.phone || user.profile.phone,
+      dob: req.body.dob || user.profile.dob,
+      street: req.body.address || user.profile.address,
+      postcode: req.body.postCode || user.profile.postCode,
+      city: req.body.city || user.profile.city,
+      country: req.body.residence || user.profile.residence,
+      Nationality: req.body.nationality || user.profile.Nationality,
     };
-    const response = await User.updateOne({ username: req.user.username }, { $set: update });
+    await user.save();
     res.redirect(req.headers.referer);
   } catch (e) {
     console.log(e);
@@ -151,7 +150,7 @@ const loadBanks = async (req, res) => {
       country: 'NG', //Pass either NG, GH, KE, UG, ZA or TZ to get list of banks in Nigeria, Ghana, Kenya, Uganda, South Africa or Tanzania respectively
     };
     const loadBank = await await flw.Bank.country(payload);
-    console.log(loadBank.data);
+    // console.log(loadBank.data);
     res.send(loadBank.data.sort((a, b) => a.name.localeCompare(b.name))); // Sort banks alphabetically by name
   } catch (e) {
     console.log(e);

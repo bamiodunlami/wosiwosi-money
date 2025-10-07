@@ -10,7 +10,7 @@ appRoot.setPath(path.resolve(process.cwd()));
 const userController = require(appRoot + '/controller/user.controller.js');
 
 // // User dashboard
-router.get('/dashboard', userController.renderDashboard);
+router.get('/', userController.renderDashboard);
 
 // User profile
 router
