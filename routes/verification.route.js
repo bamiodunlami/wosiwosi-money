@@ -13,6 +13,7 @@ const sessionResult = verify.result
 router.get('/verify', createSession );
 
 router.get('/vsuccess', (req, res) =>{
+    console.log("vsuccess")
     sessionResult
     res.render('verifySuccess')
 });
