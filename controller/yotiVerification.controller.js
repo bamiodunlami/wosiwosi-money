@@ -21,7 +21,7 @@ const {
   RequestedTextExtractionTaskBuilder,
   RequestedFaceMatchCheckBuilder,
   SdkConfigBuilder,
-  // NotificationConfigBuilder,
+  NotificationConfigBuilder,
 } = require('yoti');
 
 const YOTI_CLIENT_SDK_ID = process.env.CLIENT_SDK_ID;
@@ -43,20 +43,20 @@ const textExtractionTask = new RequestedTextExtractionTaskBuilder().withManualCh
 //Configuration for the client SDK (Frontend)
 const sdkConfig = new SdkConfigBuilder()
     .withPresetIssuingCountry('GBR')
-    .withSuccessUrl('/vsuccess')
-    .withErrorUrl('/verror')
+    .withSuccessUrl('https://app.wosiwosimoney.com/vsuccess')
+    .withErrorUrl('https://app.wosiwosimoney.com/verror')
     .build();
 
 // Notification configuration
-// const notificationConfig = new NotificationConfigBuilder()
-//   .withEndpoint("https://app.wosiwosimoney.com")
-//   .withAuthToken("username:password")
-//   .forResourceUpdate()
-//   .forTaskCompletion()
-//   .forCheckCompletion()
-//   .forSessionCompletion()
-//   .withTopic("client_session_token_deleted")
-//   .build();
+const notificationConfig = new NotificationConfigBuilder()
+  .withEndpoint("https://app.wosiwosimoney.com")
+  .withAuthToken("username:password")
+  .forResourceUpdate()
+  .forTaskCompletion()
+  .forCheckCompletion()
+  .forSessionCompletion()
+  .withTopic("client_session_token_deleted")
+  .build();
 
 //Buiding the Session with defined specification from above
 const sessionSpec = new SessionSpecificationBuilder()
@@ -68,7 +68,7 @@ const sessionSpec = new SessionSpecificationBuilder()
   .withRequestedCheck(faceMatchCheck)
   .withRequestedTask(textExtractionTask)
   .withSdkConfig(sdkConfig)
-  // .withNotifications(notificationConfig)
+  .withNotifications(notificationConfig)
   .build();
 
 //Create Session
@@ -94,6 +94,7 @@ const StartSession = (req, res) => {
         ).then((result) => console.log(result.acknowledged));
 
         const clientSessionToken = session.getClientSessionToken();
+        
         // const clientSessionTokenTtl = session.getClientSessionTokenTtl();
         res.render('verify', {
           title: 'Verification',
@@ -114,6 +115,7 @@ const sessionResult = async (req, res) => {
   if (req.isAuthenticated()) {
     const id = await User.findOne({ username: req.user.username });
     let userSessionId = id.proof.sessionId;
+    console.log(userSessionId)
     // Returns a session result
     idvClient
       .getSession(userSessionId)

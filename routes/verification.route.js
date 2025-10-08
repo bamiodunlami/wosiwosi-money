@@ -10,12 +10,16 @@ const verify = require(appRoot + "/controller/yotiVerification.controller.js"); 
 const createSession = verify.session
 const sessionResult = verify.result
 
+// router.get('/verify', (req, res)=>{
+//     res.render('verify')
+// })
+
 router.get('/verify', createSession );
 
 router.get('/vsuccess', (req, res) =>{
     console.log("vsuccess")
     sessionResult
-    res.render('verifySuccess')
+    res.render('success')
 });
 
 router.get('/verror', (req, res) =>{
