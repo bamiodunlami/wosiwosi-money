@@ -132,19 +132,21 @@ const sessionResult = async (req, res) => {
         faceMatchChecks.map((check) => {
           const report = check.getReport();
           console.log(report)
-          // const recommendation = report.getRecommendation().getValue();
-          // if (recommendation == 'APPROVE') {
-          //   mailer.sendApprove(req.user.username);
-          // }
-          // // save Result
-          // User.updateOne(
-          //   { username: req.user.username },
-          //   {
-          //     $set: {
-          //       'proof.faceMatchResult': recommendation,
-          //     },
-          //   }
-          // ).then(res.redirect('/dashboard'));
+          const recommendation = report.getRecommendation().getValue();
+          if (recommendation == 'APPROVE') {
+            mailer.sendApprove(req.user.username);
+          }else{
+            res.redirect('verror')
+          }
+          // save Result
+          User.updateOne(
+            { username: req.user.username },
+            {
+              $set: {
+                'proof.faceMatchResult': recommendation,
+              },
+            }
+          ).then(res.redirect('/dashboard'));
         });
       })
       .catch((error) => {
