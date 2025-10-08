@@ -129,8 +129,9 @@ const sessionResult = async (req, res) => {
         const livenessChecks = session.getLivenessChecks();
         const watchlistScreeningChecks = session.getWatchlistScreeningChecks();
         const watchlistAdvancedCaChecks = session.getWatchlistAdvancedCaChecks();
-        console.log(faceMatchChecks)
-        
+        console.log(faceMatchChecks[0].state)
+        const status = faceMatchChecks[0].state
+
         faceMatchChecks.map((check) => {
           const report = check.getReport();
           // console.log(report)

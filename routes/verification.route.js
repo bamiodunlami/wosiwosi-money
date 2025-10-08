@@ -23,6 +23,6 @@ router.get('/verror', (req, res) =>{
     res.render('verifyFail')
 });
 
-// router.get('/idv', sessionResult);
+router.get('/idv', verify.sessionResult);
 
 module.exports=router
