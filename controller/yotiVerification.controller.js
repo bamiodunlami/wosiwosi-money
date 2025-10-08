@@ -129,9 +129,11 @@ const sessionResult = async (req, res) => {
         const livenessChecks = session.getLivenessChecks();
         const watchlistScreeningChecks = session.getWatchlistScreeningChecks();
         const watchlistAdvancedCaChecks = session.getWatchlistAdvancedCaChecks();
+        console.log(faceMatchChecks)
+        
         faceMatchChecks.map((check) => {
           const report = check.getReport();
-          console.log(report)
+          // console.log(report)
           const recommendation = report.getRecommendation().getValue();
           if (recommendation == 'APPROVE') {
             mailer.sendApprove(req.user.username);
