@@ -113,6 +113,7 @@ const StartSession = (req, res) => {
 // Session result
 const sessionResult = async (req, res) => {
   if (req.isAuthenticated()) {
+    console.log("first gate")
     const id = await User.findOne({ username: req.user.username });
     let userSessionId = id.proof.sessionId;
     console.log(userSessionId)
@@ -120,7 +121,7 @@ const sessionResult = async (req, res) => {
     idvClient
       .getSession(userSessionId)
       .then((session) => {
-        console.log(session);
+        // console.log(session);
         // Return specific check types
         const authenticityChecks = session.getAuthenticityChecks();
         const faceMatchChecks = session.getFaceMatchChecks();
@@ -130,6 +131,7 @@ const sessionResult = async (req, res) => {
         const watchlistAdvancedCaChecks = session.getWatchlistAdvancedCaChecks();
         faceMatchChecks.map((check) => {
           const report = check.getReport();
+          console.log(report)
           const recommendation = report.getRecommendation().getValue();
           if (recommendation == 'APPROVE') {
             mailer.sendApprove(req.user.username);
@@ -156,5 +158,5 @@ const sessionResult = async (req, res) => {
 
 module.exports = {
   session: StartSession,
-  result: sessionResult,
+  sessionResult
 };

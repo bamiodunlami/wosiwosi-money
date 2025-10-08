@@ -8,7 +8,7 @@ appRoot.setPath(rootPath); //set path
 
 const verify = require(appRoot + "/controller/yotiVerification.controller.js"); //mongo db and strategy module
 const createSession = verify.session
-const sessionResult = verify.result
+// const sessionResult = verify.checkResult
 
 // router.get('/verify', (req, res)=>{
 //     res.render('verify')
@@ -16,17 +16,13 @@ const sessionResult = verify.result
 
 router.get('/verify', createSession );
 
-router.get('/vsuccess', (req, res) =>{
-    console.log("vsuccess")
-    sessionResult
-    res.render('success')
-});
+router.get('/vsuccess', verify.sessionResult);
 
 router.get('/verror', (req, res) =>{
     sessionResult
     res.render('verifyFail')
 });
 
-router.get('/idv', sessionResult);
+// router.get('/idv', sessionResult);
 
 module.exports=router
