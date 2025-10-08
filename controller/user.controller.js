@@ -4,7 +4,7 @@ const rootPath = path.resolve(process.cwd());
 appRoot.setPath(rootPath); // Set app root path
 
 // Utility and service modules
-const stripe = require(appRoot + '/util/stripe.js'); // Stripe integration
+// const stripe = require(appRoot + '/util/stripe.js'); // Stripe integration
 const passport = require(appRoot + '/util/passportAuth'); // Passport authentication
 const mailer = require(appRoot + '/util/mailer.js'); // Email notifications
 
@@ -279,71 +279,71 @@ const exchange = async (req, res) => {
       if (paymentCard == SelectedCard) {
         // Charge customer via Stripe
 
-        return stripe.charges.create(
-          {
-            amount: req.body.sendAmount,
-            currency: req.body.sendCurrency,
-            description: 'Wosiwosi',
-            customer: cardToken,
-          },
-          async (err, charge) => {
-            if (err) {
-              // Transaction failed, update user and transaction DB
-              await Promise.all([
-                User.updateOne(
-                  { username: req.user.username },
-                  {
-                    $push: {
-                      transaction: {
-                        date: date.toJSON().slice(0, 10),
-                        time: date.toJSON().slice(11, 15),
-                        currencyPair: req.body.currencyPair,
-                        sendCurrency: req.body.sendCurrency,
-                        sendAmount: req.body.sendAmount,
-                        takeCurrency: req.body.takeCurrency,
-                        takeAmount: req.body.takeAmount,
-                        rate: req.body.Base,
-                        promo: req.body.promo,
-                        paymentStatus: 'failed',
-                        sendStatus: 'Failed',
-                        sender: `${req.user.profile.fname} ${req.user.profile.lname}`,
-                        senderUser: req.user.username,
-                        reciever: req.body.receiverName,
-                        receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
-                        senderAcct: req.body.cardEnding,
-                        ref: req.body.ref,
-                        flwId: '00112233',
-                      },
-                    },
-                  }
-                ),
-                new Transaction({
-                  details: [
-                    {
-                      date: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
-                      time: date.getTime(),
-                      currencyPair: req.body.currencyPair,
-                      sendCurrency: req.body.sendCurrency,
-                      sendAmount: req.body.sendAmount,
-                      takeCurrency: req.body.takeCurrency,
-                      takeAmount: req.body.takeAmount,
-                      rate: req.body.Base,
-                      promo: req.body.promo,
-                      paymentStatus: 'failed',
-                      sendStatus: 'Failed',
-                      sender: `${req.user.profile.fname} ${req.user.profile.lname}`,
-                      senderUser: req.user.username,
-                      reciever: req.body.receiverName,
-                      receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
-                      senderAcct: req.body.cardEnding,
-                      ref: req.body.ref,
-                      flwId: '00112233',
-                    },
-                  ],
-                }).save(),
-              ]);
-              return res.send(false);
-            }
+        // return stripe.charges.create(
+        //   {
+        //     amount: req.body.sendAmount,
+        //     currency: req.body.sendCurrency,
+        //     description: 'Wosiwosi',
+        //     customer: cardToken,
+        //   },
+        //   async (err, charge) => {
+        //     if (err) {
+        //       // Transaction failed, update user and transaction DB
+        //       await Promise.all([
+        //         User.updateOne(
+        //           { username: req.user.username },
+        //           {
+        //             $push: {
+        //               transaction: {
+        //                 date: date.toJSON().slice(0, 10),
+        //                 time: date.toJSON().slice(11, 15),
+        //                 currencyPair: req.body.currencyPair,
+        //                 sendCurrency: req.body.sendCurrency,
+        //                 sendAmount: req.body.sendAmount,
+        //                 takeCurrency: req.body.takeCurrency,
+        //                 takeAmount: req.body.takeAmount,
+        //                 rate: req.body.Base,
+        //                 promo: req.body.promo,
+        //                 paymentStatus: 'failed',
+        //                 sendStatus: 'Failed',
+        //                 sender: `${req.user.profile.fname} ${req.user.profile.lname}`,
+        //                 senderUser: req.user.username,
+        //                 reciever: req.body.receiverName,
+        //                 receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
+        //                 senderAcct: req.body.cardEnding,
+        //                 ref: req.body.ref,
+        //                 flwId: '00112233',
+        //               },
+        //             },
+        //           }
+        //         ),
+        //         new Transaction({
+        //           details: [
+        //             {
+        //               date: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`,
+        //               time: date.getTime(),
+        //               currencyPair: req.body.currencyPair,
+        //               sendCurrency: req.body.sendCurrency,
+        //               sendAmount: req.body.sendAmount,
+        //               takeCurrency: req.body.takeCurrency,
+        //               takeAmount: req.body.takeAmount,
+        //               rate: req.body.Base,
+        //               promo: req.body.promo,
+        //               paymentStatus: 'failed',
+        //               sendStatus: 'Failed',
+        //               sender: `${req.user.profile.fname} ${req.user.profile.lname}`,
+        //               senderUser: req.user.username,
+        //               reciever: req.body.receiverName,
+        //               receiverAcct: `${req.body.accountNumber} ${req.body.bankName}`,
+        //               senderAcct: req.body.cardEnding,
+        //               ref: req.body.ref,
+        //               flwId: '00112233',
+        //             },
+        //           ],
+        //         }).save(),
+        //       ]);
+        //       return res.send(false);
+        //     }
 
             // Stripe charge successful, initiate Flutterwave transfer
             const details = {
@@ -393,8 +393,8 @@ const exchange = async (req, res) => {
                 console.log(err);
                 res.send(false);
               });
-          }
-        );
+        //   }
+        // );
       }
     }
   } catch (e) {
