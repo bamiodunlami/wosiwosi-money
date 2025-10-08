@@ -4,7 +4,7 @@ const path = require('path'); // Node.js path module
 
 // Set application root path
 const rootPath = path.resolve(process.cwd());
-appRoot.setPath(rootPath);
+appRoot.setPath(rootPath)
 
 // Import custom modules using app root
 const mailer = require(appRoot + '/util/mailer.js');
