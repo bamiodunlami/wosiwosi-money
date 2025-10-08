@@ -12,7 +12,7 @@ const Transaction = mongo.Transaction;
 const Rate = mongo.ExRate;
 
 // const flw = require(appRoot + "/util/flutterWave.js"); //flutter module
-const mailer = require(appRoot + "/util/mailer.js"); //flutter module
+// const mailer = require(appRoot + "/util/mailer.js"); //flutter module
 
 // Render admin Page
 const renderPage = async (req, res) => {

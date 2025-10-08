@@ -28,7 +28,6 @@
     "got": "^11.8.6",
     "md5": "^2.3.0",
     "mongoose": "^7.4.1",
-    "nodemailer": "^7.0.9",
     "nodemon": "^3.1.10",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",

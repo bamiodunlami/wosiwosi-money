@@ -6,7 +6,7 @@ appRoot.setPath(rootPath); // Set app root path
 // Utility and service modules
 // const stripe = require(appRoot + '/util/stripe.js'); // Stripe integration
 const passport = require(appRoot + '/util/passportAuth'); // Passport authentication
-const mailer = require(appRoot + '/util/mailer.js'); // Email notifications
+// const mailer = require(appRoot + '/util/mailer.js'); // Email notifications
 
 const mongo = require(appRoot + '/model/mongodb.js'); // MongoDB models
 const User = mongo.User;
