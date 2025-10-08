@@ -74,7 +74,7 @@ const sessionSpec = new SessionSpecificationBuilder()
 //Create Session
 const StartSession = (req, res) => {
   if (req.isAuthenticated()) {
-    console.log(sdkConfig)
+    // console.log(sdkConfig)
     idvClient
       .createSession(sessionSpec)
       .then((session) => {

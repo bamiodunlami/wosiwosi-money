@@ -19,7 +19,7 @@ router.get('/verify', createSession );
 router.get('/vsuccess', verify.sessionResult);
 
 router.get('/verror', (req, res) =>{
-    sessionResult
+    // sessionResult
     res.render('verifyFail')
 });
 

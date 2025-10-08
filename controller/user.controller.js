@@ -22,7 +22,6 @@ const date = new Date();
  */
 const dashboard = async (req, res) => {
   if (!req.isAuthenticated()) return res.redirect('/login');
-  console.log(req.user._id)
   // Find user and check last transaction status
   const user = await User.findOne({ username: req.user.username });
   if (user && user.transaction.length > 0) {
