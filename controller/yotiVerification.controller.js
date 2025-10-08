@@ -5,7 +5,7 @@ const path = require("path"); //default module
 const rootPath = path.resolve(process.cwd()); //production usable for path root
 appRoot.setPath(rootPath); //set path
 
-// const mailer = require(appRoot + "/util/mailer.js");
+const mailer = require(appRoot + "/util/mailer.js");
 const mongo = require(appRoot + "/model/mongodb.js"); //mongo db and strategy module
 const User = mongo.User;
 

@@ -13,7 +13,7 @@ const model = require(appRoot + "/model/mongodb.js");
 const User = model.User;
 
 // const newQReceive = model.QuickReceive
-// const mailer = require(appRoot + "/util/mailer.js");
+const mailer = require(appRoot + "/util/mailer.js");
 
 date = new Date();
 

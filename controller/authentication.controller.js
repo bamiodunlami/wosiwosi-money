@@ -7,7 +7,7 @@ const rootPath = path.resolve(process.cwd());
 appRoot.setPath(rootPath);
 
 // Import custom modules using app root
-// const mailer = require(appRoot + '/util/mailer.js');
+const mailer = require(appRoot + '/util/mailer.js');
 const mongo = require(appRoot + '/model/mongodb.js');
 const User = mongo.User;
 const passport = require(appRoot + '/util/passportAuth.js');

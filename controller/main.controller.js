@@ -7,7 +7,7 @@ const rootPath = path.resolve(process.cwd());
 appRoot.setPath(rootPath);
 
 // Import utility and database modules using the app root path
-// const mailer = require(appRoot + '/util/mailer.js');
+const mailer = require(appRoot + '/util/mailer.js');
 const mongo = require(appRoot + '/model/mongodb.js');
 const User = mongo.User;
 
