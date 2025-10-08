@@ -9,15 +9,25 @@ const idApproveMail = mailTemp.idApprove
 // const transactionNotification = mailTemp.fxNotification
 const nodemailer = require("nodemailer");
 
-let transporter = nodemailer.createTransport({
+// let transporter = nodemailer.createTransport({
+//   host: "smtp.zoho.eu",
+//   port: process.env.MAILER_PORT,
+//   secure: true, // upgrade later with STARTTLS
+//   auth: {
+//     user: process.env.MAILER_USERNAME,
+//     pass: process.env.MAILER_PASS,
+//   },
+// })
+
+const transporter = nodemailer.createTransport({
   host: "smtp.zoho.eu",
   port: process.env.MAILER_PORT,
-  secure: true, // upgrade later with STARTTLS
+  secure: true, // true for port 465, false for 587
   auth: {
     user: process.env.MAILER_USERNAME,
     pass: process.env.MAILER_PASS,
   },
-})
+});
 
 const welcomeMail = (to) => {
   const mailOptions = {
