@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Profile</title>
+    <title>Account</title>
     <link rel="icon" type="image/png" href="images/icon.png" />
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/cbf7b60e46.js" crossorigin="anonymous"></script>
@@ -50,7 +50,7 @@
                     <label for="phoneInput" class="form-label">Phone</label>
                   </div>
                   <div class="col-6 form-floating">
-                    <input type="date" name="dob" class="form-control dob" id="dobInput" required value="<%= user.profile.dob %>" />
+                    <input type="date" name="dob" class="form-control forJs dob" id="dobInput" required value="<%= user.profile.dob %>" />
                     <label for="dobInput" class="form-label">Date of Birth</label>
                   </div>
                   <div class="col-12 form-floating">
@@ -72,7 +72,7 @@
                     <label for="residenceInput" class="form-label">Country of residence</label>
                   </div>
                   <div class="col-md-6 form-floating">
-                    <input type="text" name="nationality" class="form-control  nationality" id="nationalityInput" placeholder="Nationality" required value="<%= user.profile.Nationality %>" />
+                    <input type="text" name="nationality" class="form-control forJs nationality" id="nationalityInput" placeholder="Nationality" required value="<%= user.profile.Nationality %>" />
                     <label for="nationalityInput" class="form-label">Nationality</label>
                   </div>
                   <div class="col-sm-12">
@@ -107,7 +107,7 @@
     </div>
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="min/profiler.js"></script>
   </body>
 </html>

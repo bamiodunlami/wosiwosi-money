@@ -85,7 +85,7 @@ const updateUser = async (req, res) => {
       postcode: req.body.postCode || user.profile.postCode,
       city: req.body.city || user.profile.city,
       country: req.body.residence || user.profile.residence,
-      Nationality: req.body.nationality || user.profile.Nationality,
+      Nationality: req.body.nationality.toUppercase() || user.profile.Nationality,
     };
     await user.save();
     res.redirect(req.headers.referer);
