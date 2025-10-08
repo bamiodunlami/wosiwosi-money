@@ -66,7 +66,7 @@ const userRegistration = async (req, res) => {
 
   const userMail = userDetails.username;
   // Generate verification link
-  const verificationLink = `${req.protocol}://${req.get('host')}/veri?ref=${userDetails.userId}`;
+  const verificationLink = `https://${req.get('host')}/veri?ref=${userDetails.userId}`;
 
   // Register user with password
   await User.register(userDetails, req.body.password, (err, user) => {
@@ -102,7 +102,7 @@ const reset = async (req, res) => {
     }
     // Generate random reset token
     const resetToken = Math.floor(Math.random() * 155200000008076564000);
-    const resetLink = `${req.protocol}://${req.get('host')}/pcreset?ref=${resetToken}`;
+    const resetLink = `https://${req.get('host')}/pcreset?ref=${resetToken}`;
 
     // Update user with reset token
     User.updateOne({ username: req.body.email }, { $set: { resetLink: resetToken } }).then((result) => {
@@ -151,7 +151,7 @@ const newpass = (req, res) => {
  * Resend verification email
  */
 const resendVerification = (req, res) => {
-  const verificationLink = `${req.protocol}://${req.get('host')}/veri?ref=${req.user.userId}`;
+  const verificationLink = `https://${req.get('host')}/veri?ref=${req.user.userId}`;
   mailer.emailVerification(req.user.username, verificationLink);
   res.redirect('/dashboard');
 };
