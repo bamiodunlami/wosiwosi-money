@@ -161,10 +161,10 @@ const resendVerification = (req, res) => {
  */
 const mailVerified = (req, res) => {
   const id = req.query.ref;
-  User.findOne({ username: id }).then((user) => {
+  User.findOne({ userId: id }).then((user) => {
     if (!user) return res.redirect('/dashboard');
     // Set verifyMail to true
-    User.updateOne({ username: id }, { $set: { verifyMail: true } }).then(() => {
+    User.updateOne({ userId: id }, { $set: { verifyMail: true } }).then(() => {
       res.render('success');
     });
   });
