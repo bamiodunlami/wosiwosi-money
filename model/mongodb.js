@@ -12,53 +12,54 @@ mongoose.connect('mongodb+srv://wosiwosiMoney:' + process.env.MONGO_CODE + '@wos
 
 //users
 const userSchema = new mongoose.Schema({
-    username:"string",
+    username:String,
+    userId:String,
     status:"boolean",
-    regDate:"string",
+    regDate:String,
     regTerm:"boolean",
-    regAs:"string",
+    regAs:String,
     profile:{
-    fname:"string",
-    lname:"string",    
-    phone:"string",
-    dob:"string",
-    street:"string",
-    postcode:"string",
-    city:"string",
-    country:"string",
-    Nationality:"string"
+    fname:String,
+    lname:String,    
+    phone:String,
+    dob:String,
+    street:String,
+    postcode:String,
+    city:String,
+    country:String,
+    Nationality:String
     },
     proof:{
-        sessionId:"string",
-        livenessResult:"string",
-        faceMatchResult:"string",
-        faceMatchConfidence:"string"
+        sessionId:String,
+        livenessResult:String,
+        faceMatchResult:String,
+        faceMatchConfidence:String
     },
     cardDetails:[],
     receiver:[],
     transaction:[],
-    resetLink:"string",
+    resetLink:String,
     verifyMail:"boolean",
     referalCode:{
-      code:"string",
+      code:String,
       usage:[]
     },
     promo:[],
     identity:{
-      bvn:"string",
+      bvn:String,
       bvnVerify:"Boolean",
-      pass:"string",
-      pAddress:"string"
+      pass:String,
+      pAddress:String
     },
     receiveRequest:[]
 });
 
 //rate exchange
 const rateSchema = new mongoose.Schema({
-    GBPTONGN:"string",
-    GBPTOGHS:"string",
-    GBPTOKEN:"string",
-    NGNTOGBP:"string"
+    GBPTONGN:String,
+    GBPTOGHS:String,
+    GBPTOKEN:String,
+    NGNTOGBP:String
 });
 
 //hold all transaction
@@ -85,8 +86,8 @@ const quickReceiveSchema = mongoose.Schema({
 
 // promo
 const promoSchema = mongoose.Schema({
-  codeType:"String",
-  code:"String",
+  codeType:String,
+  code:String,
   startDate:"Date",
   endDate:"Date",
   active:"Boolean",
@@ -126,12 +127,7 @@ async function migrateUsers() {
   
       // Update each user record with the new field
       for (let i=0; i<users.length; i++) {
-        users[i].identity = {
-          bvn:"",
-          bvnVerify:false,
-          pass:"",
-          pAddress:""
-        },
+        users[i].userId = Math.floor(Math.random() * 9e10)
         await users[i].save(); // Save the updated user record
       }
   

@@ -38,6 +38,7 @@ const userRegistration = async (req, res) => {
   const userDetails = {
     username: req.body.username,
     status: true,
+    userId:Math.floor(Math.random() * 9e10),
     regDate: date.toJSON(),
     regTerm: true,
     regAs: '',
@@ -65,7 +66,7 @@ const userRegistration = async (req, res) => {
 
   const userMail = userDetails.username;
   // Generate verification link
-  const verificationLink = `${req.protocol}://${req.get('host')}/veri?ref=${userMail}`;
+  const verificationLink = `${req.protocol}://${req.get('host')}/veri?ref=${userDetails.userId}`;
 
   // Register user with password
   await User.register(userDetails, req.body.password, (err, user) => {
@@ -150,7 +151,7 @@ const newpass = (req, res) => {
  * Resend verification email
  */
 const resendVerification = (req, res) => {
-  const verificationLink = `${req.protocol}://${req.get('host')}/veri?ref=${req.user.username}`;
+  const verificationLink = `${req.protocol}://${req.get('host')}/veri?ref=${req.user.userId}`;
   mailer.emailVerification(req.user.username, verificationLink);
   res.redirect('/dashboard');
 };
