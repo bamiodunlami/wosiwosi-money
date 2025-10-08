@@ -19,15 +19,15 @@ const userSchema = new mongoose.Schema({
     regTerm:"boolean",
     regAs:String,
     profile:{
-    fname:String,
-    lname:String,    
-    phone:String,
+    fname:{type:String, trim:true},
+    lname:{type:String, trim:true},    
+    phone:{type:String, trim:true},
     dob:String,
     street:String,
     postcode:String,
     city:String,
     country:String,
-    Nationality:String
+    Nationality:{type:String, trim:true}
     },
     proof:{
         sessionId:String,
