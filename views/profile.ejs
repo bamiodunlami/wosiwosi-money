@@ -26,7 +26,7 @@
           <%- include("include/navdashboard") -%>
           <!-- Profile Section -->
           <div class="col-md-10 col-sm-12 info-bar">
-            <h4 class="sub-title text-center">My Profile</h4>
+            <h5 class="text-center">My Profile</h5>
             <% if (!user.profile.fname) { %>
             <h6 class="alert alert-warning text-center notice" role="alert">Kindly complete your profile</h6>
             <% } %>
@@ -34,11 +34,11 @@
               <div class="col-sm-12">
                 <form class="row g-1" method="POST" action="/profile-update">
                   <div class="col-md-6 form-floating">
-                    <input type="text" name="fname" class="form-control forJs fname" id="fnameInput" placeholder="First Name" required value="<%= user.profile.fname %>" />
+                    <input type="text" name="fname" class="form-control  fname" id="fnameInput" placeholder="First Name" required value="<%= user.profile.fname %>" />
                     <label for="fnameInput" class="form-label">First Name</label>
                   </div>
                   <div class="col-md-6 form-floating">
-                    <input type="text" name="lname" class="form-control forJs lname" id="lnameInput" placeholder="Last Name" required value="<%= user.profile.lname %>" />
+                    <input type="text" name="lname" class="form-control  lname" id="lnameInput" placeholder="Last Name" required value="<%= user.profile.lname %>" />
                     <label for="lnameInput" class="form-label">Last Name</label>
                   </div>
                   <div class="col-md-12 form-floating">
@@ -50,7 +50,7 @@
                     <label for="phoneInput" class="form-label">Phone</label>
                   </div>
                   <div class="col-6 form-floating">
-                    <input type="date" name="dob" class="form-control forJs dob" id="dobInput" required value="<%= user.profile.dob %>" />
+                    <input type="date" name="dob" class="form-control dob" id="dobInput" required value="<%= user.profile.dob %>" />
                     <label for="dobInput" class="form-label">Date of Birth</label>
                   </div>
                   <div class="col-12 form-floating">
@@ -72,7 +72,7 @@
                     <label for="residenceInput" class="form-label">Country of residence</label>
                   </div>
                   <div class="col-md-6 form-floating">
-                    <input type="text" name="nationality" class="form-control forJs nationality" id="nationalityInput" placeholder="Nationality" required value="<%= user.profile.Nationality %>" />
+                    <input type="text" name="nationality" class="form-control nationality" id="nationalityInput" placeholder="Nationality" required value="<%= user.profile.Nationality %>" />
                     <label for="nationalityInput" class="form-label">Nationality</label>
                   </div>
                   <div class="col-sm-12">
@@ -84,16 +84,17 @@
                 </form>
               </div>
             </div>
+
             <!-- KYC Section -->
             <div class="row kyc-bar" id="kyc-bar">
-              <h4 class="sub-title text-center">Identity Verification</h4>
+              <!-- <h5 class="text-center">Identity Verification</h5> -->
               <div class="col-md-12 text-center">
                 <div class="kyc-item">
                   <div class="kyc-item-id">
                     <% if (user.proof.faceMatchResult === "APPROVE") { %>
                     <h6 class="alert alert-success" role="alert">ID verified</h6>
                     <% } else { %>
-                    <h6 class="alert alert-danger" role="alert">Not Verified</h6>
+                    <h6 class="alert alert-danger" role="alert">ID not verified, <a href="/verify">verify now</a></h6>
                     <a href="/verify" class="btn btn-success btn-md">Verify ID</a>
                     <% } %>
                   </div>

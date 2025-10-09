@@ -131,6 +131,7 @@ const receiverPage = (req, res) => {
  * Fetch and return sorted list of Nigerian banks from Flutterwave API.
  */
 const loadBanks = async (req, res) => {
+  console.log('here');
   // const request = require('request');
   // const options = {
   //   method: 'GET',
@@ -164,7 +165,7 @@ const loadBanks = async (req, res) => {
     // res.json(result);
     // console.log(result);
   } catch (err) {
-    res.status(500).json({ error: "Failed to load banks" });
+    res.status(500).json({ error: 'Failed to load banks' });
     console.log('cannot get banks');
   }
   // try {
@@ -201,9 +202,11 @@ const bankDetails = async (req, res) => {
  */
 const receiverDetails = async (req, res) => {
   try {
+    console.log(req.body);
+    const { acctNumber, acctName, bankName, bankRealName } = req.body;
     if (!req.isAuthenticated()) return res.redirect('/login');
-    const response = await User.updateOne({ username: req.user.username }, { $push: { receiver: req.body } });
-    res.send(response);
+    const response = await User.updateOne({ username: req.user.username }, { $push: { receiver: { acctNumber, acctName, bankName, bankRealName } } });
+    req.body.referer !== "/receiver" ? res.send(true) : res.send(false)
   } catch (e) {
     console.log(e);
     res.redirect('/');

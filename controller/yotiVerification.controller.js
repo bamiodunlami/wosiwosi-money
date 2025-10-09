@@ -6,23 +6,13 @@ const rootPath = path.resolve(process.cwd()); //production usable for path root
 appRoot.setPath(rootPath); //set path
 
 const mailer = require(appRoot + '/util/mailer.js');
-const mongo = require(appRoot + '/model/mongodb.js'); //mongo db and strategy module
-const User = mongo.User;
+const { User } = require(appRoot + '/model/mongodb.js'); //mongo db and strategy module
 
 const fs = require('fs');
 
 let sessionReturn;
 
-const {
-  IDVClient,
-  SessionSpecificationBuilder,
-  RequestedDocumentAuthenticityCheckBuilder,
-  RequestedLivenessCheckBuilder,
-  RequestedTextExtractionTaskBuilder,
-  RequestedFaceMatchCheckBuilder,
-  SdkConfigBuilder,
-  NotificationConfigBuilder,
-} = require('yoti');
+const { IDVClient, SessionSpecificationBuilder, RequestedDocumentAuthenticityCheckBuilder, RequestedLivenessCheckBuilder, RequestedTextExtractionTaskBuilder, RequestedFaceMatchCheckBuilder, SdkConfigBuilder, NotificationConfigBuilder } = require('yoti');
 
 const YOTI_CLIENT_SDK_ID = process.env.CLIENT_SDK_ID;
 const YOTI_PEM = fs.readFileSync(appRoot + '/keys/yoti-sec-key.pem');
@@ -41,35 +31,13 @@ const faceMatchCheck = new RequestedFaceMatchCheckBuilder().withManualCheckFallb
 const textExtractionTask = new RequestedTextExtractionTaskBuilder().withManualCheckFallback().build();
 
 //Configuration for the client SDK (Frontend)
-const sdkConfig = new SdkConfigBuilder()
-    .withPresetIssuingCountry('GBR')
-    .withSuccessUrl('https://app.wosiwosimoney.com/vsuccess')
-    .withErrorUrl('https://app.wosiwosimoney.com/verror')
-    .build();
+const sdkConfig = new SdkConfigBuilder().withPresetIssuingCountry('GBR').withSuccessUrl('https://app.wosiwosimoney.com/vsuccess').withErrorUrl('https://app.wosiwosimoney.com/verror').build();
 
 // Notification configuration
-const notificationConfig = new NotificationConfigBuilder()
-  .withEndpoint("https://app.wosiwosimoney.com")
-  .withAuthToken("username:password")
-  .forResourceUpdate()
-  .forTaskCompletion()
-  .forCheckCompletion()
-  .forSessionCompletion()
-  .withTopic("client_session_token_deleted")
-  .build();
+const notificationConfig = new NotificationConfigBuilder().withEndpoint('https://app.wosiwosimoney.com').withAuthToken('username:password').forResourceUpdate().forTaskCompletion().forCheckCompletion().forSessionCompletion().withTopic('client_session_token_deleted').build();
 
 //Buiding the Session with defined specification from above
-const sessionSpec = new SessionSpecificationBuilder()
-  .withClientSessionTokenTtl(600)
-  .withResourcesTtl(604800)
-  .withUserTrackingId('some-user-tracking-id')
-  .withRequestedCheck(documentAuthenticityCheck)
-  .withRequestedCheck(livenessCheck)
-  .withRequestedCheck(faceMatchCheck)
-  .withRequestedTask(textExtractionTask)
-  .withSdkConfig(sdkConfig)
-  .withNotifications(notificationConfig)
-  .build();
+const sessionSpec = new SessionSpecificationBuilder().withClientSessionTokenTtl(600).withResourcesTtl(604800).withUserTrackingId('some-user-tracking-id').withRequestedCheck(documentAuthenticityCheck).withRequestedCheck(livenessCheck).withRequestedCheck(faceMatchCheck).withRequestedTask(textExtractionTask).withSdkConfig(sdkConfig).withNotifications(notificationConfig).build();
 
 //Create Session
 const StartSession = (req, res) => {
@@ -81,7 +49,7 @@ const StartSession = (req, res) => {
         const sessionId = session.getSessionId();
         sessionReturn = sessionId;
 
-        console.log(sessionId)
+        console.log(sessionId);
 
         // save user ID
         User.updateOne(
@@ -94,7 +62,7 @@ const StartSession = (req, res) => {
         ).then((result) => console.log(result.acknowledged));
 
         const clientSessionToken = session.getClientSessionToken();
-        
+
         // const clientSessionTokenTtl = session.getClientSessionTokenTtl();
         res.render('verify', {
           title: 'Verification',
@@ -113,44 +81,46 @@ const StartSession = (req, res) => {
 // Session result
 const sessionResult = async (req, res) => {
   if (req.isAuthenticated()) {
-    console.log("first gate")
-    const id = await User.findOne({ username: req.user.username });
-    let userSessionId = id.proof.sessionId;
-    console.log(userSessionId)
+    const user = await User.findOne({ username: req.user.username });
+    let userSessionId = user.proof.sessionId;
     // Returns a session result
     idvClient
       .getSession(userSessionId)
-      .then((session) => {
+      .then(async (session) => {
         // console.log(session);
         // Return specific check types
-        const authenticityChecks = session.getAuthenticityChecks();
+        // const authenticityChecks = session.getAuthenticityChecks();
         const faceMatchChecks = session.getFaceMatchChecks();
         // const textDataChecks = session.getTextDataChecks();
-        const livenessChecks = session.getLivenessChecks();
-        const watchlistScreeningChecks = session.getWatchlistScreeningChecks();
-        const watchlistAdvancedCaChecks = session.getWatchlistAdvancedCaChecks();
-        console.log(faceMatchChecks[0].state)
-        const status = faceMatchChecks[0].state
+        // const livenessChecks = session.getLivenessChecks();
+        // const watchlistScreeningChecks = session.getWatchlistScreeningChecks();
+        // const watchlistAdvancedCaChecks = session.getWatchlistAdvancedCaChecks();
+        console.log(faceMatchChecks[0].state);
+        const status = faceMatchChecks[0].state;
 
-        faceMatchChecks.map((check) => {
-          const report = check.getReport();
-          // console.log(report)
-          const recommendation = report.getRecommendation().getValue();
-          if (recommendation == 'APPROVE') {
-            mailer.sendApprove(req.user.username);
-          }else{
-            res.redirect('verror')
-          }
-          // save Result
-          User.updateOne(
-            { username: req.user.username },
-            {
-              $set: {
-                'proof.faceMatchResult': recommendation,
-              },
+        if (status === 'DONE') {
+          faceMatchChecks.map(async (check) => {
+            const report = check.getReport();
+            console.log(report);
+            const recommendation = report.getRecommendation().getValue();
+            if (recommendation == 'APPROVE') {
+              mailer.sendApprove(req.user.username);
+            } else {
+              //send not approved email
+              console.log('FAILED');
             }
-          ).then(res.redirect('/dashboard'));
-        });
+            // save Result
+            // console.log(User)
+            user.proof.faceMatchResult = recommendation;
+            await user.save();
+            res.redirect('/dashboard');
+          });
+        } else {
+          //if it's pending or no result
+          user.proof.faceMatchResult = "PENDING";
+          await user.save();
+          res.redirect('/dashboard');
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -163,5 +133,5 @@ const sessionResult = async (req, res) => {
 
 module.exports = {
   session: StartSession,
-  sessionResult
+  sessionResult,
 };

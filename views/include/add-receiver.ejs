@@ -1,0 +1,40 @@
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Receiver</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12 add-rec">
+          <div class="d-flex justify-content-start">
+            <div class="spinner-grow" role="status" id="spinner">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <form method="POST">
+            <div class="mb-2">
+              <label>Account Number</label>
+              <input type="number" name="acctNumber" class="form-control inputs" id="accountNumber" required />
+            </div>
+            <div class="mb-2">
+              <label>Bank Name</label>
+              <select name="bankName" class="form-select" id="bankName" required></select>
+            </div>
+            <h6 id="account-msg" role="alert"></h6>
+            <p class="alert alert-warning">Page will be refreshed for updated fx rate</p>
+            <a id="confirm-btn" class="btn btn-outline-dark btn-sm">Confirm</a>
+            <button type="submit" class="btn btn-success btn-sm btn-addAccount" id="btn-addAccount" disabled>Add Account</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add</button> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,8 +6,7 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('express-flash');
 const filter = require('content-filter');
-const morgan = require('morgan')
-
+const morgan = require('morgan');
 
 //Use module
 app.set('view engine', 'ejs');
@@ -16,8 +15,7 @@ app.use(bodyParser.json());
 app.use(filter());
 app.use(express.static('public'));
 
-app.use(morgan('tiny'))
-
+app.use(morgan('tiny'));
 
 const user = require(`${__dirname}/routes/user.router.js`); // dashboard module
 const rate = require(`${__dirname}/routes/exRate.router.js`); // Exchange rate module
@@ -57,19 +55,19 @@ app.get('/health', (req, res) => {
   res.send('OK');
 });
 
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(500).send('Internal Server Error');
+});
+
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
-  process.exit(1); // Exit the process after logging the error
+  // process.exit(1); // Exit the process after logging the error
 });
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-  process.exit(1);
-});
-
-app.use((err, req, res, next) => {
-  console.error('Error:', err);
-  res.status(500).send('Internal Server Error');
+  // process.exit(1);
 });
 
 app.get('/stripe', (req, res) => {

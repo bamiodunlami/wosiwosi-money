@@ -1,0 +1,33 @@
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdropTwo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Card</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12" id="card-details-bar">
+          <p class="alert alert-success text-center">Encrypted and 100% secured</p>
+          <form id="payment-form">
+            <div class="form-group">
+              <!-- Stripe Card Element -->
+              <div class="cardForm" id="card-element"></div>
+              <!-- Display form errors -->
+              <div id="card-errors" role="alert"></div>
+            </div>
+            <p class="alert alert-warning">Page will be refreshed for updated fx rate</p>
+            <h6 class="card-msg alert alert-danger" role="alert"></h6>
+            <button type="submit" class="btn btn-success btn-md">Add Card</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add</button> -->
+      </div>
+    </div>
+  </div>
+</div>

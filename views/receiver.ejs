@@ -35,17 +35,8 @@
 
           <!-- Receiver Payment Methods Section -->
           <div class="col-md-10 col-sm-12 info-bar" id="receiver-bar">
-            <h4 class="sub-title text-center">Wallets & Payments</h4>
-
-            <!-- spinner -->
-            <div class="d-flex justify-content-center">
-              <div class="spinner-border" role="status" id="spinner">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
-
             <!-- Receiver's Bank Details Section -->
-            <div class="row rec-section hidden" id="receiver-section">
+            <div class="row rec-section" id="receiver-section">
               <!-- If no receiver, show message -->
               <% if (receiver.length == 0) { %>
               <div class="div rec-section-bar">
@@ -77,6 +68,13 @@
               <!-- Add Receiver Form -->
               <div class="col-md-12 rec-form-bar" id="addrec-bar">
                 <div class="col-md-12 add-rec">
+                  <!-- spinner -->
+                  <div class="d-flex justify-content-start">
+                    <div class="spinner-grow" role="status" id="spinner">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                  <!--  -->
                   <form method="POST">
                     <div class="mb-2">
                       <label>Account Number</label>
@@ -100,7 +98,7 @@
             </div>
 
             <!-- Card Payment Methods Section -->
-            <div class="row rec-section hidden" id="card-section">
+            <div class="row rec-section" id="card-section">
               <p class="text-center alert alert-warning" role="alert"><i class="fa-solid fa-lock fa-sm"></i> Details encrypted and 100% secured</p>
               <h5 class="text-center" id="card">Payment Methods</h5>
               <!-- If no card, show message -->

@@ -15,16 +15,21 @@
                 <%}else{%>
                     <!--EXCHANGE BAR -->
                     <div class="row exchange-main-bar" id="exchange-bar">
+                    <h5 class="text-center">Quick Transfer</h5>
 
                     <% if(user.status == false){%>
                         <h6 class="alert alert-danger">Your account has been suspended, kindly <a href="/contact">contact us</a> for re-activation</h6>
                     <%}else{%> 
                         <% if(user.verifyMail == false){%>
                             <p class="text-center alert alert-warning">Check your mail inbox for email verification, or <a href="/resendVerification">resend</a></p>
-                        <%}else if (user.receiver.length==0){%>
-                            <h6 class="text-center alert alert-warning">Add a receiver, <a href="/receiver">click here</a></h6>
-                        <%}else if (user.cardDetails.length==0){%>
+                        <%}else if (!user.proof.faceMatchResult){%>
+                            <h6 class="text-center alert alert-warning">Verify your ID, <a href="/verify">click here</a></h6>
+                        <%}else if (user.proof.faceMatchResult === "PENDING"){%>
                             <p class="text-center alert alert-warning">Add a payment method, <a href="/receiver">click here</a></p>
+                        <%}else if (user.proof.faceMatchResult === "PENDING"){%>
+                            <p class="text-center alert alert-warning">ID verification is pending</p>
+                        <%}else if (user.proof.faceMatchResult === "REJECT"){%>
+                            <p class="text-center alert alert-danger">ID verification failed, <a href="/verify">try again</a></p>
                         <%}%>
                     <%}%>
 
@@ -107,45 +112,45 @@
                              <%}else if(user.status ==false){%>
                             <%}else{%>
                                 <div class="row">
-                                    <button class="btn btn-secondary" disabled>Kindly complete your profile</a></button>
+                                    <button class="btn btn-secondary" disabled>Kindly complete your profile</button>
                                 </div>
                              <%}%>
                         </div>
                     </div>
 
-                        <!-- Transaction table -->
-                        <div class="row tran" id="tran">
-                            <div class="tran-header">
-                                <h4 class="sub-title text-center">Transaction History</h4>
-                                <div class="tran-his">
-                                    <%if(user.transaction.length==0){%>
-                                        <h6 class="text-center">No transaction made</h6>
-                                        <%}else{%>
-                                    <table class="table table-hover">
-                                        <thead>
-                                        <th>Date</th>
-                                        <th>£</th>
-                                        <th>Status</th>
-                                        <th>Amount</th>
-                                        </thead>                                       
-                                        
-                                        <% for (let i=user.transaction.length-1; i>=0; i--){%>
-                                        <tbody>
-                                            <tr>
-                                                <td><%= user.transaction[i].date %></td>
-                                                <td> <%= user.transaction[i].sendAmount/100 %> <%= user.transaction[i].sendCurrency %> </td>
-                                                <td> <%= user.transaction[i].sendStatus %> </td>
-                                                <td><%= user.transaction[i].takeAmount %> <%= user.transaction[i].takeCurrency %></td>
-                                            </tr>
-                                        </tbody>
-                                        <%}%>
-                                        
-                                    </table>
+                    <!-- Transaction table -->
+                    <div class="row tran" id="tran">
+                        <div class="tran-header">
+                            <h5 class="text-center">Transaction History</h5>
+                            <div class="tran-his">
+                                <%if(user.transaction.length==0){%>
+                                    <h6 class="text-center">No transaction made</h6>
+                                    <%}else{%>
+                                <table class="table table-hover">
+                                    <thead>
+                                    <th>Date</th>
+                                    <th>£</th>
+                                    <th>Status</th>
+                                    <th>Amount</th>
+                                    </thead>                                       
+                                    
+                                    <% for (let i=user.transaction.length-1; i>=0; i--){%>
+                                    <tbody>
+                                        <tr>
+                                            <td><%= user.transaction[i].date %></td>
+                                            <td> <%= user.transaction[i].sendAmount/100 %> <%= user.transaction[i].sendCurrency %> </td>
+                                            <td> <%= user.transaction[i].sendStatus %> </td>
+                                            <td><%= user.transaction[i].takeAmount %> <%= user.transaction[i].takeCurrency %></td>
+                                        </tr>
+                                    </tbody>
                                     <%}%>
-                                </div>
+                                    
+                                </table>
+                                <%}%>
                             </div>
                         </div>
-                        <!-- ---------------------- -->
+                    </div>
+                    <!-- ---------------------- -->
                 
                      <!-- select receiver -->
                      <div class="rec-main-bar " id="rec-bar">
@@ -153,12 +158,12 @@
                             <h6 class="alert alert-warning">Identity Verification</h6>
                             <h6 class="alert alert-light" role="alert">Due to the UK regulation and safety reasons, kindly verify your identity, it takes just 30 seconds</h6>
                             <div class="kyc-item-id">
-                                    <a href="/verify" class="btn btn-success btn-md text-center">Click to verify ID</a>
-                                </div>
+                                <a href="/verify" class="btn btn-success btn-md text-center">Click to verify ID</a>
+                            </div>
                         <%}else{%>
 
-                            <h4 class="sub-title text-center">Select Receiver</h4>
-                            <p class="alert alert-light text-center">Click on the receiver box to select</p>
+                            <h5 class="text-center">Select Receiver</h5>
+                            <!-- <p class="alert alert-light text-center">Click on the receiver box to select</p> -->
 
                             <div class="row rec-bar">
                             <% if (user.receiver.length==0){%>
@@ -172,24 +177,28 @@
                                     <div class="rec-details">
                                       <h6 class="account-details">Name: <span class="account-details-value acctName"><%=user.receiver[i].acctName%></span></h6>
                                       <h6>Account No:<span class="account-details account-details-value acctNumber"><%=user.receiver[i].acctNumber%></span></h6>
-                                      <p class="account-details account-details-value bank"><%=user.receiver[i].bankRealName%></span></p>
+                                      <p class="account-details account-details-value bank"><%=user.receiver[i].bankRealName%></p>
                                       <input type="hidden" class="bankCode" value="<%=user.receiver[i].bankName%>">
                                     </div>
                                 </div>
                          <%}}%>    
-                         <div style="margin-bottom: 5px;" > <a class="text-start" href="/receiver">Add new receiver</a></div>
-                         <div class="buttons"><button class="btn btn-outline-dark btn-md" id="back">Back</button></div>
+                         <!-- <div style="margin-bottom: 5px;" ></div> -->
+                         <div>
+                            <button class="btn btn-outline-dark btn-md" id="back">Back</button>
+                             <button class="text-start btn btn-md btn-success" id="rec-add-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add new receiver</button>
+                             <%- include("include/add-receiver") -%>
+                        </div>
                         </div>                          
                      </div>
 
                     <!-- select card option -->
                     <div class="rec-main-bar" id="pay-option">
-                    <h4 class="text-center sub-title">Select a payment card</h4>
-                    <p class="alert alert-light text-center">Click on the card box to select card</p>
+                    <h5 class="text-center">Select Payment Card</h5>
+                    <!-- <p class="alert alert-light text-center">Click on the card box to select card</p> -->
                         <div class="row rec-bar">
                             <% if (user.cardDetails.length==0){%>
                                 <div class="text-center" style="padding-bottom: 10px;">
-                                <p class="alert alert-success">No card added yet </p>
+                                <p class="alert alert-light">No card added yet </p>
                                 </div>
                             <%}else{ for(let i=0; i<user.cardDetails.length; i++){%>
                             <div class="col-md-6 paymentOption" style="padding-bottom: 20px;">
@@ -199,14 +208,18 @@
                                 </div>
                             </div>
                             <%}}%> 
-                            <div style="margin-bottom: 5px;" > <a class="text-start" href="/receiver">Add new card</a></div>
-                            <div class="buttons"><button class="btn btn-outline-dark btn-md" id="back-again">Back</button></div>
+                            <!-- <div style="margin-bottom: 5px;" > <a class="text-start" href="/receiver">Add new card</a></div> -->
+                            <div class="buttons">
+                                <button class="btn btn-outline-dark btn-md" id="back-again">Back</button>
+                                <button class="text-start btn btn-md btn-success" id="add-card" data-bs-toggle="modal" data-bs-target="#staticBackdropTwo">Add new card</button>
+                                <%- include("include/add-card") -%>
+                            </div>
                         </div>
                     </div>
 
                     <!-- payment confirmation preview -->
                     <div class="rec-main-bar" id="summary">
-                        <h4 class="text-center sub-title">Confirm Details</h4>
+                        <h5 class="text-center sub-title">Confirm Details</h5>
                             <div class="row rec-bar">
   
                                 <div class="col-md-6  " style="padding-bottom: 20px;">
@@ -252,5 +265,6 @@
     </div>
 
     <!-- ---------------------------------------------------- -->
-    <script src="min/promo.js"></script>
+    <!-- <script src="min/promo.js"></script> -->
+
     <%- include("include/footerdashboard") -%>

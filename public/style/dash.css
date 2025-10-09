@@ -207,13 +207,13 @@ input[type="number"]::-webkit-outer-spin-button {
 /* ----------rec bar------------ */
 .rec-bar {
   background-color: #01892514;
-  border-bottom: solid 4px #929292;
-  padding: 4% 5%;
+  padding: 30px;
   margin: 20px;
+  border-radius: 10px;
 }
 
 .rec-details:hover {
-  border: solid 1px #797979;
+  border: solid 2px #018925;
 }
 .rec-details {
   cursor: pointer;
@@ -223,10 +223,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .accoutn-details-bar,
 .rec-details {
-  background-color: #f4f4f4;
+  background-color: #ffffff;
   padding: 20px;
   margin-top: 10px;
-  border: 1px solid #c7c7c7;
+  border: 2px solid #0c0c0c;
+  border-radius: 5px;
 }
 .rec-section,
 .rec-section-two {
@@ -340,7 +341,7 @@ input[type="number"]::-webkit-outer-spin-button {
     color: #575757;
   }
   .info-bar {
-    padding: 10% 6%;
+    padding: 10% 3%;
   }
 
   .exchange-main-bar {
@@ -371,7 +372,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .rec-details:hover {
-    border: solid 1px #797979;
+    border: solid 2px #018925;
   }
 
   /* -------Receiver page------------ */
@@ -379,7 +380,7 @@ input[type="number"]::-webkit-outer-spin-button {
     background-color: #f4f4f4;
     padding: 20px;
     margin-top: 10px;
-    border: 1px solid #c7c7c7;
+    border: 2px solid #000000;
   }
 
   .fa-solid-description {

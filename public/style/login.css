@@ -53,7 +53,7 @@ a{
 
 .login-bar-cont{
     padding: 50px;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: #ffffff;
 }
 .brand-logo {
@@ -75,7 +75,8 @@ hr{
 .login,
 .signup,
 .reset{
-    background-color: #013a0d;
+    background-color: #006913;
+    padding: 10px 40px;
     border: none;
     margin: 10px 0 10px;
 }
