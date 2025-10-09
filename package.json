@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "node server.js",
-    "minify": "terser public/js/stripe.js -c -m --output public/min/stripe.js",
+    "minify": "terser public/js/amp.js -c -m --output public/min/amp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "resolutions": {
